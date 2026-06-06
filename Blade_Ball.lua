@@ -1,13 +1,47 @@
--- [Bulletproof Obfuscator Loader]
--- We use getgenv() to force the script to use the real Roblox executor commands,
--- bypassing the obfuscator's fake environment entirely.
+local scriptUrl = "https://raw.githubusercontent.com/LyraHubxxx/ui/refs/heads/main/main_blade.lua"
 
-local G = getgenv()
-local targetUrl = "https://raw.githubusercontent.com/LyraHubxxx/ui/refs/heads/main/main_blade.lua"
 
--- Fetch and load explicitly from the global environment
-local scriptCode = G.game:HttpGet(targetUrl)
-local executable = G.loadstring(scriptCode)
 
--- Run it
-executable()
+local success, scriptContent = pcall(function()
+
+    return game:HttpGet(scriptUrl)
+
+end)
+
+
+
+if not success then
+
+    warn("[-] Failed to fetch script: " .. tostring(scriptContent))
+
+    return
+
+end
+
+
+
+local func, compileErr = loadstring(scriptContent)
+
+
+
+if not func then
+
+    warn("[-] Syntax Error: " .. tostring(compileErr))
+
+else
+
+  
+
+    setfenv(func, getgenv())
+
+    
+
+    local runSuccess, runtimeErr = pcall(func)
+
+    if not runSuccess then
+
+        warn("[-] Runtime Error: " .. tostring(runtimeErr))
+
+    end
+
+end
