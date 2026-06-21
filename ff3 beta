@@ -1,0 +1,7277 @@
+local D = cloneref or function(D)
+	return D
+end
+if _G.FF3_UILoaded then
+	pcall(function()
+		if (game:GetService("CoreGui")):FindFirstChild("FF3_PremiumUI") then
+			((game:GetService("CoreGui")):FindFirstChild("FF3_PremiumUI")):Destroy()
+		end
+	end)
+	_G.FF3_UILoaded = nil
+end
+_G.FF3_UILoaded = true
+local f = D(game:GetService("Players"))
+local F = D(game:GetService("ReplicatedStorage"))
+local O = D(game:GetService("UserInputService"))
+local s = D(game:GetService("RunService"))
+local r = D(game:GetService("TweenService"))
+local e = D(game:GetService("Debris"))
+local v = D(game:GetService("CoreGui"))
+local a = D(game:GetService("HttpService"))
+local H = D(game:GetService("Workspace"))
+local b = D(game:GetService("ContentProvider"))
+local t = D(game:GetService("TextService"))
+local V = D(game:GetService("Stats"))
+local i = f.LocalPlayer
+if not i then
+	(f:GetPropertyChangedSignal("LocalPlayer")):Wait()
+	i = f.LocalPlayer
+end
+local d = H.CurrentCamera or H:WaitForChild("Camera", 5)
+local W = i:GetMouse()
+local h = (pcall(function()
+	return v.Name
+end) and v) or i:WaitForChild("PlayerGui", 5) or i:FindFirstChild("PlayerGui")
+pcall(function()
+	for D, f in ipairs({
+		"GenericPremiumUI",
+		"LyraUI",
+		"FF3_PremiumUI"
+	}) do
+		local F = h:FindFirstChild(f)
+		if F then
+			F:Destroy()
+		end
+	end
+end)
+local X = function()
+	if makefolder and isfolder then
+		if not isfolder("FF3_Config") then
+			pcall(makefolder, "FF3_Config")
+		end
+		if not isfolder("lyra") then
+			pcall(makefolder, "lyra")
+		end
+	end
+end
+X()
+local j = {
+	["Minimal White"] = {
+		MainBG = Color3.fromRGB(15, 15, 15);
+		SidebarBG = Color3.fromRGB(20, 20, 20);
+		TopbarBG = Color3.fromRGB(10, 10, 10),
+		SectionBG = Color3.fromRGB(22, 22, 22);
+		SectionHeaderBG = Color3.fromRGB(26, 26, 26),
+		ElementBG = Color3.fromRGB(30, 30, 30);
+		ElementHoverBG = Color3.fromRGB(38, 38, 38);
+		Accent = Color3.fromRGB(255, 255, 255);
+		TextMain = Color3.fromRGB(255, 255, 255),
+		TextSub = Color3.fromRGB(170, 170, 170);
+		Border = Color3.fromRGB(45, 45, 45);
+		ControlBG = Color3.fromRGB(18, 18, 18)
+	},
+	["Midnight Violet"] = {
+		MainBG = Color3.fromRGB(13, 11, 18),
+		SidebarBG = Color3.fromRGB(18, 15, 26);
+		TopbarBG = Color3.fromRGB(9, 8, 14),
+		SectionBG = Color3.fromRGB(20, 17, 30);
+		SectionHeaderBG = Color3.fromRGB(25, 21, 38);
+		ElementBG = Color3.fromRGB(28, 24, 43),
+		ElementHoverBG = Color3.fromRGB(36, 31, 56),
+		Accent = Color3.fromRGB(180, 110, 255),
+		TextMain = Color3.fromRGB(240, 235, 255);
+		TextSub = Color3.fromRGB(165, 155, 190);
+		Border = Color3.fromRGB(48, 41, 76);
+		ControlBG = Color3.fromRGB(10, 9, 15)
+	};
+	["Tokyo Night"] = {
+		MainBG = Color3.fromRGB(26, 27, 38);
+		SidebarBG = Color3.fromRGB(31, 35, 53);
+		TopbarBG = Color3.fromRGB(22, 22, 30),
+		SectionBG = Color3.fromRGB(33, 38, 58);
+		SectionHeaderBG = Color3.fromRGB(38, 43, 66),
+		ElementBG = Color3.fromRGB(41, 46, 66);
+		ElementHoverBG = Color3.fromRGB(51, 57, 81);
+		Accent = Color3.fromRGB(122, 162, 247);
+		TextMain = Color3.fromRGB(192, 202, 245),
+		TextSub = Color3.fromRGB(120, 124, 153),
+		Border = Color3.fromRGB(56, 62, 86);
+		ControlBG = Color3.fromRGB(22, 22, 30)
+	},
+	Dracula = {
+		MainBG = Color3.fromRGB(40, 42, 54),
+		SidebarBG = Color3.fromRGB(33, 34, 44),
+		TopbarBG = Color3.fromRGB(24, 25, 33),
+		SectionBG = Color3.fromRGB(44, 47, 60);
+		SectionHeaderBG = Color3.fromRGB(50, 53, 70);
+		ElementBG = Color3.fromRGB(56, 58, 89),
+		ElementHoverBG = Color3.fromRGB(68, 71, 106);
+		Accent = Color3.fromRGB(189, 147, 249);
+		TextMain = Color3.fromRGB(248, 248, 242);
+		TextSub = Color3.fromRGB(160, 165, 180);
+		Border = Color3.fromRGB(68, 71, 90),
+		ControlBG = Color3.fromRGB(33, 34, 44)
+	},
+	Catppuccin = {
+		MainBG = Color3.fromRGB(30, 30, 46),
+		SidebarBG = Color3.fromRGB(24, 24, 37);
+		TopbarBG = Color3.fromRGB(17, 17, 27);
+		SectionBG = Color3.fromRGB(35, 35, 52),
+		SectionHeaderBG = Color3.fromRGB(41, 41, 60);
+		ElementBG = Color3.fromRGB(49, 50, 68);
+		ElementHoverBG = Color3.fromRGB(62, 64, 86),
+		Accent = Color3.fromRGB(203, 166, 247),
+		TextMain = Color3.fromRGB(205, 214, 244);
+		TextSub = Color3.fromRGB(166, 173, 200),
+		Border = Color3.fromRGB(69, 71, 90);
+		ControlBG = Color3.fromRGB(24, 24, 37)
+	},
+	["Rose Pine"] = {
+		MainBG = Color3.fromRGB(25, 23, 36);
+		SidebarBG = Color3.fromRGB(31, 29, 46);
+		TopbarBG = Color3.fromRGB(20, 18, 28),
+		SectionBG = Color3.fromRGB(32, 30, 48),
+		SectionHeaderBG = Color3.fromRGB(36, 33, 54);
+		ElementBG = Color3.fromRGB(38, 35, 58),
+		ElementHoverBG = Color3.fromRGB(48, 44, 72);
+		Accent = Color3.fromRGB(235, 188, 186),
+		TextMain = Color3.fromRGB(224, 222, 244),
+		TextSub = Color3.fromRGB(144, 140, 170);
+		Border = Color3.fromRGB(49, 47, 68);
+		ControlBG = Color3.fromRGB(20, 18, 28)
+	}
+}
+local N = {}
+for D, f in pairs(j["Minimal White"]) do
+	N[D] = f
+end
+local p = "Lyra Team"
+local L = "https://discord.gg/qH3J7t4d"
+local q = {
+	Flags = {},
+	ThemeConnections = {},
+	RainbowAccent = false,
+	RainbowSpeed = 5;
+	ShowNotifications = true;
+	ShowTooltips = true
+}
+local function y(D, f)
+	table.insert(q.ThemeConnections, function()
+		local F, O = pcall(function()
+			return D and D.Parent
+		end)
+		if F and O then
+			f()
+			return true
+		end
+		return false
+	end)
+	f()
+end
+local function J(D)
+	N.Accent = D
+	local f = {}
+	for D = 1, # q.ThemeConnections, 1 do
+		local F = q.ThemeConnections[D]
+		if type(F) == "function" then
+			local D, O = pcall(F)
+			if D and O ~= false then
+				table.insert(f, F)
+			end
+		end
+	end
+	q.ThemeConnections = f
+end
+local function x(D)
+	local f = j[D]
+	if not f then
+		return
+	end
+	for D, f in pairs(f) do
+		N[D] = f
+	end
+	local F = {}
+	for D = 1, # q.ThemeConnections, 1 do
+		local f = q.ThemeConnections[D]
+		if type(f) == "function" then
+			local D, O = pcall(f)
+			if D and O ~= false then
+				table.insert(F, f)
+			end
+		end
+	end
+	q.ThemeConnections = F
+end
+s.RenderStepped:Connect(function()
+	if q.RainbowAccent then
+		local D = (tick() * ((q.RainbowSpeed / 100))) % 1
+		J(Color3.fromHSV(D, 1, 1))
+	end
+end)
+local function K(D, f)
+	local F, O, s = Color3.toHSV(D)
+	return Color3.fromHSV(F, O, math.clamp(s * f, 0, 1))
+end
+local function S(D, f)
+	local F = Instance.new(D)
+	for D, f in pairs(f or {}) do
+		F[D] = f
+	end
+	return F
+end
+local function n(D)
+	if type(D) == "table" then
+		if D.Type == "Color3" then
+			return string.format("RGB: %d, %d, %d", math.floor(D.R * 255), math.floor(D.G * 255), math.floor(D.B * 255))
+		elseif D.Type == "EnumItem" then
+			return tostring(D.Name)
+		end
+		for D, f in pairs(D) do
+			if type(f) == "string" or type(f) == "number" then
+				return tostring(f)
+			end
+		end
+		return "None"
+	end
+	return D ~= nil and tostring(D) or "None"
+end
+local function C(D)
+	if typeof(D) == "Color3" then
+		return {
+			Type = "Color3";
+			R = D.R;
+			G = D.G,
+			B = D.B
+		}
+	elseif typeof(D) == "EnumItem" then
+		return {
+			Type = "EnumItem";
+			EnumType = tostring(D.EnumType);
+			Name = D.Name
+		}
+	elseif typeof(D) == "table" then
+		local f = {}
+		for D, F in pairs(D) do
+			f[D] = C(F)
+		end
+		return f
+	end
+	return D
+end
+local function c(D)
+	if type(D) == "table" then
+		if D.Type == "Color3" then
+			return Color3.new(D.R, D.G, D.B)
+		elseif D.Type == "EnumItem" then
+			local f, F = pcall(function()
+				return Enum[D.EnumType][D.Name]
+			end)
+			return f and F or nil
+		else
+			local f = {}
+			for D, F in pairs(D) do
+				f[D] = c(F)
+			end
+			return f
+		end
+	end
+	return D
+end
+local function T(D)
+	D = tostring(D or "Item")
+	D = (D:gsub("%s+", "_")):gsub("[^%w_]", "")
+	if D == "" then
+		D = "Item"
+	end
+	return D
+end
+local function g(D)
+	local f = tostring(D or "Option")
+	f = f:gsub("Reciever", "Receiver")
+	f = f:gsub("Visualise", "Visualize")
+	if f == "Throw To Mouse Aimbot" then
+		f = "Throw to Mouse (Manual Aim)"
+	end
+	return f
+end
+local function w(D, f, F)
+	local O = (tostring(F or "")):lower()
+	if D == "QB Aimbot" then
+		if O:find("keybind") then
+			return "Mode & Action Keybinds", "right", "Hotkeys for throw modes, angle changes, target lock, and throw-away."
+		elseif O:find("anti db") or O:find("anti oob") then
+			return "Coverage Safety", "right", "Coverage and sideline protection settings."
+		elseif O:find("juke") or O:find("cards") or O:find("power ui") or O:find("jump before") or O:find("sacked") then
+			return "Assist & HUD", "right", "Extra quarterback assists and overlay controls."
+		elseif O:find("throw lead") or O:find("throw height") or O:find("throw type") or O:find("auto power") or O:find("auto angle") or O:find("high power") then
+			return "Throw Mechanics", "left", "Power, angle, throw type, and lead/height calculations."
+		else
+			return "Target Locking", "left", "Player lock-on targeting. Keep manual mouse aim off for player locks."
+		end
+	elseif D == "Catching" then
+		if O:find("enhancer") then
+			return "Mag Enhancer", "right", "Additional catch assistance for balls already near your reach."
+		elseif O:find("pull vector") then
+			return "Pull Vector", "right", "Aerial pull settings and vector strength."
+		elseif O:find("arm") then
+			return "Reach Expansion", "right", "Arm size and catch reach adjustments."
+		else
+			return "Football Magnets", "left", "Main football magnet radius, delay, and preset controls."
+		end
+	elseif D == "Player" then
+		if O:find("walk") or O:find("gamepass") then
+			return "Movement", "left", "WalkSpeed mode, movement value, and player utility actions."
+		elseif O:find("jump") and not O:find("angle") then
+			return "Jump Power", "right", "Jump power override settings."
+		else
+			return "Air Control", "right", "Angle enhancer, landing flip, and air movement controls."
+		end
+	elseif D == "Physics" then
+		if O:find("quick tp") then
+			return "Quick Teleport", "right", "Forward teleport distance and activation key."
+		elseif O:find("big head") then
+			return "Hitbox Visuals", "right", "Player hitbox scale controls."
+		else
+			return "Anti Restrictions", "left", "Boundary, jam, freeze, block, and jump cooldown protections."
+		end
+	elseif D == "Visual" then
+		if O:find("golden") or O:find("infernal") or O:find("nebula") or O:find("rose") or O:find("night") or O:find("northern") then
+			return "Skybox Presets", "right", "One-click lighting and sky environment presets."
+		elseif O:find("stadium") or O:find("glove") or O:find("trail") then
+			return "Environment & Gear", "right", "Stadium, uniform glove, and ball trail visuals."
+		else
+			return "Ball Prediction", "left", "Jump spot and throw landing trajectory visuals."
+		end
+	elseif D == "Defense" then
+		if O:find("tackle") then
+			return "Tackle Assist", "right", "Tackle reach and ball carrier targeting."
+		else
+			return "Swat Assist", "left", "Swat reach and defensive catch-part assistance."
+		end
+	elseif D == "Automatics" then
+		if O:find("rush") or O:find("line") or O:find("reaction") then
+			return "Auto Rush", "left", "Rush prediction, walk-to-line, and response timing."
+		elseif O:find("catch") or O:find("swat") then
+			return "Auto Catch / Swat", "right", "Automatic catch and swat actions by distance."
+		elseif O:find("captain") or O:find("auto qb") then
+			return "Role Automation", "left", "Captain selection and quarterback positioning."
+		elseif O:find("freeze") then
+			return "Freeze Utility", "left", "Temporary anchored freeze activation."
+		elseif O:find("boost") or O:find("target player") then
+			return "Auto Boost", "right", "Aerial boost targeting, radius, strength, and launch power."
+		else
+			return "Automatics", "left", "Automatic play helpers."
+		end
+	elseif D == "Misc" then
+		if O:find("replay") then
+			return "Replay Enhancements", "right", "Smooth replay interpolation and target replay FPS."
+		else
+			return "System", "left", "FPS and general safety utilities."
+		end
+	elseif D == "UI Settings" then
+		if O:find("menu") or O:find("scale") or O:find("notif") then
+			return "Window & Navigation", "right", "Keybinds and general interface settings."
+		else
+			return "Theme Management", "left", "Color styling and environment presets."
+		end
+	elseif D == "Configs" then
+		if O:find("view") or O:find("folder") then
+			return "Available Profiles", "right", "Manage existing stored configurations."
+		else
+			return "Configuration Files", "left", "Save and autoload settings."
+		end
+	end
+	return D .. " Settings", "left", "Options for " .. tostring(D)
+end
+function q.Notify(f, D)
+	if not f.ShowNotifications then
+		return
+	end
+	local F = D.Title or D.title or "Notification"
+	local O = D.Content or D.Text or D.text or "System alert message."
+	local s = D.Duration or D.duration or 3
+	local e = h:FindFirstChild("FF3_PremiumUI")
+	if not e then
+		return
+	end
+	local v = e:FindFirstChild("NotifyContainer")
+	if not v then
+		return
+	end
+	local a = S("Frame", {
+		Parent = v,
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, 260, 0, 0),
+		ClipsDescendants = true,
+		ZIndex = 200
+	})
+	local H = S("CanvasGroup", {
+		Parent = a;
+		BackgroundColor3 = N.SectionBG;
+		BackgroundTransparency = .1,
+		Size = UDim2.new(1, 0, 0, 75),
+		Position = UDim2.new(1, 300, 0, 0);
+		GroupTransparency = 1;
+		ZIndex = 200
+	})
+	S("UICorner", {
+		Parent = H;
+		CornerRadius = UDim.new(0, 6)
+	})
+	local b = S("UIStroke", {
+		Parent = H,
+		Color = N.Border
+	})
+	y(H, function()
+		H.BackgroundColor3 = N.SectionBG
+		b.Color = N.Border
+	end)
+	local t = S("TextLabel", {
+		Parent = H;
+		BackgroundTransparency = 1,
+		Position = UDim2.new(0, 0, 0, 8);
+		Size = UDim2.new(1, 0, 0, 16),
+		Font = Enum.Font.GothamBold,
+		Text = F;
+		TextColor3 = N.Accent;
+		TextSize = 13,
+		TextXAlignment = Enum.TextXAlignment.Center,
+		ZIndex = 201
+	})
+	y(t, function()
+		t.TextColor3 = N.Accent
+	end)
+	local V = S("TextLabel", {
+		Parent = H;
+		BackgroundTransparency = 1;
+		Position = UDim2.new(0, 12, 0, 28);
+		Size = UDim2.new(1, - 24, 0, 38);
+		Font = Enum.Font.GothamMedium,
+		Text = O,
+		TextColor3 = N.TextSub,
+		TextSize = 11;
+		TextXAlignment = Enum.TextXAlignment.Center;
+		TextWrapped = true;
+		ZIndex = 201
+	})
+	y(V, function()
+		V.TextColor3 = N.TextSub
+	end)
+	local i = S("Frame", {
+		Parent = H,
+		BackgroundColor3 = N.Accent;
+		BorderSizePixel = 0;
+		AnchorPoint = Vector2.new(.5, 1),
+		Position = UDim2.new(.5, 0, 1, 0);
+		Size = UDim2.new(1, 0, 0, 2);
+		ZIndex = 201
+	})
+	S("UICorner", {
+		Parent = i;
+		CornerRadius = UDim.new(1, 0)
+	})
+	y(i, function()
+		i.BackgroundColor3 = N.Accent
+	end);
+	(r:Create(a, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 260, 0, 85)
+	})):Play();
+	(r:Create(H, TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 0, 0);
+		GroupTransparency = 0
+	})):Play();
+	(r:Create(i, TweenInfo.new(s, Enum.EasingStyle.Linear), {
+		Size = UDim2.new(0, 0, 0, 2)
+	})):Play()
+	task.delay(s, function()
+		local D = r:Create(H, TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+			Position = UDim2.new(1, 300, 0, 0);
+			GroupTransparency = 1
+		})
+		D:Play()
+		D.Completed:Wait();
+		(r:Create(a, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+			Size = UDim2.new(0, 260, 0, 0)
+		})):Play()
+		task.delay(.3, function()
+			a:Destroy()
+		end)
+	end)
+end
+function q.CreateWindow(F, D)
+	local e = D.Theme or "Minimal White"
+	local H = S("ScreenGui", {
+		Name = "FF3_PremiumUI";
+		ResetOnSpawn = false,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	})
+	local b, V = pcall(function()
+		H.Parent = h
+	end)
+	if not b or not H.Parent then
+		H.Parent = v:FindFirstChild("RobloxGui") or v
+	end
+	local d = O.TouchEnabled and not O.KeyboardEnabled
+	local W = S("CanvasGroup", {
+		Name = "MainGroup";
+		Parent = H,
+		BackgroundColor3 = N.MainBG,
+		AnchorPoint = Vector2.new(.5, .5);
+		Position = UDim2.new(.5, 0, .5, 0);
+		Size = UDim2.new(0, 720, 0, 480),
+		BorderSizePixel = 0
+	})
+	y(W, function()
+		W.BackgroundColor3 = N.MainBG
+	end)
+	local X = 1
+	local k = S("UIScale", {
+		Parent = W;
+		Scale = X
+	})
+	local M = {
+		k
+	}
+	local I = {
+		Tabs = {};
+		CurrentTab = nil;
+		ElementsList = {}
+	}
+	local Z = true
+	local P = function(D)
+		X = D
+		if Z then
+			for D = 1, # M, 1 do
+				local f = M[D];
+				(r:Create(f, TweenInfo.new(.2, Enum.EasingStyle.Quad), {
+					Scale = X
+				})):Play()
+			end
+		end
+	end
+	function I.UpdateScale(f, D)
+		local F = type(f) == "number" and f or D
+		P(F)
+	end
+	S("UICorner", {
+		Parent = W;
+		CornerRadius = UDim.new(0, 8)
+	})
+	local u = S("Frame", {
+		Name = "StrokeFrame";
+		Parent = W;
+		BackgroundTransparency = 1;
+		Size = UDim2.new(1, 0, 1, 0)
+	})
+	S("UICorner", {
+		Parent = u,
+		CornerRadius = UDim.new(0, 8)
+	})
+	local R = S("UIStroke", {
+		Parent = u;
+		Color = N.Border
+	})
+	y(R, function()
+		R.Color = N.Border
+	end)
+	local z = S("Frame", {
+		Name = "NotifyContainer";
+		Parent = H;
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(1, 1);
+		Position = UDim2.new(1, - 20, 1, - 20),
+		Size = UDim2.new(0, 300, 1, 0),
+		ZIndex = 100
+	})
+	S("UIListLayout", {
+		Parent = z;
+		SortOrder = Enum.SortOrder.LayoutOrder;
+		VerticalAlignment = Enum.VerticalAlignment.Bottom;
+		HorizontalAlignment = Enum.HorizontalAlignment.Right;
+		Padding = UDim.new(0, 10)
+	})
+	local A = S("CanvasGroup", {
+		Name = "TooltipCard",
+		Parent = H,
+		BackgroundColor3 = N.SectionBG;
+		BackgroundTransparency = .1,
+		Size = UDim2.new(0, 0, 0, 24),
+		Position = UDim2.new(0, 0, 0, 0);
+		BorderSizePixel = 0;
+		Visible = false;
+		GroupTransparency = 1,
+		ZIndex = 300
+	})
+	S("UIStroke", {
+		Parent = A;
+		Color = N.Border
+	})
+	y(A, function()
+		A.BackgroundColor3 = N.SectionBG
+	end)
+	S("UICorner", {
+		Parent = A;
+		CornerRadius = UDim.new(0, 4)
+	})
+	S("UIPadding", {
+		Parent = A,
+		PaddingLeft = UDim.new(0, 10);
+		PaddingRight = UDim.new(0, 10)
+	})
+	local U = S("Frame", {
+		Parent = A,
+		BackgroundColor3 = N.Accent;
+		BorderSizePixel = 0,
+		Position = UDim2.new(0, - 10, 0, 0),
+		Size = UDim2.new(0, 3, 1, 0);
+		ZIndex = 301
+	})
+	y(U, function()
+		U.BackgroundColor3 = N.Accent
+	end)
+	local Q = S("TextLabel", {
+		Parent = A,
+		BackgroundTransparency = 1,
+		Position = UDim2.new(0, 0, 0, 0);
+		Size = UDim2.new(0, 0, 1, 0);
+		Font = Enum.Font.GothamMedium,
+		Text = "",
+		TextColor3 = N.TextMain,
+		TextSize = 11,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		AutomaticSize = Enum.AutomaticSize.X,
+		ZIndex = 301
+	})
+	y(Q, function()
+		Q.TextColor3 = N.TextMain
+	end)
+	local l = false
+	local o = nil
+	local Y = 20
+	local B = 20
+	local function E(D, f)
+		if not q.ShowTooltips then
+			return
+		end
+		if not D or D == "" then
+			return
+		end
+		Q.Text = D
+		A.AutomaticSize = Enum.AutomaticSize.X
+		A.Visible = true
+		l = true
+		B = 0;
+		(r:Create(A, TweenInfo.new(.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+			GroupTransparency = 0
+		})):Play()
+	end
+	local function G()
+		l = false
+		B = 20;
+		(r:Create(A, TweenInfo.new(.2, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+			GroupTransparency = 1
+		})):Play()
+		task.delay(.2, function()
+			if not l then
+				A.Visible = false
+			end
+		end)
+	end
+	s.RenderStepped:Connect(function(D)
+		if A.Visible and o then
+			Y = Y + ((B - Y)) * math.clamp(D * 15, 0, 1)
+			local f = (o.AbsolutePosition.Y + (o.AbsoluteSize.Y / 2)) - (A.AbsoluteSize.Y / 2)
+			local F = ((W.AbsolutePosition.X + W.AbsoluteSize.X) + 15) + Y
+			A.Position = UDim2.new(0, F, 0, f)
+		end
+	end)
+	local function m(D, f)
+		if not f or f == "" then
+			return
+		end
+		D.MouseEnter:Connect(function()
+			o = D
+			E(f, D.AbsolutePosition.Y)
+		end)
+		D.MouseLeave:Connect(function()
+			if o == D then
+				o = nil
+				G()
+			end
+		end)
+	end
+	local BetaBadge = S("TextLabel", {
+		Parent = W,
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0, 1),
+		Position = UDim2.new(0, 10, 1, -4),
+		Size = UDim2.new(0, 78, 0, 12),
+		Font = Enum.Font.GothamBold,
+		Text = "BETA TESTER",
+		TextColor3 = Color3.fromRGB(255, 80, 80),
+		TextSize = 10,
+		TextXAlignment = Enum.TextXAlignment.Right,
+		ZIndex = 10
+	})
+	y(BetaBadge, function()
+		BetaBadge.TextColor3 = Color3.fromRGB(255, 80, 80)
+	end)
+
+	local DA = Enum.KeyCode.RightControl
+	local function fA(D)
+		if D ~= nil then
+			Z = D
+		else
+			Z = not Z
+		end
+		W.Interactable = Z
+		if Z then
+			W.Visible = true;
+			(r:Create(W, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				GroupTransparency = 0
+			})):Play();
+			(r:Create(R, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Transparency = 0
+			})):Play()
+			for D = 1, # M, 1 do
+				local f = M[D];
+				(r:Create(f, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+					Scale = X
+				})):Play()
+			end
+		else
+			(r:Create(W, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				GroupTransparency = 1
+			})):Play();
+			(r:Create(R, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Transparency = 1
+			})):Play()
+			for D = 1, # M, 1 do
+				local f = M[D];
+				(r:Create(f, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+					Scale = X * .95
+				})):Play()
+			end
+			task.delay(.3, function()
+				if not Z then
+					W.Visible = false
+				end
+			end)
+		end
+	end
+	O.InputBegan:Connect(function(D, f)
+		if not f and ((D.KeyCode == DA or D.KeyCode == Enum.KeyCode.Insert)) then
+			fA()
+		end
+	end)
+	if d then
+		local D = S("ImageButton", {
+			Parent = H;
+			BackgroundColor3 = N.MainBG,
+			AnchorPoint = Vector2.new(.5, 0);
+			Position = UDim2.new(.5, 0, 0, 20);
+			Size = UDim2.new(0, 52, 0, 40),
+			AutoButtonColor = false,
+			Image = ""
+		})
+		S("UICorner", {
+			Parent = D,
+			CornerRadius = UDim.new(0, 8)
+		})
+		local f = S("UIStroke", {
+			Parent = D;
+			Color = N.Border;
+			ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		})
+		y(D, function()
+			D.BackgroundColor3 = N.MainBG
+			f.Color = N.Border
+		end)
+		local F = S("Frame", {
+			Parent = D,
+			BackgroundTransparency = 1;
+			Size = UDim2.new(1, 0, 1, 0)
+		})
+		local s = S("TextLabel", {
+			Parent = F,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 1, 0),
+			RichText = true,
+			Font = Enum.Font.GothamBold,
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextSize = 13,
+			Text = "<i>FF3</i>"
+		})
+		y(s, function()
+			s.TextColor3 = N.TextMain
+		end)
+		local r, e, v, a
+		D.InputBegan:Connect(function(f)
+			if f.UserInputType == Enum.UserInputType.Touch or f.UserInputType == Enum.UserInputType.MouseButton1 then
+				r = true
+				v = f.Position
+				a = D.Position
+			end
+		end)
+		D.InputChanged:Connect(function(D)
+			if D.UserInputType == Enum.UserInputType.Touch or D.UserInputType == Enum.UserInputType.MouseMovement then
+				e = D
+			end
+		end)
+		O.InputChanged:Connect(function(f)
+			if f == e and r then
+				local F = f.Position - v
+				D.Position = UDim2.new(a.X.Scale, a.X.Offset + F.X, a.Y.Scale, a.Y.Offset + F.Y)
+			end
+		end)
+		O.InputEnded:Connect(function(D)
+			if D.UserInputType == Enum.UserInputType.Touch or D.UserInputType == Enum.UserInputType.MouseButton1 then
+				r = false
+			end
+		end)
+		D.MouseButton1Click:Connect(function()
+			fA()
+		end)
+	end
+	local FA = S("Frame", {
+		Name = "Topbar";
+		Parent = W,
+		BackgroundColor3 = N.TopbarBG;
+		Size = UDim2.new(1, 0, 0, 48);
+		BorderSizePixel = 0;
+		ZIndex = 2
+	})
+	y(FA, function()
+		FA.BackgroundColor3 = N.TopbarBG
+	end)
+	local OA = S("Frame", {
+		Parent = FA,
+		BackgroundColor3 = N.Border,
+		BorderSizePixel = 0;
+		Position = UDim2.new(0, 0, 1, - 1),
+		Size = UDim2.new(1, 0, 0, 1)
+	})
+	y(OA, function()
+		OA.BackgroundColor3 = N.Border
+	end)
+	local sA, rA, eA, vA
+	FA.InputBegan:Connect(function(D)
+		if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+			sA = true
+			eA = D.Position
+			vA = W.Position
+			D.Changed:Connect(function()
+				if D.UserInputState == Enum.UserInputState.End then
+					sA = false
+				end
+			end)
+		end
+	end)
+	FA.InputChanged:Connect(function(D)
+		if D.UserInputType == Enum.UserInputType.MouseMovement or D.UserInputType == Enum.UserInputType.Touch then
+			rA = D
+		end
+	end)
+	O.InputChanged:Connect(function(D)
+		if D == rA and sA then
+			local f = D.Position - eA;
+			(r:Create(W, TweenInfo.new(.1, Enum.EasingStyle.Linear), {
+				Position = UDim2.new(vA.X.Scale, vA.X.Offset + f.X, vA.Y.Scale, vA.Y.Offset + f.Y)
+			})):Play()
+		end
+	end)
+	local aA = "FF3 v1.3"
+	local HA = t:GetTextSize(aA, 22, Enum.Font.GothamBold, Vector2.new(1000, 48))
+	local bA = S("TextLabel", {
+		Parent = FA,
+		BackgroundTransparency = 1,
+		Position = UDim2.new(0, 20, 0, 0),
+		Size = UDim2.new(0, HA.X + 20, 1, 0),
+		Font = Enum.Font.GothamBold,
+		Text = "<b>FF3</b> <font color=\'rgb(160,160,165)\'>v1.3</font>",
+		RichText = true,
+		TextColor3 = N.TextMain;
+		TextSize = 22,
+		TextXAlignment = Enum.TextXAlignment.Left
+	})
+	y(bA, function()
+		bA.TextColor3 = N.TextMain
+	end)
+	local tA = "Welcome, " .. i.Name
+	local VA = t:GetTextSize(tA, 12, Enum.Font.GothamMedium, Vector2.new(1000, 48))
+	local iA = S("Frame", {
+		Parent = FA;
+		BackgroundColor3 = N.ControlBG;
+		AnchorPoint = Vector2.new(1, .5);
+		Position = UDim2.new(1, - 50, .5, 0),
+		Size = UDim2.new(0, VA.X + 42, 0, 30)
+	})
+	S("UICorner", {
+		Parent = iA,
+		CornerRadius = UDim.new(0, 4)
+	})
+	local dA = S("UIStroke", {
+		Parent = iA,
+		Color = N.Border
+	})
+	y(iA, function()
+		iA.BackgroundColor3 = N.ControlBG
+		dA.Color = N.Border
+	end)
+	local WA = S("ImageLabel", {
+		Parent = iA,
+		BackgroundTransparency = 1;
+		Position = UDim2.new(0, 4, .5, - 11);
+		Size = UDim2.new(0, 22, 0, 22)
+	})
+	S("UICorner", {
+		Parent = WA;
+		CornerRadius = UDim.new(1, 0)
+	})
+	task.spawn(function()
+		local D, F = f:GetUserThumbnailAsync(i.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
+		if F then
+			WA.Image = D
+		end
+	end)
+	local hA = S("TextLabel", {
+		Parent = iA;
+		BackgroundTransparency = 1;
+		Position = UDim2.new(0, 32, 0, 0),
+		Size = UDim2.new(1, - 36, 1, 0);
+		Font = Enum.Font.GothamMedium;
+		Text = tA;
+		TextColor3 = N.TextMain,
+		TextSize = 12,
+		TextXAlignment = Enum.TextXAlignment.Left
+	})
+	y(hA, function()
+		hA.TextColor3 = N.TextMain
+	end)
+	local XA = S("CanvasGroup", {
+		Parent = H,
+		BackgroundColor3 = Color3.fromRGB(0, 0, 0);
+		BackgroundTransparency = .5;
+		Size = UDim2.new(1, 0, 1, 0);
+		ZIndex = 500;
+		GroupTransparency = 1;
+		Visible = false
+	})
+	local jA = S("Frame", {
+		Parent = XA;
+		BackgroundColor3 = N.MainBG;
+		AnchorPoint = Vector2.new(.5, .5);
+		Position = UDim2.new(.5, 0, .5, - 20);
+		Size = UDim2.new(0, 420, 0, 320);
+		ClipsDescendants = true
+	})
+	S("UICorner", {
+		Parent = jA;
+		CornerRadius = UDim.new(0, 8)
+	})
+	local NA = S("UIStroke", {
+		Parent = jA,
+		Color = N.Border
+	})
+	y(jA, function()
+		jA.BackgroundColor3 = N.MainBG
+		NA.Color = N.Border
+	end)
+	local pA = S("TextBox", {
+		Parent = jA;
+		BackgroundTransparency = 1;
+		Position = UDim2.new(0, 20, 0, 10);
+		Size = UDim2.new(1, - 40, 0, 40);
+		Font = Enum.Font.GothamMedium,
+		PlaceholderText = "Search elements across FF3...",
+		PlaceholderColor3 = N.TextSub,
+		TextColor3 = N.TextMain,
+		TextSize = 14;
+		TextXAlignment = Enum.TextXAlignment.Left;
+		ClearTextOnFocus = false;
+		Text = ""
+	})
+	y(pA, function()
+		pA.TextColor3 = N.TextMain
+		pA.PlaceholderColor3 = N.TextSub
+	end)
+	local LA = S("Frame", {
+		Parent = jA;
+		BackgroundColor3 = N.Border;
+		BorderSizePixel = 0,
+		Position = UDim2.new(0, 0, 0, 55),
+		Size = UDim2.new(1, 0, 0, 1)
+	})
+	y(LA, function()
+		LA.BackgroundColor3 = N.Border
+	end)
+	local qA = S("ScrollingFrame", {
+		Parent = jA,
+		BackgroundTransparency = 1;
+		Position = UDim2.new(0, 12, 0, 65),
+		Size = UDim2.new(1, - 24, 1, - 75),
+		ScrollBarThickness = 2;
+		ScrollBarImageColor3 = N.Border;
+		BorderSizePixel = 0;
+		AutomaticCanvasSize = Enum.AutomaticSize.Y;
+		CanvasSize = UDim2.new(0, 0, 0, 0)
+	})
+	y(qA, function()
+		qA.ScrollBarImageColor3 = N.Border
+	end)
+	S("UIListLayout", {
+		Parent = qA,
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 6)
+	})
+	local yA = S("ImageButton", {
+		Parent = FA,
+		BackgroundTransparency = 1;
+		AnchorPoint = Vector2.new(1, .5);
+		Position = UDim2.new(1, - 15, .5, 0),
+		Size = UDim2.new(0, 24, 0, 24),
+		Image = "rbxassetid://6031154871",
+		ImageColor3 = N.TextSub
+	})
+	y(yA, function()
+		yA.ImageColor3 = N.TextSub
+	end)
+	yA.MouseButton1Click:Connect(function()
+		XA.Visible = true
+		pA.Text = "";
+		(r:Create(XA, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+			GroupTransparency = 0
+		})):Play()
+		pA:CaptureFocus()
+	end)
+	XA.InputBegan:Connect(function(D)
+		if D.UserInputType == Enum.UserInputType.MouseButton1 then
+			local f = D.Position
+			local F, O = jA.AbsolutePosition.X, jA.AbsolutePosition.Y
+			local s, e = F + jA.AbsoluteSize.X, O + jA.AbsoluteSize.Y
+			if not ((f.X >= F and (f.X <= s and (f.Y >= O and f.Y <= e)))) then
+				(r:Create(XA, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+					GroupTransparency = 1
+				})):Play()
+				task.delay(.3, function()
+					XA.Visible = false
+				end)
+			end
+		end
+	end)
+	local function JA(D)
+		local f = qA:GetChildren()
+		for D = 1, # f, 1 do
+			local F = f[D]
+			if F:IsA("TextButton") then
+				F:Destroy()
+			end
+		end
+		if D == "" then
+			return
+		end
+		D = D:lower()
+		for f = 1, # I.ElementsList, 1 do
+			local F = I.ElementsList[f]
+			if string.find(F.Name:lower(), D) then
+				local D = S("TextButton", {
+					Parent = qA;
+					BackgroundColor3 = N.SectionBG,
+					Size = UDim2.new(1, 0, 0, 36),
+					Text = "",
+					AutoButtonColor = false
+				})
+				S("UICorner", {
+					Parent = D;
+					CornerRadius = UDim.new(0, 4)
+				})
+				local f = S("UIStroke", {
+					Parent = D;
+					Color = N.Border
+				})
+				local O = S("TextLabel", {
+					Parent = D,
+					BackgroundTransparency = 1;
+					Position = UDim2.new(0, 12, 0, 0);
+					Size = UDim2.new(1, - 24, 1, 0),
+					Font = Enum.Font.GothamMedium;
+					Text = F.Name .. ("  <font color=\'rgb(140,140,145)\'>[" .. (F.Tab.Name .. "]</font>")),
+					RichText = true,
+					TextColor3 = N.TextMain,
+					TextSize = 12,
+					TextXAlignment = Enum.TextXAlignment.Left
+				})
+				y(D, function()
+					D.BackgroundColor3 = N.SectionBG
+					f.Color = N.Border
+				end)
+				y(O, function()
+					O.TextColor3 = N.TextMain
+				end)
+				D.MouseEnter:Connect(function()
+					(r:Create(D, TweenInfo.new(.2), {
+						BackgroundColor3 = N.ElementHoverBG
+					})):Play()
+				end)
+				D.MouseLeave:Connect(function()
+					(r:Create(D, TweenInfo.new(.2), {
+						BackgroundColor3 = N.SectionBG
+					})):Play()
+				end)
+				D.MouseButton1Click:Connect(function()
+					(r:Create(XA, TweenInfo.new(.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+						GroupTransparency = 1
+					})):Play()
+					task.delay(.3, function()
+						XA.Visible = false
+					end)
+					F.Tab.Select()
+					task.wait(.1)
+					local D = (((F.Frame.AbsolutePosition.Y - F.Tab.Page.AbsolutePosition.Y) + F.Tab.Page.CanvasPosition.Y) - (F.Tab.Page.AbsoluteWindowSize.Y / 2)) + (F.Frame.AbsoluteSize.Y / 2);
+					(r:Create(F.Tab.Page, TweenInfo.new(.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+						CanvasPosition = Vector2.new(0, math.max(0, D))
+					})):Play()
+					local f = F.Frame.BackgroundColor3;
+					(r:Create(F.Frame, TweenInfo.new(.3), {
+						BackgroundColor3 = N.Accent
+					})):Play()
+					task.delay(.6, function()
+						if F.Frame then
+							(r:Create(F.Frame, TweenInfo.new(.5), {
+								BackgroundColor3 = f
+							})):Play()
+						end
+					end)
+				end)
+			end
+		end
+	end;
+	(pA:GetPropertyChangedSignal("Text")):Connect(function()
+		JA(pA.Text)
+	end)
+	local xA = (bA.Position.X.Offset + HA.X) + 25
+	local KA = ((705 - ((VA.X + 42))) - 15) - 30
+	local SA = KA - xA
+	local nA = S("Frame", {
+		Parent = FA,
+		BackgroundTransparency = 1;
+		Position = UDim2.new(0, xA, 0, 0);
+		Size = UDim2.new(0, SA, 1, 0)
+	})
+	S("UIListLayout", {
+		Parent = nA;
+		FillDirection = Enum.FillDirection.Horizontal,
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 20),
+		VerticalAlignment = Enum.VerticalAlignment.Center
+	})
+	local CA = {
+		"Home",
+		"UI Settings",
+		"Configs",
+		"Credits"
+	}
+	local cA = "Home"
+	local TA = {}
+	local gA = S("Frame", {
+		Name = "BodyContainer",
+		Parent = W;
+		BackgroundTransparency = 1;
+		Position = UDim2.new(0, 0, 0, 48),
+		Size = UDim2.new(1, 0, 1, - 48),
+		ClipsDescendants = true
+	})
+	local function wA(D)
+		local f = S("CanvasGroup", {
+			Name = D .. "Container",
+			Parent = gA;
+			BackgroundTransparency = 1;
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = UDim2.new(1, 0, 1, 0);
+			Visible = (D == cA),
+			GroupTransparency = (D == cA) and 0 or 1
+		})
+		TA[D] = f
+		local F = S("ImageButton", {
+			Name = D .. "Tab";
+			Parent = nA;
+			BackgroundTransparency = 1;
+			AutoButtonColor = false;
+			Image = ""
+		})
+		local O = t:GetTextSize(D, 13, Enum.Font.GothamMedium, Vector2.new(1000, 48))
+		F.Size = UDim2.new(0, O.X + 12, 1, 0)
+		local s = S("TextLabel", {
+			Parent = F;
+			BackgroundTransparency = 1;
+			Size = UDim2.new(1, 0, 1, 0);
+			Font = Enum.Font.GothamMedium,
+			Text = D;
+			TextSize = 13;
+			TextColor3 = (D == cA) and N.TextMain or N.TextSub
+		})
+		y(s, function()
+			if cA == D then
+				s.TextColor3 = N.TextMain
+			end
+		end)
+		local e = S("Frame", {
+			Parent = F;
+			BackgroundColor3 = N.Accent,
+			BorderSizePixel = 0,
+			AnchorPoint = Vector2.new(.5, 1);
+			Position = UDim2.new(.5, 0, 1, - 1),
+			Size = (D == cA) and UDim2.new(1, 0, 0, 2) or UDim2.new(0, 0, 0, 2);
+			BackgroundTransparency = (D == cA) and 0 or 1
+		})
+		y(e, function()
+			e.BackgroundColor3 = N.Accent
+		end)
+		F.MouseEnter:Connect(function()
+			if cA ~= D then
+				(r:Create(s, TweenInfo.new(.2), {
+					TextColor3 = N.TextMain
+				})):Play();
+				(r:Create(e, TweenInfo.new(.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+					Size = UDim2.new(.8, 0, 0, 2),
+					BackgroundTransparency = .3
+				})):Play()
+			end
+		end)
+		F.MouseLeave:Connect(function()
+			if cA ~= D then
+				(r:Create(s, TweenInfo.new(.2), {
+					TextColor3 = N.TextSub
+				})):Play();
+				(r:Create(e, TweenInfo.new(.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+					Size = UDim2.new(0, 0, 0, 2),
+					BackgroundTransparency = 1
+				})):Play()
+			end
+		end)
+		F.MouseButton1Click:Connect(function()
+			if cA ~= D then
+				local f = cA
+				cA = D
+				local F = nA:FindFirstChild(f .. "Tab")
+				if F then
+					(r:Create(F.TextLabel, TweenInfo.new(.2), {
+						TextColor3 = N.TextSub
+					})):Play();
+					(r:Create(F.Frame, TweenInfo.new(.2), {
+						Size = UDim2.new(0, 0, 0, 2),
+						BackgroundTransparency = 1
+					})):Play()
+				end;
+				(r:Create(s, TweenInfo.new(.2), {
+					TextColor3 = N.TextMain
+				})):Play();
+				(r:Create(e, TweenInfo.new(.2), {
+					Size = UDim2.new(1, 0, 0, 2),
+					BackgroundTransparency = 0
+				})):Play()
+				local O = TA[f]
+				if O then
+					(r:Create(O, TweenInfo.new(.25, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+						Position = UDim2.new(0, 0, 0, - 15),
+						GroupTransparency = 1
+					})):Play()
+					task.delay(.25, function()
+						if cA ~= f then
+							O.Visible = false
+						end
+					end)
+				end
+				local v = TA[D]
+				if v then
+					v.Visible = true
+					v.Position = UDim2.new(0, 0, 0, 15)
+					v.GroupTransparency = 1;
+					(r:Create(v, TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+						Position = UDim2.new(0, 0, 0, 0);
+						GroupTransparency = 0
+					})):Play()
+				end
+			end
+		end)
+	end
+	for D = 1, # CA, 1 do
+		wA(CA[D])
+	end
+	local function kA(D)
+		local f = {}
+		function D._getSectionContainer(F, D, f)
+			local O, s, r = w(F.Name, D, f)
+			if F._sections[O] then
+				return F._sections[O]
+			end
+			local e = (s == "left") and F.LeftColumn or F.RightColumn
+			local v = S("Frame", {
+				Name = "SectionCard_" .. T(O),
+				Parent = e,
+				BackgroundColor3 = N.SectionBG,
+				Size = UDim2.new(1, 0, 0, 0);
+				AutomaticSize = Enum.AutomaticSize.Y,
+				ClipsDescendants = true
+			})
+			S("UICorner", {
+				Parent = v,
+				CornerRadius = UDim.new(0, 6)
+			})
+			local a = S("UIStroke", {
+				Parent = v,
+				Color = N.Border
+			})
+			S("UIListLayout", {
+				Parent = v;
+				SortOrder = Enum.SortOrder.LayoutOrder
+			})
+			y(v, function()
+				v.BackgroundColor3 = N.SectionBG
+				a.Color = N.Border
+			end)
+			local H = S("Frame", {
+				Name = "SectionHeader",
+				Parent = v;
+				BackgroundColor3 = N.SectionHeaderBG,
+				Size = UDim2.new(1, 0, 0, 30);
+				BorderSizePixel = 0;
+				LayoutOrder = 1
+			})
+			y(H, function()
+				H.BackgroundColor3 = N.SectionHeaderBG
+			end)
+			local b = S("Frame", {
+				Parent = H,
+				BackgroundColor3 = N.Accent;
+				AnchorPoint = Vector2.new(0, .5);
+				Position = UDim2.new(0, 8, .5, 0),
+				Size = UDim2.new(0, 3, 0, 16),
+				BorderSizePixel = 0
+			})
+			S("UICorner", {
+				Parent = b,
+				CornerRadius = UDim.new(1, 0)
+			})
+			y(b, function()
+				b.BackgroundColor3 = N.Accent
+			end)
+			local t = S("TextLabel", {
+				Parent = H;
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 18, 0, 0),
+				Size = UDim2.new(1, - 26, 1, 0),
+				Font = Enum.Font.GothamBold;
+				Text = O;
+				TextColor3 = N.TextMain;
+				TextSize = 12;
+				TextXAlignment = Enum.TextXAlignment.Left
+			})
+			y(t, function()
+				t.TextColor3 = N.TextMain
+			end)
+			local V = S("Frame", {
+				Parent = H,
+				BackgroundColor3 = N.Border;
+				Position = UDim2.new(0, 0, 1, - 1),
+				Size = UDim2.new(1, 0, 0, 1);
+				BorderSizePixel = 0
+			})
+			y(V, function()
+				V.BackgroundColor3 = N.Border
+			end)
+			local i = S("Frame", {
+				Name = "ContentArea",
+				Parent = v;
+				BackgroundTransparency = 1;
+				Size = UDim2.new(1, 0, 0, 0);
+				AutomaticSize = Enum.AutomaticSize.Y;
+				LayoutOrder = 2
+			})
+			S("UIPadding", {
+				Parent = i,
+				PaddingTop = UDim.new(0, 8);
+				PaddingBottom = UDim.new(0, 8),
+				PaddingLeft = UDim.new(0, 8),
+				PaddingRight = UDim.new(0, 8)
+			})
+			S("UIListLayout", {
+				Parent = i,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, 6)
+			})
+			F._sections[O] = i
+			return i
+		end
+		f.CreateToggle = function(f, F)
+			local s = F.Name or "Toggle"
+			local e = F.Default or false
+			local v = F.Keybind
+			local a = F.Callback or function()
+			end
+			local H = D:_getSectionContainer("toggle", s)
+			local b = e
+			local V = v
+			local i = {
+				Value = e
+			}
+			q.Flags[s] = i
+			local d = S("ImageButton", {
+				Parent = H;
+				BackgroundColor3 = N.ElementBG,
+				Size = UDim2.new(1, 0, 0, 32);
+				AutoButtonColor = false,
+				Image = ""
+			})
+			S("UICorner", {
+				Parent = d;
+				CornerRadius = UDim.new(0, 4)
+			})
+			local W = S("UIStroke", {
+				Parent = d;
+				Color = N.Border
+			})
+			y(d, function()
+				d.BackgroundColor3 = N.ElementBG
+				W.Color = N.Border
+			end)
+			table.insert(I.ElementsList, {
+				Name = s;
+				Frame = d;
+				Tab = D
+			})
+			local h = v and UDim2.new(1, - 95, 1, 0) or UDim2.new(1, - 50, 1, 0)
+			local X = S("TextLabel", {
+				Parent = d,
+				BackgroundTransparency = 1;
+				Position = UDim2.new(0, 10, 0, 0);
+				Size = h;
+				Font = Enum.Font.GothamMedium,
+				Text = g(s),
+				TextColor3 = b and N.TextMain or N.TextSub;
+				TextSize = 11,
+				TextXAlignment = Enum.TextXAlignment.Left;
+				TextTruncate = Enum.TextTruncate.AtEnd
+			})
+			local j = S("Frame", {
+				Parent = d;
+				BackgroundColor3 = b and K(N.Accent, .4) or N.ControlBG;
+				AnchorPoint = Vector2.new(1, .5);
+				Position = UDim2.new(1, - 8, .5, 0);
+				Size = UDim2.new(0, 26, 0, 12)
+			})
+			S("UICorner", {
+				Parent = j;
+				CornerRadius = UDim.new(1, 0)
+			})
+			local p = S("UIStroke", {
+				Parent = j,
+				Color = N.Border
+			})
+			local L = S("Frame", {
+				Parent = j;
+				BackgroundColor3 = b and N.Accent or N.TextSub,
+				AnchorPoint = Vector2.new(0, .5),
+				Position = b and UDim2.new(1, - 12, .5, 0) or UDim2.new(0, 2, .5, 0);
+				Size = UDim2.new(0, 10, 0, 10)
+			})
+			S("UICorner", {
+				Parent = L,
+				CornerRadius = UDim.new(1, 0)
+			})
+			y(j, function()
+				p.Color = N.Border
+				if b then
+					j.BackgroundColor3 = K(N.Accent, .4)
+					L.BackgroundColor3 = N.Accent
+					X.TextColor3 = N.TextMain
+				else
+					j.BackgroundColor3 = N.ControlBG
+					L.BackgroundColor3 = N.TextSub
+					X.TextColor3 = N.TextSub
+				end
+			end)
+			m(d, F.Tip)
+			local J = function(D)
+				local f = D and 0 or .2;
+				(r:Create(j, TweenInfo.new(f), {
+					BackgroundColor3 = b and K(N.Accent, .4) or N.ControlBG
+				})):Play();
+				(r:Create(L, TweenInfo.new(f), {
+					Position = b and UDim2.new(1, - 12, .5, 0) or UDim2.new(0, 2, .5, 0),
+					BackgroundColor3 = b and N.Accent or N.TextSub
+				})):Play();
+				(r:Create(X, TweenInfo.new(f), {
+					TextColor3 = b and N.TextMain or N.TextSub
+				})):Play()
+				i.Value = b
+				q.Flags[s].Value = b
+			end
+			J(true)
+			d.MouseButton1Click:Connect(function()
+				b = not b
+				a(b)
+				J(false)
+			end)
+			if v then
+				local D = S("Frame", {
+					Parent = d;
+					AnchorPoint = Vector2.new(1, .5),
+					Position = UDim2.new(1, - 42, .5, 0),
+					Size = UDim2.new(0, 42, 0, 18);
+					BackgroundColor3 = N.ControlBG
+				})
+				S("UICorner", {
+					Parent = D;
+					CornerRadius = UDim.new(0, 4)
+				})
+				local f = S("UIStroke", {
+					Parent = D,
+					Color = N.Border
+				})
+				y(D, function()
+					D.BackgroundColor3 = N.ControlBG
+					f.Color = N.Border
+				end)
+				local F = S("TextButton", {
+					Parent = D;
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0);
+					Text = V and V.Name or "";
+					Font = Enum.Font.GothamMedium,
+					TextColor3 = N.TextSub;
+					TextSize = 10
+				})
+				local r = function()
+					local f = V and V.Name or "None"
+					F.Text = f
+					local O = t:GetTextSize(f, 10, Enum.Font.GothamMedium, Vector2.new(1000, 18))
+					D.Size = UDim2.new(0, math.max(O.X + 12, 36), 0, 18)
+				end
+				r()
+				local e = false
+				F.MouseButton1Click:Connect(function()
+					e = true
+					F.Text = "..."
+					D.Size = UDim2.new(0, 36, 0, 18)
+				end)
+				local v = {
+					Value = V,
+					Set = function(D, f)
+						V = f or Enum.KeyCode.Unknown
+						D.Value = V
+						q.Flags[s .. " Keybind"].Value = V
+						r()
+					end
+				}
+				i.Keybind = v
+				q.Flags[s .. " Keybind"] = v
+				O.InputBegan:Connect(function(D, f)
+					if e and ((D.UserInputType == Enum.UserInputType.Keyboard or D.UserInputType == Enum.UserInputType.Gamepad1)) then
+						V = D.KeyCode
+						e = false
+						r()
+						v.Value = V
+						q.Flags[s .. " Keybind"].Value = V
+					elseif not f and (V and D.KeyCode == V) then
+						b = not b
+						a(b)
+						J(false)
+					end
+				end)
+			end
+			function i.Set(f, D)
+				b = D
+				a(b)
+				J(true)
+			end
+			return i
+		end
+		f.CreateSlider = function(f, F)
+			local s = F.Name or "Slider"
+			local e = F.Min or F.minimum_value or 0
+			local v = F.Max or F.maximum_value or 100
+			local a = F.Default or F.value or e
+			local H = F.Increment or 1
+			local b = F.Suffix or ""
+			local t = F.Callback or function()
+			end
+			local V = D:_getSectionContainer("slider", s)
+			local i = {
+				Value = a
+			}
+			q.Flags[s] = i
+			local d = S("Frame", {
+				Parent = V,
+				BackgroundColor3 = N.ElementBG,
+				Size = UDim2.new(1, 0, 0, 46)
+			})
+			S("UICorner", {
+				Parent = d,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local W = S("UIStroke", {
+				Parent = d,
+				Color = N.Border
+			})
+			y(d, function()
+				d.BackgroundColor3 = N.ElementBG
+				W.Color = N.Border
+			end)
+			table.insert(I.ElementsList, {
+				Name = s;
+				Frame = d;
+				Tab = D
+			})
+			local h = S("TextLabel", {
+				Parent = d;
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 10, 0, 5);
+				Size = UDim2.new(1, - 70, 0, 16);
+				Font = Enum.Font.GothamMedium;
+				Text = g(s),
+				TextColor3 = N.TextMain;
+				TextSize = 11,
+				TextXAlignment = Enum.TextXAlignment.Left;
+				TextTruncate = Enum.TextTruncate.AtEnd
+			})
+			y(h, function()
+				h.TextColor3 = N.TextMain
+			end)
+			local X = S("Frame", {
+				Parent = d,
+				BackgroundColor3 = N.ControlBG,
+				AnchorPoint = Vector2.new(1, 0),
+				Position = UDim2.new(1, - 10, 0, 4);
+				Size = UDim2.new(0, 45, 0, 18)
+			})
+			S("UICorner", {
+				Parent = X,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local j = S("UIStroke", {
+				Parent = X;
+				Color = N.Border
+			})
+			y(X, function()
+				X.BackgroundColor3 = N.ControlBG
+				j.Color = N.Border
+			end)
+			local p = S("TextBox", {
+				Parent = X;
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0);
+				Font = Enum.Font.GothamMedium;
+				Text = tostring(a) .. b,
+				TextColor3 = N.Accent;
+				TextSize = 10,
+				ClearTextOnFocus = false
+			})
+			y(p, function()
+				p.TextColor3 = N.Accent
+			end)
+			local L = S("ImageButton", {
+				Parent = d,
+				BackgroundColor3 = N.ControlBG,
+				AnchorPoint = Vector2.new(.5, 1),
+				Position = UDim2.new(.5, 0, 1, - 8);
+				Size = UDim2.new(1, - 20, 0, 6);
+				AutoButtonColor = false,
+				Image = ""
+			})
+			S("UICorner", {
+				Parent = L,
+				CornerRadius = UDim.new(1, 0)
+			})
+			local J = S("UIStroke", {
+				Parent = L,
+				Color = N.Border
+			})
+			y(L, function()
+				L.BackgroundColor3 = N.ControlBG
+				J.Color = N.Border
+			end)
+			local x = S("Frame", {
+				Parent = L,
+				BackgroundColor3 = N.Accent;
+				Size = UDim2.new(((a - e)) / ((v - e)), 0, 1, 0)
+			})
+			S("UICorner", {
+				Parent = x;
+				CornerRadius = UDim.new(1, 0)
+			})
+			y(x, function()
+				x.BackgroundColor3 = N.Accent
+			end)
+			m(d, F.Tip)
+			local K = function(D)
+				D = math.clamp(D, e, v)
+				if H >= 1 then
+					D = math.floor((D / H) + .5) * H
+				else
+					local f = 1 / H
+					D = math.floor((D * f) + .5) / f
+				end
+				local f = math.clamp(((D - e)) / ((v - e)), 0, 1);
+				(r:Create(x, TweenInfo.new(.15, Enum.EasingStyle.Quad), {
+					Size = UDim2.new(f, 0, 1, 0)
+				})):Play()
+				p.Text = tostring(D) .. b
+				i.Value = D
+				q.Flags[s].Value = D
+				t(D)
+			end
+			local n = function(D)
+				local f = math.clamp(((D.Position.X - L.AbsolutePosition.X)) / L.AbsoluteSize.X, 0, 1)
+				local F = e + (((v - e)) * f)
+				K(F)
+			end
+			local C = false
+			L.InputBegan:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+					C = true
+					n(D)
+				end
+			end)
+			O.InputEnded:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+					C = false
+				end
+			end)
+			O.InputChanged:Connect(function(D)
+				if C and ((D.UserInputType == Enum.UserInputType.MouseMovement or D.UserInputType == Enum.UserInputType.Touch)) then
+					n(D)
+				end
+			end)
+			p.FocusLost:Connect(function()
+				local D = string.match(p.Text, "^%-?%d+%.?%d*")
+				local f = tonumber(D) or a
+				K(f)
+			end)
+			function i.Set(f, D)
+				K(D)
+			end
+			return i
+		end
+		f.CreateDropdown = function(f, F)
+			local O = F.Name or "Dropdown"
+			local s = type(F.Options) == "table" and F.Options or (type(F.options) == "table" and F.options or {})
+			local e = F.Default
+			local v = F.MultiSelect or false
+			local a = F.Callback or function()
+			end
+			local H = D:_getSectionContainer("dropdown", O)
+			local b
+			if v then
+				b = {}
+				if type(e) == "table" then
+					for D = 1, # e, 1 do
+						table.insert(b, n(e[D]))
+					end
+				elseif type(e) == "string" and e ~= "" then
+					table.insert(b, e)
+				end
+			else
+				if e ~= nil then
+					b = type(e) == "table" and tostring(e or "") or tostring(e)
+				else
+					b = type(s) == "table" and tostring(s[1] or "") or ""
+				end
+				if type(b) == "table" then
+					b = "None"
+				end
+			end
+			local t = {
+				Value = b
+			}
+			q.Flags[O] = t
+			local V = S("ImageButton", {
+				Parent = H;
+				BackgroundColor3 = N.ElementBG;
+				Size = UDim2.new(1, 0, 0, 36),
+				AutomaticSize = Enum.AutomaticSize.Y;
+				AutoButtonColor = false;
+				ClipsDescendants = true
+			})
+			S("UICorner", {
+				Parent = V,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local i = S("UIStroke", {
+				Parent = V;
+				Color = N.Border
+			})
+			y(V, function()
+				V.BackgroundColor3 = N.ElementBG
+				i.Color = N.Border
+			end)
+			table.insert(I.ElementsList, {
+				Name = O,
+				Frame = V;
+				Tab = D
+			})
+			local d = S("Frame", {
+				Parent = V;
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, 36)
+			})
+			local W = S("TextLabel", {
+				Parent = d;
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 10, 0, 0);
+				Size = UDim2.new(1, - 125, 1, 0);
+				Font = Enum.Font.GothamMedium,
+				Text = g(O),
+				TextColor3 = N.TextSub;
+				TextSize = 11;
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd
+			})
+			y(W, function()
+				W.TextColor3 = N.TextSub
+			end)
+			local h = S("Frame", {
+				Parent = d,
+				BackgroundColor3 = N.ControlBG,
+				AnchorPoint = Vector2.new(1, .5);
+				Position = UDim2.new(1, - 8, .5, 0),
+				Size = UDim2.new(0, 110, 0, 22)
+			})
+			S("UICorner", {
+				Parent = h;
+				CornerRadius = UDim.new(0, 4)
+			})
+			local X = S("UIStroke", {
+				Parent = h,
+				Color = N.Border
+			})
+			y(h, function()
+				h.BackgroundColor3 = N.ControlBG
+				X.Color = N.Border
+			end)
+			local j = S("TextLabel", {
+				Parent = h;
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, - 22, 1, 0),
+				Position = UDim2.new(0, 8, 0, 0);
+				Font = Enum.Font.GothamMedium,
+				TextColor3 = N.Accent,
+				TextSize = 10;
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd
+			})
+			y(j, function()
+				j.TextColor3 = N.Accent
+			end)
+			local p = function()
+				if v then
+					local D = {}
+					for f, F in ipairs(b) do
+						table.insert(D, typeof(F) == "Instance" and F.Name or (type(F) == "table" and ((F.Name or F.name or tostring(F))) or tostring(F)))
+					end
+					j.Text = # D > 0 and table.concat(D, ", ") or "None"
+				else
+					j.Text = ((b == "" or b == nil)) and "None" or (typeof(b) == "Instance" and b.Name or (type(b) == "table" and ((b.Name or b.name or tostring(b))) or tostring(b)))
+				end
+			end
+			p()
+			local L = S("TextLabel", {
+				Parent = h,
+				BackgroundTransparency = 1,
+				AnchorPoint = Vector2.new(1, .5),
+				Position = UDim2.new(1, - 4, .5, 0),
+				Size = UDim2.new(0, 16, 0, 16),
+				Font = Enum.Font.GothamMedium;
+				Text = "+";
+				TextColor3 = N.TextSub,
+				TextSize = 14
+			})
+			y(L, function()
+				L.TextColor3 = N.TextSub
+			end)
+			local J = S("Frame", {
+				Parent = V,
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 0, 0, 36);
+				Size = UDim2.new(1, 0, 0, 0);
+				AutomaticSize = Enum.AutomaticSize.Y;
+				Visible = false
+			})
+			S("UIPadding", {
+				Parent = J;
+				PaddingTop = UDim.new(0, 2);
+				PaddingBottom = UDim.new(0, 6),
+				PaddingLeft = UDim.new(0, 10),
+				PaddingRight = UDim.new(0, 10)
+			})
+			local x = S("UIListLayout", {
+				Parent = J,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, 4)
+			})
+			m(V, F.Tip)
+			local K = false
+			local C = {}
+			local c = function()
+				local D = J:GetChildren()
+				for f = 1, # D, 1 do
+					local F = D[f]
+					if F:IsA("TextButton") then
+						F:Destroy()
+					end
+				end
+				table.clear(C)
+				for D = 1, # s, 1 do
+					local f = type(s[D]) == "table" and ((s[D].Name or s[D].name or tostring(s[D]))) or tostring(s[D])
+					local F = s[D]
+					local e = S("TextButton", {
+						Parent = J;
+						BackgroundColor3 = N.ControlBG;
+						Size = UDim2.new(1, 0, 0, 24);
+						Text = "",
+						AutoButtonColor = false
+					})
+					S("UICorner", {
+						Parent = e;
+						CornerRadius = UDim.new(0, 4)
+					})
+					local H = S("UIStroke", {
+						Parent = e,
+						Color = N.Border
+					})
+					y(e, function()
+						e.BackgroundColor3 = N.ControlBG
+						H.Color = N.Border
+					end)
+					local V = false
+					if v then
+						V = table.find(b, F) ~= nil or table.find(b, f) ~= nil
+					else
+						V = (b == F) or (b == f) or (typeof(b) == "Instance" and b.Name == f)
+					end
+					local i = S("Frame", {
+						Parent = e;
+						AnchorPoint = Vector2.new(0, .5),
+						Position = UDim2.new(0, 8, .5, 0);
+						Size = UDim2.new(0, 10, 0, 10),
+						BackgroundColor3 = V and N.Accent or N.MainBG
+					})
+					S("UICorner", {
+						Parent = i,
+						CornerRadius = UDim.new(0, 2)
+					})
+					local d = S("UIStroke", {
+						Parent = i;
+						Color = N.Border
+					})
+					y(i, function()
+						i.BackgroundColor3 = V and N.Accent or N.MainBG
+						d.Color = N.Border
+					end)
+					local W = S("TextLabel", {
+						Parent = e,
+						BackgroundTransparency = 1;
+						Size = UDim2.new(1, - 28, 1, 0),
+						Position = UDim2.new(0, 24, 0, 0),
+						Font = Enum.Font.GothamMedium,
+						Text = g(f),
+						TextColor3 = V and N.TextMain or N.TextSub;
+						TextSize = 11;
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextTruncate = Enum.TextTruncate.AtEnd
+					})
+					table.insert(C, {
+						Value = f;
+						RawValue = F;
+						Text = W;
+						Check = i;
+						Button = e
+					})
+					e.MouseEnter:Connect(function()
+						(r:Create(e, TweenInfo.new(.2), {
+							BackgroundColor3 = N.ElementHoverBG
+						})):Play();
+						(r:Create(W, TweenInfo.new(.2), {
+							TextColor3 = N.TextMain
+						})):Play()
+					end)
+					e.MouseLeave:Connect(function()
+						(r:Create(e, TweenInfo.new(.2), {
+							BackgroundColor3 = N.ControlBG
+						})):Play()
+						local D = false
+						if v then
+							D = table.find(b, F) ~= nil or table.find(b, f) ~= nil
+						else
+							D = (b == F) or (b == f) or (typeof(b) == "Instance" and b.Name == f)
+						end;
+						(r:Create(W, TweenInfo.new(.2), {
+							TextColor3 = D and N.TextMain or N.TextSub
+						})):Play()
+					end)
+					e.MouseButton1Click:Connect(function()
+						if v then
+							local D = table.find(b, F) or table.find(b, f)
+							if D then
+								table.remove(b, D)
+								W.TextColor3 = N.TextSub;
+								(r:Create(i, TweenInfo.new(.2), {
+									BackgroundColor3 = N.MainBG
+								})):Play()
+							else
+								table.insert(b, F)
+								W.TextColor3 = N.TextMain;
+								(r:Create(i, TweenInfo.new(.2), {
+									BackgroundColor3 = N.Accent
+								})):Play()
+							end
+							a(b)
+						else
+							b = F
+							K = false
+							J.Visible = false;
+							(r:Create(L, TweenInfo.new(.2), {
+								Rotation = 0
+							})):Play()
+							for D = 1, # C, 1 do
+								local F = C[D]
+								if F.Value == f then
+									F.Text.TextColor3 = N.TextMain;
+									(r:Create(F.Check, TweenInfo.new(.2), {
+										BackgroundColor3 = N.Accent
+									})):Play()
+								else
+									F.Text.TextColor3 = N.TextSub;
+									(r:Create(F.Check, TweenInfo.new(.2), {
+										BackgroundColor3 = N.MainBG
+									})):Play()
+								end
+							end
+							a(F)
+						end
+						p()
+						t.Value = b
+						q.Flags[O].Value = b
+					end)
+				end
+			end
+			c()
+			d.InputBegan:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+					K = not K
+					J.Visible = K;
+					(r:Create(L, TweenInfo.new(.2), {
+						Rotation = K and 45 or 0
+					})):Play()
+				end
+			end)
+			function t.Set(f, D)
+				if v then
+					b = type(D) == "table" and D or {}
+				else
+					b = D
+				end
+				if type(b) == "table" and not v then
+					b = "None"
+				end
+				p()
+				t.Value = b
+				q.Flags[O].Value = b
+				c()
+				a(b)
+			end
+			function t.Refresh(f, D)
+				s = type(D) == "table" and D or {}
+				if v then
+					local D = {}
+					for f = 1, # b, 1 do
+						local F = b[f]
+						if table.find(s, F) then
+							table.insert(D, F)
+						end
+					end
+					b = D
+				else
+					if not table.find(s, b) then
+						b = s[1]
+					end
+				end
+				if type(b) == "table" and not v then
+					b = "None"
+				end
+				p()
+				t.Value = b
+				q.Flags[O].Value = b
+				c()
+			end
+			return t
+		end
+		f.CreateKeybind = function(f, F)
+			local s = F.Name or "Keybind"
+			local r = F.Default or Enum.KeyCode.E
+			local e = F.Callback or function()
+			end
+			local v = r
+			local a = D:_getSectionContainer("keybind", s)
+			local H = {
+				Value = v
+			}
+			q.Flags[s] = H
+			local b = S("Frame", {
+				Parent = a;
+				BackgroundColor3 = N.ElementBG;
+				Size = UDim2.new(1, 0, 0, 32)
+			})
+			S("UICorner", {
+				Parent = b,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local V = S("UIStroke", {
+				Parent = b,
+				Color = N.Border
+			})
+			y(b, function()
+				b.BackgroundColor3 = N.ElementBG
+				V.Color = N.Border
+			end)
+			table.insert(I.ElementsList, {
+				Name = s,
+				Frame = b;
+				Tab = D
+			})
+			local i = S("TextLabel", {
+				Parent = b,
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 10, 0, 0);
+				Size = UDim2.new(1, - 95, 1, 0);
+				Font = Enum.Font.GothamMedium;
+				Text = g(s),
+				TextColor3 = N.TextMain,
+				TextSize = 11,
+				TextXAlignment = Enum.TextXAlignment.Left;
+				TextTruncate = Enum.TextTruncate.AtEnd
+			})
+			y(i, function()
+				i.TextColor3 = N.TextMain
+			end)
+			local d = S("Frame", {
+				Parent = b,
+				AnchorPoint = Vector2.new(1, .5);
+				Position = UDim2.new(1, - 8, .5, 0);
+				Size = UDim2.new(0, 60, 0, 18),
+				BackgroundColor3 = N.ControlBG
+			})
+			S("UICorner", {
+				Parent = d;
+				CornerRadius = UDim.new(0, 4)
+			})
+			local W = S("UIStroke", {
+				Parent = d,
+				Color = N.Border
+			})
+			y(d, function()
+				d.BackgroundColor3 = N.ControlBG
+				W.Color = N.Border
+			end)
+			local h = S("TextButton", {
+				Parent = d,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0);
+				Text = v.Name,
+				Font = Enum.Font.GothamMedium;
+				TextColor3 = N.Accent,
+				TextSize = 10
+			})
+			y(h, function()
+				h.TextColor3 = N.Accent
+			end)
+			m(b, F.Tip)
+			local X = function()
+				local D = v and v.Name or "None"
+				h.Text = D
+				local f = t:GetTextSize(D, 10, Enum.Font.GothamMedium, Vector2.new(1000, 18))
+				d.Size = UDim2.new(0, math.max(f.X + 12, 40), 0, 18)
+			end
+			X()
+			local j = false
+			h.MouseButton1Click:Connect(function()
+				j = true
+				h.Text = "..."
+				d.Size = UDim2.new(0, 40, 0, 18)
+			end)
+			O.InputBegan:Connect(function(D, f)
+				if j and ((D.UserInputType == Enum.UserInputType.Keyboard or D.UserInputType == Enum.UserInputType.Gamepad1)) then
+					v = D.KeyCode
+					j = false
+					X()
+					H.Value = v
+					q.Flags[s].Value = v
+					e(v)
+				end
+			end)
+			function H.Set(f, D)
+				v = D or Enum.KeyCode.Unknown
+				X()
+				H.Value = v
+				q.Flags[s].Value = v
+				e(v)
+			end
+			return H
+		end
+		f.CreateButton = function(f, F)
+			local O = F.Name or "Button"
+			local s = F.Callback or function()
+			end
+			local e = D:_getSectionContainer("button", O)
+			local v = S("TextButton", {
+				Parent = e,
+				BackgroundColor3 = N.ElementBG,
+				Size = UDim2.new(1, 0, 0, 32),
+				AutoButtonColor = false,
+				Text = ""
+			})
+			S("UICorner", {
+				Parent = v,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local a = S("UIStroke", {
+				Parent = v;
+				Color = N.Border
+			})
+			y(v, function()
+				v.BackgroundColor3 = N.ElementBG
+				a.Color = N.Border
+			end)
+			table.insert(I.ElementsList, {
+				Name = O,
+				Frame = v,
+				Tab = D
+			})
+			local H = S("TextLabel", {
+				Parent = v;
+				BackgroundTransparency = 1;
+				Size = UDim2.new(1, 0, 1, 0);
+				Font = Enum.Font.GothamMedium,
+				Text = g(O),
+				TextColor3 = N.TextMain;
+				TextSize = 11;
+				TextXAlignment = Enum.TextXAlignment.Center
+			})
+			y(H, function()
+				H.TextColor3 = N.TextMain
+			end)
+			m(v, F.Tip)
+			v.MouseEnter:Connect(function()
+				(r:Create(v, TweenInfo.new(.2), {
+					BackgroundColor3 = N.ElementHoverBG
+				})):Play()
+			end)
+			v.MouseLeave:Connect(function()
+				(r:Create(v, TweenInfo.new(.2), {
+					BackgroundColor3 = N.ElementBG
+				})):Play()
+			end)
+			v.MouseButton1Down:Connect(function()
+				(r:Create(v, TweenInfo.new(.1), {
+					BackgroundColor3 = N.Accent
+				})):Play();
+				(r:Create(H, TweenInfo.new(.1), {
+					TextColor3 = N.MainBG
+				})):Play()
+			end)
+			v.MouseButton1Click:Connect(function()
+				(r:Create(v, TweenInfo.new(.2), {
+					BackgroundColor3 = N.ElementHoverBG
+				})):Play();
+				(r:Create(H, TweenInfo.new(.2), {
+					TextColor3 = N.TextMain
+				})):Play()
+				s()
+			end)
+			return {
+				Value = nil;
+				Set = function()
+				end
+			}
+		end
+		f.CreateTextbox = function(f, F)
+			local O = F.Name or "Textbox"
+			local s = F.Default or ""
+			local r = F.UseLetter
+			local e = F.UseNumber
+			local v = F.Callback or function()
+			end
+			local a = D:_getSectionContainer("textbox", O)
+			local H = {
+				Value = s
+			}
+			q.Flags[O] = H
+			local b = S("Frame", {
+				Parent = a;
+				BackgroundColor3 = N.ElementBG,
+				Size = UDim2.new(1, 0, 0, 32)
+			})
+			S("UICorner", {
+				Parent = b,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local t = S("UIStroke", {
+				Parent = b;
+				Color = N.Border
+			})
+			y(b, function()
+				b.BackgroundColor3 = N.ElementBG
+				t.Color = N.Border
+			end)
+			table.insert(I.ElementsList, {
+				Name = O;
+				Frame = b,
+				Tab = D
+			})
+			local V = S("TextLabel", {
+				Parent = b;
+				BackgroundTransparency = 1;
+				Position = UDim2.new(0, 10, 0, 0),
+				Size = UDim2.new(1, - 120, 1, 0);
+				Font = Enum.Font.GothamMedium;
+				Text = g(O),
+				TextColor3 = N.TextSub,
+				TextSize = 11,
+				TextXAlignment = Enum.TextXAlignment.Left;
+				TextTruncate = Enum.TextTruncate.AtEnd
+			})
+			y(V, function()
+				V.TextColor3 = N.TextSub
+			end)
+			local i = S("Frame", {
+				Parent = b;
+				BackgroundColor3 = N.ControlBG;
+				AnchorPoint = Vector2.new(1, .5),
+				Position = UDim2.new(1, - 8, .5, 0),
+				Size = UDim2.new(0, 100, 0, 20)
+			})
+			S("UICorner", {
+				Parent = i;
+				CornerRadius = UDim.new(0, 4)
+			})
+			local d = S("UIStroke", {
+				Parent = i;
+				Color = N.Border
+			})
+			y(i, function()
+				i.BackgroundColor3 = N.ControlBG
+				d.Color = N.Border
+			end)
+			local W = S("TextBox", {
+				Parent = i;
+				BackgroundTransparency = 1;
+				Size = UDim2.new(1, - 12, 1, 0),
+				Position = UDim2.new(0, 6, 0, 0);
+				Font = Enum.Font.GothamMedium;
+				Text = s,
+				PlaceholderText = "Type...",
+				PlaceholderColor3 = Color3.fromRGB(130, 130, 130),
+				TextColor3 = N.TextMain,
+				TextSize = 10,
+				TextXAlignment = Enum.TextXAlignment.Right;
+				ClearTextOnFocus = false
+			})
+			y(W, function()
+				W.TextColor3 = N.TextMain
+			end)
+			m(b, F.Tip);
+			(W:GetPropertyChangedSignal("Text")):Connect(function()
+				local D = W.Text
+				local f = D
+				if r and not e then
+					f = D:gsub("[^%a%s]", "")
+				elseif e and not r then
+					f = D:gsub("[^%d%.%-]", "")
+				elseif r and e then
+					f = D:gsub("[^%w%s%_%-]", "")
+				end
+				if D ~= f then
+					W.Text = f
+				end
+			end)
+			W.FocusLost:Connect(function()
+				H.Value = W.Text
+				q.Flags[O].Value = H.Value
+				v(H.Value)
+			end)
+			function H.Set(f, D)
+				W.Text = D
+				H.Value = D
+				q.Flags[O].Value = D
+				v(D)
+			end
+			return H
+		end
+		f.CreateColorpicker = function(f, F)
+			local s = F.Name or "Colorpicker"
+			local r = F.Default or Color3.fromRGB(255, 255, 255)
+			local e = F.Callback or function()
+			end
+			local v = D:_getSectionContainer("colorpicker", s)
+			local a = {
+				Value = r
+			}
+			q.Flags[s] = a
+			local b = r
+			local t, V, i = Color3.toHSV(b)
+			local d = S("ImageButton", {
+				Parent = v;
+				BackgroundColor3 = N.ElementBG,
+				Size = UDim2.new(1, 0, 0, 32),
+				AutoButtonColor = false;
+				Image = ""
+			})
+			S("UICorner", {
+				Parent = d,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local W = S("UIStroke", {
+				Parent = d,
+				Color = N.Border
+			})
+			y(d, function()
+				d.BackgroundColor3 = N.ElementBG
+				W.Color = N.Border
+			end)
+			table.insert(I.ElementsList, {
+				Name = s,
+				Frame = d,
+				Tab = D
+			})
+			local h = S("TextLabel", {
+				Parent = d,
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 10, 0, 0);
+				Size = UDim2.new(1, - 120, 1, 0);
+				Font = Enum.Font.GothamMedium,
+				Text = g(s),
+				TextColor3 = N.TextSub;
+				TextSize = 11;
+				TextXAlignment = Enum.TextXAlignment.Left;
+				TextTruncate = Enum.TextTruncate.AtEnd
+			})
+			y(h, function()
+				h.TextColor3 = N.TextSub
+			end)
+			local j = S("Frame", {
+				Parent = d,
+				BackgroundColor3 = b;
+				AnchorPoint = Vector2.new(1, .5);
+				Position = UDim2.new(1, - 8, .5, 0);
+				Size = UDim2.new(0, 40, 0, 18)
+			})
+			S("UICorner", {
+				Parent = j,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local p = S("UIStroke", {
+				Parent = j;
+				Color = N.Border
+			})
+			y(p, function()
+				p.Color = N.Border
+			end)
+			local L = S("Frame", {
+				Parent = H;
+				BackgroundColor3 = N.ElementBG;
+				Size = UDim2.new(0, 180, 0, 190),
+				ZIndex = 100;
+				Visible = false
+			})
+			local J = S("UIScale", {
+				Parent = L;
+				Scale = X
+			})
+			table.insert(M, J)
+			S("UICorner", {
+				Parent = L;
+				CornerRadius = UDim.new(0, 6)
+			})
+			local x = S("UIStroke", {
+				Parent = L,
+				Color = N.Border
+			})
+			y(x, function()
+				x.Color = N.Border
+			end)
+			y(L, function()
+				L.BackgroundColor3 = N.ElementBG
+			end)
+			local K = S("ImageButton", {
+				Parent = L,
+				BackgroundColor3 = Color3.fromHSV(t, 1, 1);
+				Position = UDim2.new(0, 10, 0, 10);
+				Size = UDim2.new(0, 130, 0, 130),
+				Image = "rbxassetid://4155801252";
+				AutoButtonColor = false
+			})
+			S("UICorner", {
+				Parent = K,
+				CornerRadius = UDim.new(0, 4)
+			})
+			local n = S("Frame", {
+				Parent = K;
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				Size = UDim2.new(0, 4, 0, 4),
+				AnchorPoint = Vector2.new(.5, .5);
+				Position = UDim2.new(V, 0, 1 - i, 0)
+			})
+			S("UICorner", {
+				Parent = n;
+				CornerRadius = UDim.new(1, 0)
+			})
+			S("UIStroke", {
+				Parent = n;
+				Color = Color3.fromRGB(0, 0, 0)
+			})
+			local C = S("ImageButton", {
+				Parent = L,
+				Position = UDim2.new(0, 150, 0, 10);
+				Size = UDim2.new(0, 20, 0, 130),
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				AutoButtonColor = false,
+				Image = ""
+			})
+			S("UICorner", {
+				Parent = C,
+				CornerRadius = UDim.new(0, 4)
+			})
+			S("UIGradient", {
+				Parent = C;
+				Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0));
+					ColorSequenceKeypoint.new(.167, Color3.fromRGB(255, 255, 0));
+					ColorSequenceKeypoint.new(.333, Color3.fromRGB(0, 255, 0)),
+					ColorSequenceKeypoint.new(.5, Color3.fromRGB(0, 255, 255)),
+					ColorSequenceKeypoint.new(.667, Color3.fromRGB(0, 0, 255)),
+					ColorSequenceKeypoint.new(.833, Color3.fromRGB(255, 0, 255));
+					ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))
+				}),
+				Rotation = 90
+			})
+			local c = S("Frame", {
+				Parent = C,
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+				Size = UDim2.new(1, 4, 0, 4);
+				AnchorPoint = Vector2.new(.5, .5),
+				Position = UDim2.new(.5, 0, 1 - t, 0)
+			})
+			S("UIStroke", {
+				Parent = c,
+				Color = Color3.fromRGB(0, 0, 0)
+			})
+			local T = S("TextBox", {
+				Parent = L,
+				Position = UDim2.new(0, 10, 0, 150),
+				Size = UDim2.new(0, 75, 0, 24),
+				BackgroundColor3 = N.ControlBG;
+				TextColor3 = Color3.fromRGB(255, 255, 255),
+				Font = Enum.Font.GothamMedium,
+				TextSize = 10,
+				Text = b:ToHex(),
+				ClearTextOnFocus = false
+			})
+			S("UICorner", {
+				Parent = T,
+				CornerRadius = UDim.new(0, 4)
+			})
+			y(T, function()
+				T.BackgroundColor3 = N.ControlBG
+			end)
+			local w = S("TextBox", {
+				Parent = L;
+				Position = UDim2.new(0, 95, 0, 150);
+				Size = UDim2.new(0, 75, 0, 24),
+				BackgroundColor3 = N.ControlBG;
+				TextColor3 = Color3.fromRGB(255, 255, 255);
+				Font = Enum.Font.GothamMedium;
+				TextSize = 10,
+				Text = math.floor(b.R * 255) .. (", " .. (math.floor(b.G * 255) .. (", " .. math.floor(b.B * 255)))),
+				ClearTextOnFocus = false
+			})
+			S("UICorner", {
+				Parent = w,
+				CornerRadius = UDim.new(0, 4)
+			})
+			y(w, function()
+				w.BackgroundColor3 = N.ControlBG
+			end)
+			m(d, F.Tip)
+			local k = function()
+				b = Color3.fromHSV(t, V, i)
+				j.BackgroundColor3 = b
+				K.BackgroundColor3 = Color3.fromHSV(t, 1, 1)
+				T.Text = b:ToHex()
+				w.Text = math.floor(b.R * 255) .. (", " .. (math.floor(b.G * 255) .. (", " .. math.floor(b.B * 255))))
+				a.Value = b
+				q.Flags[s].Value = b
+				e(b)
+			end
+			T.FocusLost:Connect(function()
+				local D, f = pcall(function()
+					return Color3.fromHex(T.Text)
+				end)
+				if D then
+					b = f
+					t, V, i = Color3.toHSV(b)
+					n.Position = UDim2.new(V, 0, 1 - i, 0)
+					c.Position = UDim2.new(.5, 0, 1 - t, 0)
+					k()
+				else
+					T.Text = b:ToHex()
+				end
+			end)
+			w.FocusLost:Connect(function()
+				local D, f, F = w.Text:match("(%d+)[%s,]+(%d+)[%s,]+(%d+)")
+				if D and (f and F) then
+					b = Color3.fromRGB(tonumber(D), tonumber(f), tonumber(F))
+					t, V, i = Color3.toHSV(b)
+					n.Position = UDim2.new(V, 0, 1 - i, 0)
+					c.Position = UDim2.new(.5, 0, 1 - t, 0)
+					k()
+				else
+					w.Text = math.floor(b.R * 255) .. (", " .. (math.floor(b.G * 255) .. (", " .. math.floor(b.B * 255))))
+				end
+			end)
+			local Z = false
+			K.InputBegan:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+					Z = true
+				end
+			end)
+			local P = false
+			C.InputBegan:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+					P = true
+				end
+			end)
+			O.InputEnded:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+					Z = false
+					P = false
+				end
+			end)
+			O.InputChanged:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseMovement or D.UserInputType == Enum.UserInputType.Touch then
+					if Z then
+						local f = math.clamp(((D.Position.X - K.AbsolutePosition.X)) / K.AbsoluteSize.X, 0, 1)
+						local F = math.clamp(((D.Position.Y - K.AbsolutePosition.Y)) / K.AbsoluteSize.Y, 0, 1)
+						V = f
+						i = 1 - F
+						n.Position = UDim2.new(V, 0, 1 - i, 0)
+						k()
+					elseif P then
+						local f = math.clamp(((D.Position.Y - C.AbsolutePosition.Y)) / C.AbsoluteSize.Y, 0, 1)
+						t = 1 - f
+						c.Position = UDim2.new(.5, 0, 1 - t, 0)
+						k()
+					end
+				end
+			end)
+			d.MouseButton1Click:Connect(function()
+				L.Position = UDim2.new(0, j.AbsolutePosition.X - (140 * X), 0, j.AbsolutePosition.Y + (28 * X))
+				L.Visible = not L.Visible
+			end)
+			O.InputBegan:Connect(function(D)
+				if D.UserInputType == Enum.UserInputType.MouseButton1 or D.UserInputType == Enum.UserInputType.Touch then
+					local f = D.Position
+					if L.Visible then
+						local D, F = L.AbsolutePosition.X, L.AbsolutePosition.Y
+						local O, s = D + L.AbsoluteSize.X, F + L.AbsoluteSize.Y
+						local r, e = d.AbsolutePosition.X, d.AbsolutePosition.Y
+						local v, a = r + d.AbsoluteSize.X, e + d.AbsoluteSize.Y
+						if not ((f.X >= D and (f.X <= O and (f.Y >= F and f.Y <= s)))) and not ((f.X >= r and (f.X <= v and (f.Y >= e and f.Y <= a)))) then
+							L.Visible = false
+						end
+					end
+				end
+			end)
+			function a.Set(f, D)
+				b = D
+				t, V, i = Color3.toHSV(b)
+				n.Position = UDim2.new(V, 0, 1 - i, 0)
+				c.Position = UDim2.new(.5, 0, 1 - t, 0)
+				k()
+			end
+			return a
+		end
+		f.CreateDivider = function(f)
+			local F = D:_getSectionContainer("divider", "Divider_" .. tostring(math.random(1, 10000)))
+			local O = S("Frame", {
+				Parent = F;
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, 10)
+			})
+			local s = S("Frame", {
+				Parent = O,
+				BackgroundColor3 = N.Border,
+				BorderSizePixel = 0;
+				AnchorPoint = Vector2.new(.5, .5),
+				Position = UDim2.new(.5, 0, .5, 0),
+				Size = UDim2.new(1, - 16, 0, 1)
+			})
+			y(s, function()
+				s.BackgroundColor3 = N.Border
+			end)
+		end
+		return setmetatable(f, {
+			__index = f
+		})
+	end
+	local MA = TA.Home
+	local IA = S("ScrollingFrame", {
+		Parent = MA;
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, 160, 1, 0),
+		BorderSizePixel = 0;
+		ScrollBarThickness = 0;
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		CanvasSize = UDim2.new(0, 0, 0, 0)
+	})
+	S("UIListLayout", {
+		Parent = IA;
+		SortOrder = Enum.SortOrder.LayoutOrder;
+		Padding = UDim.new(0, 4)
+	})
+	S("UIPadding", {
+		Parent = IA;
+		PaddingTop = UDim.new(0, 10),
+		PaddingLeft = UDim.new(0, 8),
+		PaddingRight = UDim.new(0, 8)
+	})
+	local ZA = S("Frame", {
+		Parent = MA,
+		BackgroundTransparency = 1,
+		Position = UDim2.new(0, 160, 0, 0);
+		Size = UDim2.new(1, - 160, 1, 0)
+	})
+	function I.CreateTab(f, D)
+		local F = D.Name or "Tab"
+		local O = D.Icon or "rbxassetid://6034502844"
+		local e = S("ImageButton", {
+			Parent = IA;
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			BackgroundTransparency = 1;
+			Size = UDim2.new(1, 0, 0, 38),
+			AutoButtonColor = false,
+			Image = ""
+		})
+		S("UICorner", {
+			Parent = e,
+			CornerRadius = UDim.new(0, 6)
+		})
+		local v = S("UIGradient", {
+			Parent = e,
+			Color = ColorSequence.new(N.Accent),
+			Offset = Vector2.new(- 1, 0);
+			Transparency = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, .86),
+				NumberSequenceKeypoint.new(.6, 1);
+				NumberSequenceKeypoint.new(1, 1)
+			})
+		})
+		y(v, function()
+			v.Color = ColorSequence.new(N.Accent)
+		end)
+		local a = S("ImageLabel", {
+			Parent = e,
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0, 12, .5, - 9),
+			Size = UDim2.new(0, 18, 0, 18);
+			Image = O,
+			ImageColor3 = N.TextSub
+		})
+		local H = S("TextLabel", {
+			Parent = e,
+			BackgroundTransparency = 1;
+			Position = UDim2.new(0, 40, 0, 0),
+			Size = UDim2.new(1, - 40, 1, 0);
+			Font = Enum.Font.GothamMedium;
+			Text = F;
+			TextColor3 = N.TextSub;
+			TextSize = 13,
+			TextXAlignment = Enum.TextXAlignment.Left
+		})
+		e.MouseEnter:Connect(function()
+			if I.CurrentTab ~= F then
+				(r:Create(H, TweenInfo.new(.2), {
+					TextColor3 = Color3.fromRGB(210, 210, 210)
+				})):Play();
+				(r:Create(a, TweenInfo.new(.2), {
+					ImageColor3 = Color3.fromRGB(210, 210, 210)
+				})):Play()
+			end
+		end)
+		e.MouseLeave:Connect(function()
+			if I.CurrentTab ~= F then
+				(r:Create(H, TweenInfo.new(.2), {
+					TextColor3 = N.TextSub
+				})):Play();
+				(r:Create(a, TweenInfo.new(.2), {
+					ImageColor3 = N.TextSub
+				})):Play()
+			end
+		end)
+		local b = S("CanvasGroup", {
+			Parent = ZA,
+			Size = UDim2.new(1, 0, 1, 0);
+			Position = UDim2.new(0, 50, 0, 0);
+			BackgroundTransparency = 1,
+			GroupTransparency = 1;
+			BorderSizePixel = 0,
+			Visible = false
+		})
+		local t = S("ScrollingFrame", {
+			Parent = b,
+			BackgroundTransparency = 1;
+			Size = UDim2.new(1, 0, 1, 0),
+			ScrollBarThickness = 2;
+			ScrollBarImageColor3 = N.Border,
+			BorderSizePixel = 0,
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			CanvasSize = UDim2.new(0, 0, 0, 0)
+		})
+		y(t, function()
+			t.ScrollBarImageColor3 = N.Border
+		end)
+		S("UIPadding", {
+			Parent = t;
+			PaddingTop = UDim.new(0, 15);
+			PaddingBottom = UDim.new(0, 15);
+			PaddingLeft = UDim.new(0, 15);
+			PaddingRight = UDim.new(0, 15)
+		})
+		local V = S("Frame", {
+			Parent = t;
+			BackgroundTransparency = 1;
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y
+		})
+		S("UIListLayout", {
+			Parent = V,
+			FillDirection = Enum.FillDirection.Horizontal,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 12)
+		})
+		local i = 259
+		local d = S("Frame", {
+			Name = "LeftColumn",
+			Parent = V;
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, i, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y
+		})
+		S("UIListLayout", {
+			Parent = d;
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 12)
+		})
+		local W = S("Frame", {
+			Name = "RightColumn",
+			Parent = V;
+			BackgroundTransparency = 1;
+			Size = UDim2.new(0, i, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y
+		})
+		S("UIListLayout", {
+			Parent = W;
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 12)
+		})
+		s.RenderStepped:Connect(function()
+			if b.Visible then
+				local D = math.max(d.AbsoluteSize.Y, W.AbsoluteSize.Y) + 30
+				if t.CanvasSize.Y.Offset ~= D then
+					t.CanvasSize = UDim2.new(0, 0, 0, D)
+				end
+			end
+		end)
+		local h = {
+			Name = F;
+			Page = t;
+			LeftColumn = d,
+			RightColumn = W,
+			_sections = {};
+			Select = nil
+		}
+		local X = kA(h)
+		h.Select = function()
+			if I.CurrentTab == h then
+				return
+			end
+			if I.CurrentTab then
+				I.CurrentTab.Unselect()
+			end
+			I.CurrentTab = h
+			b.Visible = true
+			b.Position = UDim2.new(0, 50, 0, 0)
+			b.GroupTransparency = 1;
+			(r:Create(b, TweenInfo.new(.65, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0, 0, 0, 0),
+				GroupTransparency = 0
+			})):Play();
+			(r:Create(e, TweenInfo.new(.2), {
+				BackgroundTransparency = 0
+			})):Play();
+			(r:Create(v, TweenInfo.new(.45, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Offset = Vector2.new(0, 0)
+			})):Play();
+			(r:Create(H, TweenInfo.new(.2), {
+				TextColor3 = N.TextMain
+			})):Play();
+			(r:Create(a, TweenInfo.new(.2), {
+				ImageColor3 = N.TextMain
+			})):Play()
+		end
+		h.Unselect = function()
+			(r:Create(b, TweenInfo.new(.65, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0, - 50, 0, 0);
+				GroupTransparency = 1
+			})):Play()
+			task.delay(.65, function()
+				if I.CurrentTab ~= h then
+					b.Visible = false
+				end
+			end);
+			(r:Create(v, TweenInfo.new(.45, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Offset = Vector2.new(- 1, 0)
+			})):Play();
+			(r:Create(e, TweenInfo.new(.2), {
+				BackgroundTransparency = 1
+			})):Play();
+			(r:Create(H, TweenInfo.new(.2), {
+				TextColor3 = N.TextSub
+			})):Play();
+			(r:Create(a, TweenInfo.new(.2), {
+				ImageColor3 = N.TextSub
+			})):Play()
+		end
+		e.MouseButton1Click:Connect(h.Select)
+		if # I.Tabs == 0 then
+			h.Select()
+		end
+		table.insert(I.Tabs, h)
+		return setmetatable(h, {
+			__index = X
+		})
+	end
+	local function PA(D)
+		local f = TA[D]
+		local F = S("ScrollingFrame", {
+			Parent = f;
+			BackgroundTransparency = 1;
+			Size = UDim2.new(1, 0, 1, 0);
+			ScrollBarThickness = 2,
+			ScrollBarImageColor3 = N.Border,
+			BorderSizePixel = 0,
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			CanvasSize = UDim2.new(0, 0, 0, 0)
+		})
+		S("UIPadding", {
+			Parent = F;
+			PaddingTop = UDim.new(0, 15);
+			PaddingBottom = UDim.new(0, 15);
+			PaddingLeft = UDim.new(0, 15);
+			PaddingRight = UDim.new(0, 15)
+		})
+		local O = S("Frame", {
+			Parent = F,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y
+		})
+		S("UIListLayout", {
+			Parent = O;
+			FillDirection = Enum.FillDirection.Horizontal,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 12)
+		})
+		local e = 259
+		local v = S("Frame", {
+			Name = "LeftColumn",
+			Parent = O,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, e, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y
+		})
+		S("UIListLayout", {
+			Parent = v;
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 12)
+		})
+		local a = S("Frame", {
+			Name = "RightColumn",
+			Parent = O,
+			BackgroundTransparency = 1;
+			Size = UDim2.new(0, e, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y
+		})
+		S("UIListLayout", {
+			Parent = a,
+			SortOrder = Enum.SortOrder.LayoutOrder;
+			Padding = UDim.new(0, 12)
+		})
+		y(F, function()
+			F.ScrollBarImageColor3 = N.Border
+		end)
+		s.RenderStepped:Connect(function()
+			if f.Visible then
+				local D = math.max(v.AbsoluteSize.Y, a.AbsoluteSize.Y) + 30
+				if F.CanvasSize.Y.Offset ~= D then
+					F.CanvasSize = UDim2.new(0, 0, 0, D)
+				end
+			end
+		end)
+		local H = {
+			Name = D;
+			Page = F,
+			LeftColumn = v,
+			RightColumn = a,
+			_sections = {},
+			Select = function()
+				if cA ~= D then
+					local f = nA:FindFirstChild(D .. "Tab")
+					if f then
+						local F = nA:GetChildren()
+						for f = 1, # F, 1 do
+							local O = F[f]
+							if O:IsA("ImageButton") and O.Name ~= D .. "Tab" then
+								(r:Create(O.TextLabel, TweenInfo.new(.2), {
+									TextColor3 = N.TextSub
+								})):Play();
+								(r:Create(O.Frame, TweenInfo.new(.2), {
+									Size = UDim2.new(0, 0, 0, 2),
+									BackgroundTransparency = 1
+								})):Play()
+								local D = TA[O.Name:gsub("Tab", "")]
+								if D then
+									(r:Create(D, TweenInfo.new(.25, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+										Position = UDim2.new(0, 0, 0, - 15),
+										GroupTransparency = 1
+									})):Play()
+									task.delay(.25, function()
+										D.Visible = false
+									end)
+								end
+							end
+						end
+						cA = D;
+						(r:Create(f.TextLabel, TweenInfo.new(.2), {
+							TextColor3 = N.TextMain
+						})):Play();
+						(r:Create(f.Frame, TweenInfo.new(.2), {
+							Size = UDim2.new(1, 0, 0, 2),
+							BackgroundTransparency = 0
+						})):Play()
+						local O = TA[D]
+						if O then
+							O.Visible = true
+							O.Position = UDim2.new(0, 0, 0, 15)
+							O.GroupTransparency = 1;
+							(r:Create(O, TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+								Position = UDim2.new(0, 0, 0, 0);
+								GroupTransparency = 0
+							})):Play()
+						end
+					end
+				end
+			end
+		}
+		return setmetatable(H, {
+			__index = kA(H)
+		})
+	end
+	I.UISettings = PA("UI Settings")
+	I.UISettings:CreateKeybind({
+		Name = "Menu Visible Keybind",
+		Default = DA,
+		Callback = function(D)
+			DA = D
+		end
+	})
+	local uA = {}
+	for D, f in pairs(j) do
+		table.insert(uA, D)
+	end
+	table.sort(uA)
+	I.UISettings:CreateDropdown({
+		Name = "Select UI Theme",
+		Options = uA,
+		Default = e;
+		Callback = function(D)
+			x(D)
+		end
+	})
+	local RA
+	RA = I.UISettings:CreateColorpicker({
+		Name = "Accent Color",
+		Default = N.Accent;
+		Callback = function(D)
+			if not q.RainbowAccent then
+				J(D)
+			end
+		end
+	})
+	I.UISettings:CreateToggle({
+		Name = "Rainbow Accent",
+		Default = false,
+		Callback = function(D)
+			q.RainbowAccent = D
+			if not D and RA then
+				J(RA.Value)
+			end
+		end
+	})
+	I.UISettings:CreateSlider({
+		Name = "Rainbow Speed";
+		Min = 1;
+		Max = 20;
+		Default = 5,
+		Increment = 1;
+		Suffix = "";
+		Callback = function(D)
+			q.RainbowSpeed = D
+		end
+	})
+	I.UISettings:CreateButton({
+		Name = "Randomize Theme",
+		Callback = function()
+			local D = math.random()
+			local f = math.random() * .2
+			local F = math.random() * .15 + .05
+			N.MainBG = Color3.fromHSV(D, f, F)
+			N.SidebarBG = Color3.fromHSV(D, f, math.clamp(F + .02, 0, 1))
+			N.TopbarBG = Color3.fromHSV(D, f, math.clamp(F - .02, 0, 1))
+			N.SectionBG = Color3.fromHSV(D, f, math.clamp(F + .04, 0, 1))
+			N.SectionHeaderBG = Color3.fromHSV(D, f, math.clamp(F + .06, 0, 1))
+			N.ElementBG = Color3.fromHSV(D, f, math.clamp(F + .08, 0, 1))
+			N.ElementHoverBG = Color3.fromHSV(D, f, math.clamp(F + .12, 0, 1))
+			N.Border = Color3.fromHSV(D, f, math.clamp(F + .15, 0, 1))
+			N.ControlBG = Color3.fromHSV(D, f, math.clamp(F - .01, 0, 1))
+			local O = ((D + math.random() * .5)) % 1
+			N.Accent = Color3.fromHSV(O, .8, .9)
+			N.TextMain = Color3.fromRGB(240, 240, 240)
+			N.TextSub = Color3.fromRGB(160, 160, 160)
+			local s = {}
+			for D = 1, # q.ThemeConnections, 1 do
+				local f = q.ThemeConnections[D]
+				if type(f) == "function" then
+					local D, F = pcall(f)
+					if D and F ~= false then
+						table.insert(s, f)
+					end
+				end
+			end
+			q.ThemeConnections = s
+		end
+	})
+	I.UISettings:CreateToggle({
+		Name = "Notifications & Tooltips";
+		Default = true;
+		Callback = function(D)
+			q.ShowNotifications = D
+			q.ShowTooltips = D
+		end
+	})
+	I.UISettings:CreateSlider({
+		Name = "Window Scale";
+		Min = 50,
+		Max = 150;
+		Default = 100;
+		Increment = 5,
+		Suffix = "%",
+		Callback = function(D)
+			I:UpdateScale(D / 100)
+		end
+	})
+	I.Configs = PA("Configs")
+	local zA = "default"
+	local AA = "FF3_Config/" .. tostring(game.GameId)
+	local function UA()
+		if makefolder then
+			if not isfolder("FF3_Config") then
+				makefolder("FF3_Config")
+			end
+			if not isfolder(AA) then
+				makefolder(AA)
+			end
+		end
+	end
+	local function QA(D)
+		if not listfiles then
+			return
+		end
+		UA()
+		local f = {}
+		local F, O = pcall(function()
+			return listfiles(AA)
+		end)
+		if F and type(O) == "table" then
+			for D = 1, # O, 1 do
+				local F = O[D]
+				if type(F) == "string" then
+					local D = F:match("([^/\\]+)%.json$")
+					if D then
+						table.insert(f, D)
+					end
+				elseif type(F) == "table" then
+					local D = F.Path or F.path or F.Name or F.name or tostring(F)
+					if type(D) == "string" then
+						local F = D:match("([^/\\]+)%.json$")
+						if F then
+							table.insert(f, F)
+						end
+					end
+				end
+			end
+		end
+		D:Refresh(f)
+	end
+	local lA = I.Configs:CreateTextbox({
+		Name = "Config Name",
+		UseLetter = true,
+		UseNumber = true,
+		Callback = function(D)
+			zA = D
+		end
+	})
+	local oA
+	local YA = (readfile and (isfile("ff3_autoload.txt") and readfile("ff3_autoload.txt") == zA)) or false
+	oA = I.Configs:CreateToggle({
+		Name = "Autoload";
+		Default = YA,
+		Callback = function(D)
+			if writefile then
+				UA()
+				if D then
+					writefile("ff3_autoload.txt", zA)
+				else
+					if isfile("ff3_autoload.txt") then
+						delfile("ff3_autoload.txt")
+					end
+				end
+			end
+		end
+	})
+	local BA
+	I.Configs:CreateButton({
+		Name = "Save Config",
+		Callback = function()
+			if writefile then
+				UA()
+				local D = {}
+				for f, F in pairs(q.Flags) do
+					D[f] = C(F.Value)
+				end
+				writefile(AA .. ("/" .. (zA .. ".json")), a:JSONEncode(D))
+				if BA then
+					QA(BA)
+				end
+			end
+		end
+	})
+	I.Configs:CreateButton({
+		Name = "Load Config";
+		Callback = function()
+			if readfile and isfile(AA .. ("/" .. (zA .. ".json"))) then
+				local D, f = pcall(function()
+					return a:JSONDecode(readfile(AA .. ("/" .. (zA .. ".json"))))
+				end)
+				if D and type(f) == "table" then
+					for D, f in pairs(f) do
+						local F = q.Flags[D]
+						if F then
+							local D = c(f)
+							if D ~= nil then
+								F:Set(D)
+							end
+						end
+					end
+				end
+			end
+		end
+	})
+	BA = I.Configs:CreateDropdown({
+		Name = "View Configs";
+		Options = {};
+		Callback = function(D)
+			zA = D
+			if oA then
+				local D = (readfile and (isfile("ff3_autoload.txt") and readfile("ff3_autoload.txt") == zA)) or false
+				oA:Set(D)
+			end
+		end
+	})
+	QA(BA)
+	I.Configs:CreateButton({
+		Name = "Delete Config",
+		Callback = function()
+			if delfile and isfile(AA .. ("/" .. (zA .. ".json"))) then
+				delfile(AA .. ("/" .. (zA .. ".json")))
+				if BA then
+					QA(BA)
+				end
+			end
+		end
+	})
+	I.Credits = PA("Credits")
+	I.Credits:CreateButton({
+		Name = "Credits: Lyra Team";
+		Tip = "All credits go to the Lyra Team.";
+		Callback = function()
+			q:Notify({
+				Title = "Credits";
+				Content = "All credits go to " .. (p .. "."),
+				Duration = 4
+			})
+		end
+	})
+	I.Credits:CreateButton({
+		Name = "Discord: discord.gg/qH3J7t4d";
+		Tip = "Lyra Team Discord invite.";
+		Callback = function()
+			q:Notify({
+				Title = "Lyra Discord";
+				Content = L;
+				Duration = 6
+			})
+		end
+	})
+	I.Credits:CreateButton({
+		Name = "Copy Discord Invite",
+		Tip = "Copies the Lyra Team Discord invite when supported.";
+		Callback = function()
+			local D = false
+			if setclipboard then
+				D = pcall(function()
+					setclipboard(L)
+				end)
+			elseif toclipboard then
+				D = pcall(function()
+					toclipboard(L)
+				end)
+			end
+			q:Notify({
+				Title = D and "Invite Copied" or "Discord Invite",
+				Content = D and ("Copied: " .. L) or L;
+				Duration = 6
+			})
+		end
+	})
+	x(e)
+	task.spawn(function()
+		if readfile and isfile("ff3_autoload.txt") then
+			local D = readfile("ff3_autoload.txt")
+			local f = AA .. ("/" .. (D .. ".json"))
+			if isfile(f) then
+				local D, F = pcall(function()
+					return a:JSONDecode(readfile(f))
+				end)
+				if D and type(F) == "table" then
+					task.wait(.5)
+					for D, f in pairs(F) do
+						local F = q.Flags[D]
+						if F then
+							local D = c(f)
+							if D ~= nil then
+								F:Set(D)
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+	local EA
+	EA = s.RenderStepped:Connect(function()
+		local D, f = pcall(function()
+			return H and H.Parent
+		end)
+		if not D or not f then
+			if EA then
+				EA:Disconnect()
+			end
+			return
+		end
+	end)
+	return I
+end
+local k = q:CreateWindow({
+	Title = "na",
+	Prefix = "Lyra";
+	Theme = "Minimal White"
+})
+local M = k:CreateTab({
+	Name = "QB Aimbot",
+	Icon = "rbxassetid://6034684949"
+})
+enableQbAimbot = M:CreateToggle({
+	Name = "Enable QB Aimbot";
+	Default = false,
+	Tip = "Automatically aims passes at the best target for more accurate throws."
+})
+throwAimbot = M:CreateToggle({
+	Name = "Throw To Mouse Aimbot";
+	Default = false,
+	Tip = "Automatically aims passes toward your mouse position."
+})
+autoChooseWr = M:CreateToggle({
+	Name = "Auto Choose Open Reciever";
+	Default = false,
+	Tip = "Automatically selects the most open receiver for each throw."
+})
+autoSelectThrowMode = M:CreateToggle({
+	Name = "Auto Select Throw Type";
+	Default = false;
+	Tip = "Automatically chooses the best throw type for each pass."
+})
+autoPower = M:CreateToggle({
+	Name = "Auto Power";
+	Default = false;
+	Tip = "Automatically sets the optimal throw power."
+})
+autoAngle = M:CreateToggle({
+	Name = "Auto Angle",
+	Default = false,
+	Tip = "Automatically adjusts throw angle for better accuracy."
+})
+highPowerOnly = M:CreateToggle({
+	Name = "High Power Only";
+	Default = false,
+	Tip = "Only uses high-power throws when passing."
+})
+antiDB = M:CreateToggle({
+	Name = "Anti DB",
+	Default = false,
+	Tip = "Avoids throws that defenders can easily intercept."
+})
+antiDBThreshold = M:CreateSlider({
+	Name = "Anti DB Threshold",
+	Min = 0;
+	Max = 15;
+	Default = 0;
+	Increment = .1;
+	Suffix = "",
+	Tip = "Sets how aggressively defender coverage is avoided."
+})
+antiOOB = M:CreateToggle({
+	Name = "Anti OOB";
+	Default = false,
+	Tip = "Prevents throws that may lead receivers out of bounds."
+})
+antiOOBThreshold = M:CreateSlider({
+	Name = "Anti OOB Threshold",
+	Min = 0;
+	Max = 15,
+	Default = 0,
+	Increment = .1;
+	Suffix = "",
+	Tip = "Sets how close targets can be to the sideline."
+})
+throwLeadOffset = M:CreateSlider({
+	Name = "Throw Lead Offset";
+	Min = - 10,
+	Max = 10;
+	Default = 0;
+	Increment = .1;
+	Suffix = "";
+	Tip = "Adjusts how far ahead passes are led."
+})
+throwHeightOffset = M:CreateSlider({
+	Name = "Throw Height Offset",
+	Min = - 10,
+	Max = 10;
+	Default = 0;
+	Increment = .1,
+	Suffix = "",
+	Tip = "Adjusts the height of targeted throws."
+})
+autoJuke = M:CreateToggle({
+	Name = "Auto Juke Rusher";
+	Default = false;
+	Tip = "Automatically jukes nearby rushers before throwing."
+})
+hideCards = M:CreateToggle({
+	Name = "Hide QB Aimbot Cards",
+	Default = false,
+	Tip = "Hides QB Aimbot visual cards from the screen."
+})
+autoChangePowerUI = M:CreateToggle({
+	Name = "Auto Change Power UI";
+	Default = false,
+	Tip = "Automatically updates the power UI to match throws."
+})
+autoJumpWhenThrow = M:CreateToggle({
+	Name = "Auto Jump Before Throw";
+	Default = false,
+	Tip = "Automatically jumps before releasing the ball."
+})
+autoThrowAfterSack = M:CreateToggle({
+	Name = "Auto Throw Before Getting Sacked";
+	Default = false,
+	Tip = "Automatically throws the ball when a sack is imminent."
+})
+dimeKeybind = M:CreateKeybind({
+	Name = "Dime Mode Keybind";
+	Default = Enum.KeyCode.One,
+	Tip = "Switches to Dime throw mode."
+})
+magKeybind = M:CreateKeybind({
+	Name = "Mag Mode Keybind",
+	Default = Enum.KeyCode.Two;
+	Tip = "Switches to Mag throw mode."
+})
+diveKeybind = M:CreateKeybind({
+	Name = "Dive Mode Keybind";
+	Default = Enum.KeyCode.Three,
+	Tip = "Switches to Dive throw mode."
+})
+jumpKeybind = M:CreateKeybind({
+	Name = "Jump Mode Keybind";
+	Default = Enum.KeyCode.Four,
+	Tip = "Switches to Jump throw mode."
+})
+bulletKeybind = M:CreateKeybind({
+	Name = "Bullet Mode Keybind";
+	Default = Enum.KeyCode.Five;
+	Tip = "Switches to Bullet throw mode."
+})
+throwBallAwayKeybind = M:CreateKeybind({
+	Name = "Throw Ball Away Keybind",
+	Default = Enum.KeyCode.T,
+	Tip = "Instantly throws the ball away."
+})
+increaseAngleKeybind = M:CreateKeybind({
+	Name = "Increase Angle Keybind";
+	Default = Enum.KeyCode.R;
+	Tip = "Increases the current throw angle."
+})
+decreaseAngleKeybind = M:CreateKeybind({
+	Name = "Decrease Angle Keybind";
+	Default = Enum.KeyCode.F;
+	Tip = "Decreases the current throw angle."
+})
+lockKeybind = M:CreateKeybind({
+	Name = "Lock To Target Keybind";
+	Default = Enum.KeyCode.Z,
+	Tip = "Locks passes onto the current target."
+})
+
+betterAimbotV2 = M:CreateToggle({
+	Name = "Better Aimbot V2",
+	Default = false,
+	Tip = "Enhanced targeting algorithm with improved accuracy."
+})
+smartLeadCalc = M:CreateToggle({
+	Name = "Smart Lead Calculator",
+	Default = false,
+	Tip = "Automatically adjusts lead based on receiver speed."
+})
+perfectSpiral = M:CreateToggle({
+	Name = "Perfect Spiral",
+	Default = false,
+	Tip = "Forces 95 power for perfect spiral throws."
+})
+qbVision = M:CreateToggle({
+	Name = "QB Vision",
+	Default = false,
+	Tip = "Highlights locked target with a visible glow."
+})
+noIntMode = M:CreateToggle({
+	Name = "No Interception Mode",
+	Default = false,
+	Tip = "Maximizes anti-DB to prevent any interceptions."
+})
+
+local I = game:GetService("Players")
+local Z = game:GetService("ReplicatedStorage")
+local P = game:GetService("TweenService")
+local u = game:GetService("UserInputService")
+local R = game:GetService("RunService")
+local z = game:GetService("Stats")
+local A = workspace.CurrentCamera
+local U = I.LocalPlayer
+if not U then
+	(I:GetPropertyChangedSignal("LocalPlayer")):Wait()
+	U = I.LocalPlayer
+end
+local Q = U:GetMouse()
+local l = (game.PlaceId == 81310542478972)
+if l then
+	autoJuke.Value = false
+end
+local o = false
+local Y = nil
+local B = {}
+local E = {}
+local G = {}
+local m = 0
+local DA = 8.5
+local fA = 8.6
+local FA = 8.5
+local OA = 8.4
+local sA = 2.5
+local rA = 1.2
+local eA = 1.0
+local vA = 1.5
+local aA = 2.0
+local HA = - 0.8
+local bA = {
+	"Bullet";
+	"Dime",
+	"Dive",
+	"Jump";
+	"Mag"
+}
+local tA = {
+	[dimeKeybind.Value] = "Dime",
+	[magKeybind.Value] = "Mag",
+	[diveKeybind.Value] = "Dive",
+	[jumpKeybind.Value] = "Jump",
+	[bulletKeybind.Value] = "Bullet"
+}
+local VA = {
+	Value = 0
+}
+local iA = nil
+local dA = nil
+local WA = nil
+local hA = nil
+local XA = Vector3.new(0, 1, 0)
+local jA = 60
+local NA = 45
+local pA = 0
+local LA = false
+local qA = false
+local yA = false
+local JA = 1
+local xA = Vector3.zero
+local KA = nil
+local SA = nil
+local nA = nil
+local CA = Instance.new("Attachment", workspace.Terrain)
+local cA = Instance.new("Attachment", workspace.Terrain)
+local TA = Instance.new("Beam")
+TA.Attachment0 = CA
+TA.Attachment1 = cA
+TA.Segments = 7500
+TA.Width0 = 1
+TA.Width1 = 1
+TA.FaceCamera = true
+TA.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
+TA.Transparency = NumberSequence.new({
+	NumberSequenceKeypoint.new(0, 1),
+	NumberSequenceKeypoint.new(.01, 0);
+	NumberSequenceKeypoint.new(1, 0)
+})
+TA.Enabled = true
+TA.Parent = workspace.Terrain
+local gA = Instance.new("Part", workspace.Terrain)
+gA.Anchored = true
+gA.CanCollide = false
+gA.CastShadow = false
+gA.Size = Vector3.new(3, 3, 3)
+gA.Shape = Enum.PartType.Ball
+gA.Color = Color3.fromRGB(0, 0, 0)
+local wA = nil
+pcall(function()
+	wA = (gethui and gethui()) or game:GetService("CoreGui")
+end)
+if not wA or (wA.Name == "CoreGui" and not pcall(function()
+	(Instance.new("Folder", wA)):Destroy()
+end)) then
+	wA = U:WaitForChild("PlayerGui", 10)
+end
+local kA = Instance.new("ScreenGui")
+kA.ResetOnSpawn = false
+kA.Parent = wA
+kA.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+local MA = Instance.new("CanvasGroup")
+MA.Size = UDim2.new(1, 0, 0, 100)
+MA.Position = UDim2.new(.5, 0, .05, 0)
+MA.AnchorPoint = Vector2.new(.5, 0)
+MA.BackgroundTransparency = 1
+MA.GroupTransparency = 1
+MA.Visible = true
+MA.Parent = kA
+local IA = false
+local ZA = function(D)
+	if D and not IA then
+		IA = true;
+		(P:Create(MA, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			GroupTransparency = 0
+		})):Play()
+	elseif not D and IA then
+		IA = false;
+		(P:Create(MA, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			GroupTransparency = 1
+		})):Play()
+	end
+end
+local PA = Instance.new("UIScale", MA)
+local uA = function()
+	local D = A.ViewportSize
+	local f = (D.X / 1100)
+	PA.Scale = math.clamp(f, .5, 1.2)
+end;
+(A:GetPropertyChangedSignal("ViewportSize")):Connect(uA)
+uA()
+local RA = Instance.new("UIListLayout")
+RA.FillDirection = Enum.FillDirection.Horizontal
+RA.HorizontalAlignment = Enum.HorizontalAlignment.Center
+RA.VerticalAlignment = Enum.VerticalAlignment.Center
+RA.SortOrder = Enum.SortOrder.LayoutOrder
+RA.Padding = UDim.new(0, 10)
+RA.Parent = MA
+local zA = function(D, f)
+	pcall(function()
+		D.Font = f
+	end)
+end
+local AA = function(D)
+	local f = Instance.new("Frame")
+	f.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	f.BackgroundTransparency = 0
+	f.BorderSizePixel = 0
+	local F = Instance.new("UIGradient")
+	F.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(45, 45, 50)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 18))
+	})
+	F.Rotation = 90
+	F.Parent = f
+	if D == "Throw Type" then
+		f.Size = UDim2.new(0, 110, 0, 80)
+	else
+		f.Size = UDim2.new(0, 95, 0, 80)
+	end
+	f.LayoutOrder = m
+	f.Parent = MA
+	local O = Instance.new("UICorner", f)
+	O.CornerRadius = UDim.new(0, 8)
+	local s = Instance.new("UIStroke", f)
+	s.Color = Color3.fromRGB(80, 80, 85)
+	s.Thickness = 1.0
+	local r = Instance.new("UIPadding", f)
+	r.PaddingTop = UDim.new(0, 5)
+	r.PaddingBottom = UDim.new(0, 5)
+	local e = Instance.new("TextLabel")
+	e.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	e.BackgroundTransparency = 1.0
+	e.BorderSizePixel = 0
+	e.Position = UDim2.new(0, 0, .7, 0)
+	e.Size = UDim2.new(1, 0, 0, 15)
+	zA(e, Enum.Font.GothamBold)
+	e.Text = D
+	e.TextColor3 = Color3.fromRGB(255, 255, 255)
+	e.TextScaled = true
+	e.Parent = f
+	local v = Instance.new("TextButton")
+	v.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	v.BackgroundTransparency = 1.0
+	v.BorderSizePixel = 0
+	v.Position = UDim2.new(0, 0, .15, 0)
+	v.Size = UDim2.new(1, 0, .5, 0)
+	zA(v, Enum.Font.GothamBold)
+	v.Text = "-"
+	v.TextColor3 = Color3.fromRGB(255, 255, 255)
+	v.TextScaled = true
+	v.AutoButtonColor = false
+	v.Parent = f
+	if D == "Throw Type" then
+		local D = Instance.new("UIScale", f)
+		v.MouseButton1Down:Connect(function()
+			local f = U.Character
+			if not f or not f:FindFirstChild("Football") then
+				return
+			end;
+			(P:Create(D, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Scale = .9
+			})):Play()
+		end)
+		v.MouseButton1Up:Connect(function()
+			local f = U.Character
+			if not f or not f:FindFirstChild("Football") then
+				return
+			end;
+			(P:Create(D, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Scale = 1
+			})):Play()
+			JA = JA + 1
+			if JA > # bA then
+				JA = 1
+			end
+		end)
+	end
+	if D == "Player" then
+		local D = Instance.new("TextLabel")
+		D.Size = UDim2.new(1, 0, .25, 0)
+		D.Position = UDim2.new(0, 0, .05, 0)
+		D.BackgroundTransparency = 1
+		D.Text = "LOCKED"
+		D.TextColor3 = Color3.fromRGB(255, 50, 50)
+		zA(D, Enum.Font.GothamBold)
+		D.TextSize = 12
+		D.Visible = false
+		D.ZIndex = 2
+		D.Parent = f
+		nA = D
+		local F = Instance.new("TextButton")
+		F.Size = UDim2.new(1, 0, 1, 0)
+		F.BackgroundTransparency = 1
+		F.Text = ""
+		F.ZIndex = 5
+		F.Parent = f
+		F.MouseButton1Click:Connect(function()
+			local D = U.Character
+			if not D or not D:FindFirstChild("Football") then
+				return
+			end
+			if iA or o then
+				o = not o
+				if o then
+					Y = iA
+					if nA then
+						nA.Visible = true
+					end
+				else
+					Y = nil
+					if nA then
+						nA.Visible = false
+					end
+				end
+			end
+		end)
+		SA = v
+	end
+	E[D] = v
+	m = m + 1
+end
+AA("Angle")
+AA("Throw Type")
+AA("Player")
+AA("Airtime")
+AA("Power")
+local UA = function()
+	local D = {}
+	local f = workspace:FindFirstChild("npcwr")
+	if f then
+		local F = f:FindFirstChild("a")
+		if F then
+			local f = F:FindFirstChild("bot 1")
+			if f and f:IsA("Model") then
+				table.insert(D, f)
+			end
+		end
+		local O = f:FindFirstChild("b")
+		if O then
+			local f = O:FindFirstChild("bot 3")
+			if f and f:IsA("Model") then
+				table.insert(D, f)
+			end
+		end
+	end
+	return D
+end
+local QA = function()
+	if not enableQbAimbot.Value then
+		return
+	end
+	local D = U.Character
+	if not D then
+		return
+	end
+	local f = D:FindFirstChildOfClass("Tool")
+	if not f then
+		return
+	end
+	local F = f:FindFirstChild("Handle")
+	if not F then
+		return
+	end
+	local O = F:FindFirstChild("RemoteEvent")
+	if not O then
+		return
+	end
+	local s = D:FindFirstChild("Head")
+	if not s then
+		return
+	end
+	local r = D:FindFirstChild("HumanoidRootPart")
+	if not r then
+		return
+	end
+	local e = XA or Vector3.new(0, 1, 0)
+	if l then
+		local D = "Clicked"
+		local f = s.Position
+		local F = s.Position + e * 10000
+		local r = tonumber(jA) or 0
+		O:FireServer(D, f, F, r)
+	else
+		local D = "Clicked"
+		local f = ((r.CFrame * CFrame.new(0, 1.5, 0))).Position + Vector3.new(70000000)
+		local F = s.Position + e * 10000
+		local v = tonumber(jA) or 0
+		O:FireServer(D, f, F, v, 1)
+	end
+end
+local lA = function(D)
+	if not D then
+		return "stationary", Vector3.zero
+	end
+	local f = I:GetPlayerFromCharacter(D)
+	local F = D:FindFirstChild("Humanoid")
+	local O = D:FindFirstChild("HumanoidRootPart")
+	local s = U.Character
+	local r = s and s:FindFirstChild("HumanoidRootPart")
+	if not F or not O or not r then
+		return "stationary", Vector3.zero
+	end
+	local e = Vector3.zero
+	if f then
+		e = F.MoveDirection
+	else
+		local D = F.WalkToPoint - O.Position
+		e = D.Magnitude > .01 and D.Unit or Vector3.zero
+	end
+	local v = O.Position - r.Position
+	local a = tonumber(v.Magnitude) or 0
+	local H = Vector3.new(v.X, 0, v.Z)
+	if H.Magnitude > .01 then
+		H = H.Unit
+	else
+		H = Vector3.new(0, 0, 1)
+	end
+	local b = Vector3.new(e.X, 0, e.Z)
+	if b.Magnitude < .01 then
+		return "stationary", e
+	end
+	b = b.Unit
+	local t = tonumber(b:Dot(H)) or 0
+	if t > .75 then
+		return "go/fade", e
+	elseif t >= .25 and t <= .75 then
+		if a <= 120 then
+			return "slant", e
+		elseif a <= 160 then
+			return "seam", e
+		else
+			return "post/corner", e
+		end
+	elseif t > - 0.25 and t < .25 then
+		if a <= 60 then
+			return "drag", e
+		elseif a <= 130 then
+			return "in/out", e
+		else
+			return "flat", e
+		end
+	else
+		if a <= 50 then
+			return "hitch", e
+		else
+			return "curl/comeback", e
+		end
+	end
+end
+local oA = function(D)
+	if not D then
+		return false
+	end
+	local f = D:FindFirstChild("HumanoidRootPart")
+	if not f then
+		return false
+	end
+	local F = false
+	local O, s = lA(D)
+	local r = 0
+	pcall(function()
+		r = tonumber(# (game:GetService("Teams")):GetTeams()) or 0
+	end)
+	local e = function(D)
+		local F = D.Position - f.Position
+		local O = tonumber(F.Magnitude) or 0
+		if O < 5 then
+			local D = Vector3.new(s.X, 0, s.Z)
+			if ((tonumber(D.Magnitude) or 0)) > .01 then
+				D = D.Unit
+				local f = tonumber(F.Unit:Dot(D)) or 0
+				if f > - 0.7 then
+					return true
+				end
+			else
+				return true
+			end
+		end
+		return false
+	end
+	local v = function(D)
+		local F = U.Character
+		if not F then
+			return false
+		end
+		local O = F:FindFirstChild("HumanoidRootPart")
+		if not O then
+			return false
+		end
+		local s = D.Position - O.Position
+		local r = f.Position - O.Position
+		local e = tonumber(r.Magnitude) or 0
+		local v = r.Unit
+		local a = tonumber(s:Dot(v)) or 0
+		if a > 2 and a < (e * .6) then
+			local D = tonumber(((s - (v * a))).Magnitude) or 0
+			if D < 5.5 then
+				return true
+			end
+		end
+		return false
+	end
+	local a = I:GetPlayers()
+	for D = 1, # a, 1 do
+		local f = a[D]
+		if f ~= U and f.Character then
+			local D = true
+			if r > 1 and (U.Team ~= nil and (f.Team ~= nil and U.Team == f.Team)) then
+				D = false
+			end
+			if D then
+				local D = f.Character:FindFirstChild("HumanoidRootPart")
+				if D and ((e(D) or v(D))) then
+					F = true
+					break
+				end
+			end
+		end
+	end
+	if not F then
+		local f = UA()
+		for O = 1, # f, 1 do
+			local s = f[O]
+			if s ~= D then
+				local D = s:FindFirstChild("HumanoidRootPart")
+				if D and ((e(D) or v(D))) then
+					F = true
+					break
+				end
+			end
+		end
+	end
+	return not F
+end
+local YA = function()
+	if LA and iA then
+		return iA
+	end
+	if o and (Y and Y:FindFirstChild("HumanoidRootPart")) then
+		return Y
+	elseif o then
+		o = false
+		Y = nil
+	end
+	local D = {}
+	local f = 0
+	pcall(function()
+		f = tonumber(# (game:GetService("Teams")):GetTeams()) or 0
+	end)
+	local F = I:GetPlayers()
+	for O = 1, # F, 1 do
+		local s = F[O]
+		if s ~= U and (s.Character and s.Character:FindFirstChild("HumanoidRootPart")) then
+			local F = true
+			if f > 1 and (U.Team ~= nil and (s.Team ~= nil and U.Team ~= s.Team)) then
+				F = false
+			end
+			if F then
+				local f = s.Character:FindFirstChildOfClass("Humanoid")
+				if not f or not f.Sit then
+					table.insert(D, s.Character)
+				end
+			end
+		end
+	end
+	local O = UA()
+	for f = 1, # O, 1 do
+		local F = O[f]
+		if F:FindFirstChild("HumanoidRootPart") then
+			local f = F:FindFirstChildOfClass("Humanoid")
+			if not f or not f.Sit then
+				table.insert(D, F)
+			end
+		end
+	end
+	if # D == 0 then
+		return nil
+	end
+	if autoChooseWr.Value then
+		local f = nil
+		local F = math.huge
+		local O = U.Character and U.Character:FindFirstChild("HumanoidRootPart")
+		local s = O and O.Position or Vector3.zero
+		for O = 1, # D, 1 do
+			local r = D[O]
+			local e = r:FindFirstChild("HumanoidRootPart")
+			if e then
+				local D, O = A:WorldToViewportPoint(e.Position)
+				if O and oA(r) then
+					local D = tonumber(((e.Position - s)).Magnitude) or 0
+					if D < F then
+						F = D
+						f = r
+					end
+				end
+			end
+		end
+		if f then
+			return f
+		end
+	end
+	local s = u:GetMouseLocation()
+	local r = nil
+	local e = math.huge
+	for f = 1, # D, 1 do
+		local F = D[f]
+		local O = F:FindFirstChild("HumanoidRootPart")
+		if O then
+			local D, f = A:WorldToViewportPoint(O.Position)
+			if f then
+				local f = tonumber(((Vector2.new(D.X, D.Y) - s)).Magnitude) or 0
+				if f < e then
+					e = f
+					r = F
+				end
+			end
+		end
+	end
+	return r
+end
+local BA = function(D)
+	if not D then
+		return "Mag"
+	end
+	local f = D:FindFirstChild("HumanoidRootPart")
+	if not f then
+		return "Mag"
+	end
+	local F = U.Character
+	local O = F and F:FindFirstChild("HumanoidRootPart")
+	if not O then
+		return "Mag"
+	end
+	local s, r = lA(D)
+	local e = tonumber(((f.Position - O.Position)).Magnitude) or 0
+	if e < 40 then
+		return "Bullet"
+	end
+	local v = math.huge
+	local a = 0
+	pcall(function()
+		a = tonumber(# (game:GetService("Teams")):GetTeams()) or 0
+	end)
+	local H = I:GetPlayers()
+	for D = 1, # H, 1 do
+		local F = H[D]
+		if F ~= U and F.Character then
+			local D = F.Character:FindFirstChild("HumanoidRootPart")
+			if D and D ~= f then
+				local O = true
+				if a > 1 and (U.Team ~= nil and (F.Team ~= nil and U.Team == F.Team)) then
+					O = false
+				end
+				if O then
+					local F = tonumber(((D.Position - f.Position)).Magnitude) or 0
+					if F < v then
+						v = F
+					end
+				end
+			end
+		end
+	end
+	local b = UA()
+	for D = 1, # b, 1 do
+		local F = b[D]
+		local O = F:FindFirstChild("HumanoidRootPart")
+		if O and O ~= f then
+			local D = tonumber(((O.Position - f.Position)).Magnitude) or 0
+			if D < v then
+				v = D
+			end
+		end
+	end
+	local t = function(D, f)
+		for F = 1, # D, 1 do
+			if D[F] == f then
+				return true
+			end
+		end
+		return false
+	end
+	local V = {
+		"go/fade",
+		"post/corner",
+		"seam",
+		"curl/comeback";
+		"stationary"
+	}
+	local i = {
+		"in/out",
+		"flat";
+		"wheel"
+	}
+	if s == "slant" or s == "hitch" or s == "drag" or s == "in/out" or s == "flat" then
+		return "Bullet"
+	elseif t(V, s) then
+		if v > 5 then
+			return (((tonumber(NA) or 45)) < 40) and "Jump" or "Dime"
+		elseif v > 2 then
+			return "Dive"
+		end
+		return "Mag"
+	elseif t(i, s) then
+		if v > 4 then
+			return "Dime"
+		end
+		return "Jump"
+	end
+	return "Dime"
+end
+local EA = function(D)
+	if D == "Dime" then
+		return DA
+	elseif D == "Mag" then
+		return fA
+	elseif D == "Dive" then
+		return FA
+	elseif D == "Jump" then
+		return OA
+	elseif D == "Bullet" then
+		return sA
+	end
+	return 8.6
+end
+local GA = function(D)
+	if D == "Dime" then
+		return rA
+	elseif D == "Mag" then
+		return eA
+	elseif D == "Dive" then
+		return vA
+	elseif D == "Jump" then
+		return aA
+	elseif D == "Bullet" then
+		return HA
+	end
+	return 0
+end
+local mA = function()
+	local D = 0
+	pcall(function()
+		D = tonumber(U:GetNetworkPing()) or 0
+	end)
+	local f = 0
+	pcall(function()
+		f = ((tonumber(z.Network.ServerStatsItem["Data Ping"]:GetValue()) or 0)) / 1000
+	end)
+	if f == 0 then
+		f = D
+	end
+	return D + f
+end
+local DO = function(D, f, F)
+	local O = tonumber(F) or 28
+	local s = f - D
+	local r = tonumber((Vector3.new(s.X, 0, s.Z)).Magnitude) or 0
+	local e = tonumber(s.Y) or 0
+	local v = (r ^ 2) + (e ^ 2)
+	local a = tonumber(math.sqrt(math.max(v, 0))) or 0
+	local H = math.rad(45)
+	if r > .01 then
+		local D = tonumber(math.atan(((e + a)) / r)) or H
+		if D and D == D then
+			H = D
+		end
+	end
+	local b = tonumber(math.clamp(H * .85, math.rad(- 15), math.rad(65))) or 0
+	local t = tonumber(math.cos(b)) or 1
+	local V = tonumber(math.tan(b)) or 0
+	local i = 95
+	local d = (2 * (t ^ 2)) * ((r * V - e))
+	if d > .001 then
+		local D = O * (r ^ 2)
+		local f = tonumber(math.sqrt(D / d)) or i
+		if f and (f == f and f ~= math.huge) then
+			i = f
+		end
+	end
+	local W = tonumber(math.deg(b)) or 45
+	return i, W
+end
+local fO = function(D)
+	local f = U.Character:FindFirstChild("Head")
+	local F = f and f.Position or U.Character.HumanoidRootPart.Position
+	local O = D.Parent
+	local s = O and O:FindFirstChild("Head")
+	local r = s and s.Position or D.Position + Vector3.new(0, 1.5, 0)
+	local e = Vector3.zero
+	local v = O and O:FindFirstChildOfClass("Humanoid")
+	if v then
+		local f = O:FindFirstAncestor("npcwr") ~= nil
+		if f then
+			local f = v.WalkToPoint - D.Position
+			local F = Vector3.new(f.X, 0, f.Z)
+			e = F.Magnitude > .1 and F.Unit or Vector3.zero
+		else
+			local D = v.MoveDirection
+			local f = Vector3.new(D.X, 0, D.Z)
+			e = f.Magnitude > .01 and f.Unit or Vector3.zero
+		end
+	end
+	local a = tonumber(mA()) or 0
+	local H = 20
+	local b = bA[JA]
+	local t = (b == "Bullet" or iA and ((lA(iA) == "slant" or lA(iA) == "drag" or lA(iA) == "in/out" or lA(iA) == "flat" or lA(iA) == "hitch" or lA(iA) == "curl/comeback")))
+	local V = iA and lA(iA) or "go/fade"
+	local i = tonumber(jA) or 60
+	if b == "Bullet" or (autoPower.Value and t) or highPowerOnly.Value then
+		i = 95
+	end
+	local d = 60
+	if i > 75 then
+		d = 60 + (((i - 75)) * 1.5)
+	end
+	local W = tonumber(((D.Position - F)).Magnitude) or 0
+	local h = W / ((tonumber(d) or 60))
+	local X = i * ((tonumber(math.cos(math.rad(tonumber(NA) or 45))) or 1))
+	if X < 30 then
+		X = 55
+	end
+	local j = ((b == "Bullet" or t)) and 90 or X
+	local N = ((tonumber(EA(b)) or 8.6)) * 3.05
+	local p = tonumber(GA(b)) or 0
+	local L = {
+		slant = .45,
+		drag = .6;
+		["in/out"] = .65,
+		flat = .65,
+		wheel = .9,
+		["go/fade"] = 1.0;
+		["post/corner"] = .85;
+		seam = .85,
+		hitch = .1;
+		["curl/comeback"] = .1,
+		stationary = .0
+	}
+	local q = tonumber(L[V]) or 1.0
+	local y = e.Magnitude > .01 and e.Unit or Vector3.zero
+	local J = ((t or b == "Bullet")) and D.Position or r
+	local x = (V == "stationary")
+	if x then
+		leadPos = r
+	else
+		leadPos = ((J + (((e * H) * h) * q)) + (((e * H) * a) * q)) + ((y * N) * q)
+		leadPos = leadPos + (y * ((tonumber(throwLeadOffset.Value) or 0)))
+		if t or b == "Bullet" then
+			leadPos = Vector3.new(leadPos.X, r.Y, leadPos.Z)
+			p = 0
+		end
+		leadPos = leadPos + Vector3.new(0, p, 0)
+		leadPos = leadPos + Vector3.new(0, tonumber(throwHeightOffset.Value) or 0, 0)
+		if V == "curl/comeback" or V == "hitch" then
+			leadPos = leadPos + Vector3.new(0, - 5, 0)
+		end
+	end
+	local K = (b == "Bullet" or t or ((tonumber(jA) or 60)) == 95 or highPowerOnly.Value)
+	if not autoAngle.Value and not K then
+		leadPos = leadPos + Vector3.new(0, tonumber(VA.Value) or 0, 0)
+	end
+	if antiDB.Value then
+		local D = Vector3.zero
+		local f = I:GetPlayers()
+		local F = 0
+		pcall(function()
+			F = tonumber(# (game:GetService("Teams")):GetTeams()) or 0
+		end)
+		for O = 1, # f, 1 do
+			local s = f[O]
+			if s ~= U and s.Character then
+				local f = true
+				if F > 1 and (U.Team ~= nil and (s.Team ~= nil and U.Team == s.Team)) then
+					f = false
+				end
+				if f then
+					local f = s.Character:FindFirstChild("HumanoidRootPart")
+					if f then
+						local F = tonumber((Vector3.new(f.Position.X - leadPos.X, 0, f.Position.Z - leadPos.Z)).Magnitude) or 0
+						if F < ((tonumber(antiDBThreshold.Value) or 15)) + ((noIntMode and noIntMode.Value) and 10 or 0) then
+							local O = (leadPos - f.Position)
+							O = Vector3.new(O.X, 0, O.Z)
+							if O.Magnitude > 0 then
+								D = D + (O.Unit * ((((tonumber(antiDBThreshold.Value) or 15)) - F)))
+							end
+						end
+					end
+				end
+			end
+		end
+		leadPos = D + leadPos
+	end
+	local S = Vector3.zero
+	local n = workspace:FindFirstChild("Models")
+	if n then
+		n = n:FindFirstChild("Field")
+	end
+	if n then
+		n = n:FindFirstChild("Ground")
+	end
+	if n then
+		S = n.Position
+	end
+	if antiOOB.Value and S ~= Vector3.zero then
+		local D = 75 - ((tonumber(antiOOBThreshold.Value) or 5))
+		local f = 175 - ((tonumber(antiOOBThreshold.Value) or 5))
+		leadPos = Vector3.new(math.clamp(leadPos.X, S.X - D, S.X + D), leadPos.Y, math.clamp(leadPos.Z, S.Z - f, S.Z + f))
+	end
+	WA = leadPos
+	local C = 28
+	local c, T = DO(F, leadPos, C)
+	c = tonumber(c) or 95
+	T = tonumber(T) or 45
+	if x and (b ~= "Bullet" and not highPowerOnly.Value) then
+		local D = tonumber(math.clamp(4 + (W * .08), 5, 14)) or 10
+		if T > D then
+			local f = leadPos - F
+			local O = tonumber((Vector3.new(f.X, 0, f.Z)).Magnitude) or 0
+			local s = tonumber(f.Y) or 0
+			local r = tonumber(math.rad(D)) or .1
+			local e = (2 * (math.cos(r) ^ 2)) * ((O * math.tan(r) - s))
+			if e > .001 then
+				local f = tonumber(math.sqrt(((C * O ^ 2)) / e)) or c
+				if f == f and f ~= math.huge then
+					T = D
+					c = f
+				end
+			end
+		end
+	end
+	if highPowerOnly.Value or (perfectSpiral and perfectSpiral.Value) then
+		jA = 95
+		local D = leadPos - F
+		local f = tonumber((Vector3.new(D.X, 0, D.Z)).Magnitude) or 0
+		local O = tonumber(D.Y) or 0
+		local s = 9025.0
+		local r = 81450625.0
+		local e = C * f
+		local v = r - C * ((C * f ^ 2 + (2 * O) * s))
+		if v >= 0 then
+			NA = tonumber(math.clamp(math.deg(math.atan(((s - math.sqrt(v))) / e)) * .94, - 15, 85)) or 45
+		else
+			NA = 45
+		end
+	elseif b == "Bullet" or (autoPower.Value and t) then
+		jA = 95
+		local D = leadPos - F
+		local f = tonumber((Vector3.new(D.X, 0, D.Z)).Magnitude) or 0
+		local O = tonumber(D.Y) or 0
+		local s = f / 95
+		local r = (14.0 * s) * s
+		NA = tonumber(math.clamp(math.deg(math.atan2(O + r, f)), - 15, 45)) or 15
+	else
+		if autoPower.Value then
+			jA = tonumber(math.clamp(c, 0, 95)) or 60
+		end
+		if autoAngle.Value then
+			NA = tonumber(math.clamp(T, - 15, 90)) or 45
+		end
+	end
+	if not autoAngle.Value and not K then
+		NA = tonumber(math.clamp(T, - 15, 90)) or 45
+	end
+	local g = tonumber(jA) or 60
+	local w = tonumber(NA) or 45
+	local k = tonumber(math.rad(w)) or 0
+	local M = Vector3.new(leadPos.X - F.X, 0, leadPos.Z - F.Z)
+	local Z = M.Magnitude > .01 and M.Unit or f.CFrame.LookVector
+	local P = ((Z * ((tonumber(math.cos(k)) or 1)) + Vector3.new(0, tonumber(math.sin(k)) or 0, 0))) * g
+	XA = P.Unit * g
+	local u = g * ((tonumber(math.cos(k)) or 1))
+	if u > .1 then
+		local D = tonumber((Vector3.new(leadPos.X - F.X, 0, leadPos.Z - F.Z)).Magnitude) or 0
+		pA = D / u
+	else
+		pA = 0
+	end
+	return w
+end
+local FO = function(D, f, F, O)
+	local s = .125
+	local r = tonumber(O) or .1
+	local e = (((.5 * D) * r) * r + f * r) + F
+	local v = e - (((D * r) * r + f * r)) / 3
+	local a = ((((((s * D) * r) * r + (.5 * f) * r) + F) - s * ((F + e)))) / ((3 * s)) - v
+	local H = tonumber(((a - F)).Magnitude) or 0
+	local b = tonumber(((v - e)).Magnitude) or 0
+	local t = ((F - e)).Unit
+	local V = ((a - F)).Unit
+	local i = (V:Cross(t)).Unit
+	local d = ((v - e)).Unit
+	local W = (d:Cross(t)).Unit
+	t = (i:Cross(V)).Unit
+	local h = CFrame.new(F.X, F.Y, F.Z, V.X, i.X, t.X, V.Y, i.Y, t.Y, V.Z, i.Z, t.Z)
+	local X = CFrame.new(e.X, e.Y, e.Z, d.X, W.X, t.X, d.Y, W.Y, t.Y, d.Z, W.Z, t.Z)
+	return H, - b, h, X
+end
+u.InputBegan:Connect(function(D, f)
+	if f then
+		return
+	end
+	local F = U.Character
+	if not F or not F:FindFirstChild("Football") then
+		return
+	end
+	if D.KeyCode == throwBallAwayKeybind.Value then
+		local D = Vector3.zero
+		local f = workspace:FindFirstChild("Models")
+		if f then
+			f = f:FindFirstChild("Field")
+		end
+		if f then
+			f = f:FindFirstChild("Ground")
+		end
+		if f then
+			D = f.Position
+		end
+		local O = math.random(1, 2) == 1 and - 1 or 1
+		local s = D + Vector3.new(O * 120, 0, math.random(- 100, 100))
+		local r = F:FindFirstChild("Head")
+		local e = r and r.Position or F.HumanoidRootPart.Position
+		qA = true
+		jA = 95
+		NA = 25
+		local v = tonumber(math.rad(NA)) or 0
+		local a = (Vector3.new(s.X - e.X, 0, s.Z - e.Z)).Unit
+		local H = ((a * ((tonumber(math.cos(v)) or 1)) + Vector3.new(0, tonumber(math.sin(v)) or 0, 0))) * 95
+		XA = H.Unit * 95
+		local b = 95 * ((tonumber(math.cos(v)) or 1))
+		pA = b > .1 and (((tonumber((Vector3.new(s.X - e.X, 0, s.Z - e.Z)).Magnitude) or 0)) / b) or 1
+		local t = F:FindFirstChildOfClass("Humanoid")
+		local V = Z:FindFirstChild("Animations") and Z.Animations:FindFirstChild("Throw")
+		if t and V then
+			local D = t:FindFirstChild("Animator")
+			if D then
+				local f = D:LoadAnimation(V)
+				f:Play()
+			end
+		end
+		return
+	end
+	if D.KeyCode == increaseAngleKeybind.Value then
+		VA.Value = ((tonumber(VA.Value) or 0)) + 5
+	elseif D.KeyCode == decreaseAngleKeybind.Value then
+		VA.Value = ((tonumber(VA.Value) or 0)) - 5
+	end
+	if not autoSelectThrowMode.Value and tA[D.KeyCode] then
+		local f = tA[D.KeyCode]
+		for D = 1, # bA, 1 do
+			if bA[D] == f then
+				JA = D
+				break
+			end
+		end
+	end
+	if D.KeyCode == lockKeybind.Value then
+		if iA or o then
+			o = not o
+			if o then
+				Y = iA
+				if SA then
+					SA.TextColor3 = Color3.fromRGB(255, 50, 50)
+				end
+				if nA then
+					nA.Visible = true
+				end
+			else
+				Y = nil
+				if SA then
+					SA.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
+				if nA then
+					nA.Visible = false
+				end
+			end
+		end
+	end
+end)
+local OO = function()
+	if autoJumpWhenThrow.Value then
+		task.delay(.05, function()
+			local D = U.Character
+			if D then
+				local f = D:FindFirstChildOfClass("Humanoid")
+				if f and f:GetState() ~= Enum.HumanoidStateType.Jumping then
+					f:ChangeState(Enum.HumanoidStateType.Jumping)
+				end
+			end
+		end)
+	end
+end
+task.spawn(function()
+	local D = function(D)
+		local f = D:WaitForChild("Humanoid", 5)
+		if not f then
+			return
+		end
+		local F = f:WaitForChild("Animator", 5)
+		if not F then
+			return
+		end
+		F.AnimationPlayed:Connect(function(D)
+			local f = Z:FindFirstChild("Animations") and Z.Animations:FindFirstChild("Throw")
+			if f and (D.Animation and ((D.Animation == f or D.Animation.AnimationId == f.AnimationId))) then
+				(D:GetPropertyChangedSignal("IsPlaying")):Connect(function()
+					if D.IsPlaying then
+						if not LA then
+							LA = true
+							OO()
+							task.delay(.12, function()
+								yA = true
+								QA()
+							end)
+						end
+					else
+						LA = false
+						yA = false
+						qA = false
+					end
+				end)
+				if D.IsPlaying and not LA then
+					LA = true
+					OO()
+					task.delay(.12, function()
+						yA = true
+						QA()
+					end)
+				end
+			end
+		end)
+	end
+	if U.Character then
+		D(U.Character)
+	end
+	U.CharacterAdded:Connect(function(f)
+		D(f)
+	end)
+end)
+local sO = function(D)
+	D.ChildAdded:Connect(function(f)
+		if not autoThrowAfterSack.Value then
+			return
+		end
+		if not f:IsA("LocalScript") then
+			return
+		end
+		if not (f.Name:lower()):find("tackle") then
+			return
+		end
+		task.wait()
+		local F = D:FindFirstChildOfClass("Humanoid")
+		if not F then
+			return
+		end
+		if autoChooseWr.Value then
+			local D = nil
+			local f = math.huge
+			local F = u:GetMouseLocation()
+			local O = 0
+			pcall(function()
+				O = tonumber(# (game:GetService("Teams")):GetTeams()) or 0
+			end)
+			local s = I:GetPlayers()
+			for r = 1, # s, 1 do
+				local e = s[r]
+				if e ~= U and e.Character then
+					local s = true
+					if O > 1 and (U.Team ~= nil and (e.Team ~= nil and U.Team ~= e.Team)) then
+						s = false
+					end
+					if s then
+						local O = e.Character:FindFirstChild("HumanoidRootPart")
+						local s = e.Character:FindFirstChildOfClass("Humanoid")
+						if O and (((not s or not s.Sit)) and oA(e.Character)) then
+							local s, r = A:WorldToViewportPoint(O.Position)
+							if r then
+								local O = tonumber(((Vector2.new(s.X, s.Y) - F)).Magnitude) or 0
+								if O < f then
+									f = O
+									D = e.Character
+								end
+							end
+						end
+					end
+				end
+			end
+			if D then
+				iA = D
+				o = true
+				Y = D
+			end
+		end
+		if iA then
+			local D = Z:FindFirstChild("Animations") and Z.Animations:FindFirstChild("Throw")
+			if D then
+				local f = F:FindFirstChild("Animator")
+				if f then
+					local F = f:LoadAnimation(D)
+					F:Play()
+				end
+			end
+		end
+	end)
+end
+if U.Character then
+	sO(U.Character)
+end
+U.CharacterAdded:Connect(sO)
+local rO = function(D)
+	if not D then
+		if hA then
+			hA:Destroy()
+			hA = nil
+		end
+		return
+	end
+	if iA then
+		if not hA then
+			hA = Instance.new("Highlight")
+		end
+		hA.Adornee = iA
+		hA.Parent = iA
+		hA.FillTransparency = 1
+		hA.OutlineColor = o and Color3.new(0, 0, 0) or Color3.fromRGB(255, 255, 255)
+		hA.OutlineTransparency = 0
+		if qbVision and qbVision.Value then
+			hA.FillTransparency = 0.75
+			hA.FillColor = Color3.fromRGB(0, 255, 100)
+			hA.OutlineColor = Color3.fromRGB(0, 255, 100)
+		end
+	elseif hA then
+		hA:Destroy()
+		hA = nil
+	end
+end
+workspace.ChildAdded:Connect(function(D)
+	if not enableQbAimbot.Value then
+		return
+	end
+	if D:IsA("BasePart") and D.Name == "Football" then
+		task.wait()
+		local f = U.Character
+		local F = f and f:FindFirstChild("Head")
+		if not F then
+			return
+		end
+		if D:GetAttribute("LocalAimbotBall") or ((D.Position - F.Position)).Magnitude < 15 then
+			local D = Instance.new("Attachment", workspace.Terrain)
+			local f = Instance.new("Attachment", workspace.Terrain)
+			local O = Instance.new("Beam")
+			O.Attachment0 = D
+			O.Attachment1 = f
+			O.Segments = 7500
+			O.Width0 = 1
+			O.Width1 = 1
+			O.FaceCamera = true
+			O.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
+			O.Transparency = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 1);
+				NumberSequenceKeypoint.new(.01, 0);
+				NumberSequenceKeypoint.new(1, 0)
+			})
+			O.Parent = workspace.Terrain
+			local s = Instance.new("Part", workspace.Terrain)
+			s.Anchored = true
+			s.CanCollide = false
+			s.CastShadow = false
+			s.Size = Vector3.new(3, 3, 3)
+			s.Shape = Enum.PartType.Ball
+			s.Color = Color3.fromRGB(0, 0, 0)
+			local r = XA or Vector3.new(0, 1, 0)
+			local e = math.max(tonumber(pA) or .1, .1)
+			local v, a, H, b = FO(Vector3.new(0, - 28, 0), r, F.Position + (r.Unit * 5), e)
+			O.CurveSize0 = v
+			O.CurveSize1 = a
+			D.WorldCFrame = H
+			f.WorldCFrame = b
+			s.Position = Vector3.new(b.X, b.Y, b.Z)
+			task.delay(e, function()
+				O:Destroy()
+				D:Destroy()
+				f:Destroy()
+				s:Destroy()
+			end)
+		end
+	end
+end)
+R.RenderStepped:Connect(function()
+	if not enableQbAimbot.Value then
+		ZA(false)
+		rO(false)
+		if TA then
+			TA.Enabled = false
+		end
+		if gA then
+			gA.Position = Vector3.new(0, - 9999, 0)
+		end
+		if CA then
+			CA.WorldPosition = Vector3.new(0, - 9999, 0)
+		end
+		if cA then
+			cA.WorldPosition = Vector3.new(0, - 9999, 0)
+		end
+		iA = nil
+		return
+	end
+	if not kA or not kA.Parent then
+		return
+	end
+	local D = U.Character
+	if not D then
+		return
+	end
+	local f = D:FindFirstChild("Head")
+	local F = D:FindFirstChild("HumanoidRootPart")
+	if not f or not F then
+		return
+	end
+	local O = D:FindFirstChild("Football")
+	local s = (O ~= nil)
+	if s then
+		O:SetAttribute("LocalAimbotBall", true)
+		local D = O:FindFirstChild("Handle")
+		if D then
+			D:SetAttribute("LocalAimbotBall", true)
+		end
+	end
+	local r = U:WaitForChild("PlayerGui", 10)
+	local e = r and r:FindFirstChild("BallGui")
+	if autoJuke.Value and (s and e) then
+		local f = Vector3.zero
+		local O = workspace:FindFirstChild("Models")
+		if O then
+			O = O:FindFirstChild("Field")
+		end
+		if O then
+			O = O:FindFirstChild("Ground")
+		end
+		if O then
+			f = O.Position
+		end
+		local s = f.X - (77.5)
+		local r = f.X + (77.5)
+		local e = f.Z - (177.5)
+		local v = f.Z + (177.5)
+		local a = Vector3.zero
+		local H = 0
+		local b = I:GetPlayers()
+		local t = 0
+		pcall(function()
+			t = tonumber(# (game:GetService("Teams")):GetTeams()) or 0
+		end)
+		for D = 1, # b, 1 do
+			local f = b[D]
+			if f ~= U and f.Character then
+				local D = true
+				if t > 1 and (U.Team ~= nil and (f.Team ~= nil and U.Team == f.Team)) then
+					D = false
+				end
+				if D then
+					local D = f.Character:FindFirstChild("HumanoidRootPart")
+					if D then
+						local f = tonumber(((D.Position - F.Position)).Magnitude) or 0
+						if f < 45 then
+							local O = D.AssemblyLinearVelocity or D.Velocity or Vector3.zero
+							local s = tonumber((Vector3.new(O.X, 0, O.Z)).Magnitude) or 0
+							local r = f / math.max(s, 1)
+							local e = math.min(r, 1)
+							local v = D.Position + (O * e)
+							local b = F.AssemblyLinearVelocity or F.Velocity or Vector3.zero
+							local t = F.Position + (b * e)
+							local V = v - t
+							local i = tonumber((Vector3.new(V.X, 0, V.Z)).Magnitude) or 0
+							if i < 20 or f < 25 then
+								H = H + 1
+								local D = t - v
+								D = Vector3.new(D.X, 0, D.Z)
+								if D.Magnitude < .1 then
+									D = F.CFrame.RightVector
+								end
+								D = D.Unit
+								local O = math.clamp(45 - f, 0, 45)
+								a = a + (D * O)
+							end
+						end
+					end
+				end
+			end
+		end
+		local V = D:FindFirstChildOfClass("Humanoid")
+		if V then
+			local D = F.Position
+			local f = Vector3.zero
+			if D.X < s + 5 then
+				f = f + Vector3.new(1, 0, 0)
+			end
+			if D.X > r - 5 then
+				f = f + Vector3.new(- 1, 0, 0)
+			end
+			if D.Z < e + 5 then
+				f = f + Vector3.new(0, 0, 1)
+			end
+			if D.Z > v - 5 then
+				f = f + Vector3.new(0, 0, - 1)
+			end
+			local O = Vector3.zero
+			if H > 0 then
+				O = a.Unit
+				if f.Magnitude > 0 then
+					O = ((O + f * 2)).Unit
+				end
+			elseif f.Magnitude > 0 then
+				O = f.Unit
+			end
+			if O.Magnitude > 0 then
+				xA = xA:Lerp(O, .25)
+				V:Move(xA, false)
+			else
+				xA = Vector3.zero
+			end
+		end
+	end
+	local v = s and (e ~= nil)
+	if v then
+		if not hideCards.Value then
+			ZA(true)
+		else
+			ZA(false)
+		end
+		if not qA then
+			local D = YA()
+			if D then
+				dA = D
+			elseif dA and not dA:FindFirstChild("HumanoidRootPart") then
+				dA = nil
+			end
+			if throwAimbot.Value then
+				iA = dA
+				rO(false)
+				local D
+				if LA and KA then
+					D = KA
+				else
+					D = Q.Hit.Position
+					KA = D
+				end
+				local O = f.Position
+				local s = 28
+				local r, e = DO(O, D, s)
+				r = tonumber(r) or 95
+				e = tonumber(e) or 45
+				if autoPower.Value then
+					jA = math.clamp(r, 0, 95)
+				end
+				if autoAngle.Value then
+					NA = math.clamp(e, - 15, 90)
+				else
+					NA = math.clamp(tonumber(VA.Value) or 0, - 15, 90)
+				end
+				local v = tonumber(jA) or 60
+				local a = tonumber(NA) or 45
+				local H = tonumber(math.rad(a)) or 0
+				local b = Vector3.new(D.X - O.X, 0, D.Z - O.Z)
+				local t = b.Magnitude > .01 and b.Unit or F.CFrame.LookVector
+				local V = ((t * ((tonumber(math.cos(H)) or 1)) + Vector3.new(0, tonumber(math.sin(H)) or 0, 0))) * v
+				XA = V.Unit * v
+				local i = v * ((tonumber(math.cos(H)) or 1))
+				if i > .1 then
+					local f = tonumber((Vector3.new(D.X - O.X, 0, D.Z - O.Z)).Magnitude) or 0
+					pA = f / i
+				else
+					pA = 0
+				end
+				WA = D
+			else
+				iA = D or dA
+				rO(true)
+				if iA and F then
+					local D = iA:FindFirstChild("HumanoidRootPart")
+					if D then
+						if autoSelectThrowMode.Value then
+							local D = BA(iA)
+							for f = 1, # bA, 1 do
+								if bA[f] == D then
+									JA = f
+									break
+								end
+							end
+							local f = select(1, lA(iA))
+							if bA[JA] == "Bullet" and ((f == "go/fade" or f == "post/corner")) then
+								for D = 1, # bA, 1 do
+									if bA[D] == "Mag" then
+										JA = D
+										break
+									end
+								end
+							end
+						end
+						fO(D)
+					end
+				end
+			end
+		else
+			iA = nil
+			rO(false)
+		end
+		if autoChangePowerUI.Value then
+			if e and e:FindFirstChild("Frame0") then
+				local D = e.Frame0
+				local f = tonumber(jA) or 60
+				if f ~= f then
+					f = 60
+				end
+				local F = math.round(f / 5) * 5
+				local O = D:FindFirstChildOfClass("TextLabel")
+				if O then
+					O.Text = tostring(math.floor(F))
+				end
+				local s = D:GetChildren()
+				for D = 1, # s, 1 do
+					local f = s[D]
+					if f.Name ~= "Disp" then
+						local D = tonumber(f.Name) or 0
+						f.BackgroundTransparency = (((tonumber(D) or 0)) <= ((tonumber(F) or 0))) and 0 or .9
+					end
+				end
+			end
+		end
+		local D = tonumber(jA) or 60
+		if D ~= D then
+			D = 60
+		end
+		if E.Angle then
+			local D = (bA[JA] == "Bullet" or (iA and lA(iA) == "slant" or lA(iA) == "drag" or lA(iA) == "in/out" or lA(iA) == "flat" or lA(iA) == "hitch" or lA(iA) == "curl/comeback") or ((tonumber(jA) or 60)) == 95 or highPowerOnly.Value)
+			if not autoAngle.Value and not D then
+				E.Angle.Text = tostring(math.floor(tonumber(VA.Value) or 0))
+			else
+				E.Angle.Text = tostring(math.floor(tonumber(NA) or 45))
+			end
+		end
+		if E.Power then
+			E.Power.Text = string.format("%.0f", D)
+		end
+		if E.Airtime then
+			E.Airtime.Text = string.format("%.1fs", tonumber(pA) or 0)
+		end
+		if E["Throw Type"] then
+			E["Throw Type"].Text = tostring(bA[JA] or "N/A")
+		end
+		if E.Player then
+			if throwAimbot.Value then
+				E.Player.Text = "MOUSE"
+			else
+				E.Player.Text = tostring((iA and iA.Name) or "NONE")
+			end
+		end
+	else
+		ZA(false)
+		rO(false)
+		iA = nil
+		dA = nil
+	end
+	if TA and v then
+		TA.Enabled = true
+		local D = f.Position
+		local F = tonumber(jA) or 60
+		local O = XA or Vector3.new(0, 1, 0)
+		if throwAimbot.Value then
+			if ((tonumber(O.Magnitude) or 0)) < .1 then
+				O = Vector3.new(0, 1, 0) * F
+			end
+		elseif not iA or not WA then
+			local D = A:ScreenPointToRay(Q.X, Q.Y)
+			O = D.Direction.Unit * F
+			XA = O
+		else
+			if ((tonumber(O.Magnitude) or 0)) < .1 then
+				O = Vector3.new(0, 1, 0) * F
+			end
+		end
+		local s = math.max(tonumber(pA) or .1, .1)
+		local r, e, v, a = FO(Vector3.new(0, - 28, 0), O, D + (O.Unit * 5), s)
+		TA.CurveSize0 = r
+		TA.CurveSize1 = e
+		if CA and cA then
+			CA.WorldCFrame = v
+			cA.WorldCFrame = a
+			CA.WorldPosition = Vector3.new(v.X, v.Y, v.Z)
+			cA.WorldPosition = Vector3.new(a.X, a.Y, a.Z)
+			if gA then
+				gA.Position = Vector3.new(cA.WorldPosition.X, cA.WorldPosition.Y, cA.WorldPosition.Z)
+			end
+		end
+	else
+		if TA then
+			TA.Enabled = false
+		end
+		if gA then
+			gA.Position = Vector3.new(0, - 9999, 0)
+		end
+		if CA then
+			CA.WorldPosition = Vector3.new(0, - 9999, 0)
+		end
+		if cA then
+			cA.WorldPosition = Vector3.new(0, - 9999, 0)
+		end
+	end
+end)
+local eO = k:CreateTab({
+	Name = "Catching",
+	Icon = "rbxassetid://6034227067"
+})
+footballMagnets = eO:CreateToggle({
+	Name = "Enable Football Magnets";
+	Default = false;
+	Tip = "Automatically pulls nearby footballs into catch range."
+})
+freeFallCheck = eO:CreateToggle({
+	Name = "Magnets Freefall Check",
+	Default = false;
+	Tip = "Only activates football magnets while the ball is airborne."
+})
+showCatchHitbox = eO:CreateToggle({
+	Name = "Show Magnets Radius",
+	Default = false;
+	Tip = "Displays the football magnets catch radius."
+})
+magnetsRadius = eO:CreateSlider({
+	Name = "Magnets Catch Distance",
+	Min = 0;
+	Max = 25;
+	Default = 0;
+	Increment = .1,
+	Suffix = "",
+	Tip = "Sets the maximum distance footballs can be caught from."
+})
+magnetsDelay = eO:CreateSlider({
+	Name = "Magnets Catch Delay",
+	Min = 0;
+	Max = 1;
+	Default = 0,
+	Increment = .1,
+	Suffix = "";
+	Tip = "Sets the delay before football magnets activate."
+})
+magsType = eO:CreateDropdown({
+	Name = "Magnets Type";
+	Options = {
+		"Custom";
+		"Blatant";
+		"League";
+		"Legit"
+	},
+	Default = "Custom";
+	Tip = "Selects the football magnets behavior preset."
+})
+local vO = (game:GetService("Players")).LocalPlayer
+local aO = Instance.new("Part")
+aO.Color = Color3.fromRGB(255, 255, 255)
+aO.Shape = Enum.PartType.Ball
+aO.Material = Enum.Material.ForceField
+aO.CastShadow = false
+aO.Anchored = true
+aO.CanCollide = false
+local HO = function()
+	local D = vO.Character
+	if not D then
+		return
+	end
+	local f = D:FindFirstChild("HumanoidRootPart")
+	if not f then
+		return
+	end
+	local F = math.huge
+	local O = nil
+	for D, s in next, workspace:GetChildren() do
+		repeat
+			if not s:IsA("BasePart") then
+				break
+			end
+			if s.Name ~= "Football" then
+				break
+			end
+			local D = ((s.Position - f.Position)).Magnitude
+			if D < F then
+				F = D
+				O = s
+			end
+		until true
+	end
+	return O
+end
+local bO = function()
+	local D = tonumber(magnetsRadius.Value) or 0
+	local f = (tostring(magsType.Value or "Custom")):lower()
+	if f == "legit" then
+		return D / 2
+	elseif f == "league" then
+		return D / 1.4
+	elseif f == "blatant" then
+		return D * 1.5
+	end
+	return D
+end
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			if not f then
+				break
+			end
+			local F = HO()
+			if not F then
+				break
+			end
+			local O = bO()
+			aO.Size = Vector3.new(O, O, O)
+			aO.CFrame = CFrame.new(F.Position)
+			aO.Parent = ((footballMagnets.Value and showCatchHitbox.Value)) and workspace.Terrain or nil
+			for D, s in next, D:GetChildren() do
+				repeat
+					if not s:IsA("BasePart") then
+						break
+					end
+					if not (s.Name:lower()):find("catch") then
+						break
+					end
+					local D = ((F.Position - s.Position)).Magnitude
+					if freeFallCheck.Value and f:GetState() ~= Enum.HumanoidStateType.Freefall then
+						break
+					end
+					if footballMagnets.Value and D < O then
+						(P:Create(s, TweenInfo.new(magnetsDelay.Value), {
+							Position = F.Position
+						})):Play()
+						pcall(function()
+							firetouchinterest(s, F, 0)
+							firetouchinterest(s, F, 1)
+						end)
+					end
+				until true
+			end
+		until true
+	end
+end)
+eO:CreateDivider()
+magEnhancer = eO:CreateToggle({
+	Name = "Enable Mag Enhancer";
+	Default = false,
+	Tip = "Enhances catches on footballs already within range."
+})
+magEnhancerRadius = eO:CreateSlider({
+	Name = "Mag Catch Distance",
+	Min = 0;
+	Max = 25;
+	Default = 0;
+	Increment = .1;
+	Suffix = "",
+	Tip = "Sets the maximum distance the enhancer can assist catches."
+})
+magEnhancerMaxAngle = eO:CreateSlider({
+	Name = "Mag Max Angle",
+	Min = 50;
+	Max = 70,
+	Default = 50;
+	Increment = .1;
+	Suffix = "";
+	Tip = "Sets the maximum catch angle the enhancer can assist."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait(.1)
+			if not magEnhancer.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChild("HumanoidRootPart")
+			if not f then
+				break
+			end
+			local F = HO()
+			if not F then
+				break
+			end
+			local O = F.Position.Y - f.Position.Y
+			if O > magEnhancerMaxAngle.Value then
+				break
+			end
+			local s = f.CFrame.LookVector
+			local r = ((F.Position - f.Position)).Unit
+			local e = s:Dot(r)
+			for D, f in next, D:GetChildren() do
+				repeat
+					if not f:IsA("BasePart") then
+						break
+					end
+					if not (f.Name:lower()):find("catch") then
+						break
+					end
+					local D = ((F.Position - f.Position)).Magnitude
+					if e > 0 and D <= magEnhancerRadius.Value then
+						(P:Create(f, TweenInfo.new(0), {
+							Position = F.Position
+						})):Play()
+						pcall(function()
+							firetouchinterest(f, F, 0)
+							firetouchinterest(f, F, 1)
+						end)
+					end
+				until true
+			end
+		until true
+	end
+end)
+eO:CreateDivider()
+pullVector = eO:CreateToggle({
+	Name = "Enable Pull Vector",
+	Default = false;
+	Tip = "Pulls nearby footballs toward your catch position."
+})
+pullVectorRadius = eO:CreateSlider({
+	Name = "Pull Vector Radius";
+	Min = 0;
+	Max = 45;
+	Default = 0,
+	Increment = .1,
+	Suffix = "",
+	Tip = "Sets the maximum distance footballs can be pulled from."
+})
+pullVectorPower = eO:CreateSlider({
+	Name = "Pull Vector Power";
+	Min = 0;
+	Max = 5,
+	Default = 0,
+	Increment = .1,
+	Suffix = "";
+	Tip = "Controls how strongly footballs are pulled toward you."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not pullVector.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChild("HumanoidRootPart")
+			if not f then
+				break
+			end
+			local F = HO()
+			if not F then
+				break
+			end
+			local O = ((F.Position - f.Position)).Magnitude
+			if O > pullVectorRadius.Value then
+				break
+			end
+			local s = ((F.Position - f.Position)).Unit
+			f.AssemblyLinearVelocity = s * ((pullVectorPower.Value * 25))
+		until true
+	end
+end)
+eO:CreateDivider()
+increaseArmSize = eO:CreateToggle({
+	Name = "Increase Arm Size";
+	Default = false;
+	Tip = "Increases arm size to improve catch reach."
+})
+armSizeValue = eO:CreateSlider({
+	Name = "Arm Size Value",
+	Min = 2;
+	Max = 25,
+	Default = 2;
+	Increment = .1,
+	Suffix = "";
+	Tip = "Sets the size applied to both arms."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			local D = vO.Character
+			if not D then
+				break
+			end
+			for D, f in next, D:GetChildren() do
+				repeat
+					if not f:IsA("BasePart") then
+						break
+					end
+					if not (f.Name:lower()):find("t arm") then
+						break
+					end
+					f.Size = Vector3.new(f.Size.X, increaseArmSize.Value and armSizeValue.Value or 2, f.Size.Z)
+				until true
+			end
+		until true
+	end
+end)
+local tO = k:CreateTab({
+	Name = "Player";
+	Icon = "rbxassetid://103807548355126"
+})
+customWalkSpeed = tO:CreateToggle({
+	Name = "Custom WalkSpeed",
+	Default = false,
+	Tip = "Overrides your character movement speed."
+})
+walkSpeedValue = tO:CreateSlider({
+	Name = "WalkSpeed Value",
+	Min = 20,
+	Max = 23,
+	Default = 20,
+	Increment = .1;
+	Suffix = "";
+	Tip = "Sets the movement speed value."
+})
+walkspeedType = tO:CreateDropdown({
+	Name = "WalkSpeed Type";
+	Options = {
+		"Normal",
+		"CFrame"
+	};
+	Default = "Normal",
+	Tip = "Selects how movement speed is applied."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not customWalkSpeed.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			if not f then
+				break
+			end
+			if f.PlatformStand then
+				break
+			end
+			if f.WalkSpeed == 0 then
+				break
+			end
+			local F = D:FindFirstChild("HumanoidRootPart")
+			if not F then
+				break
+			end
+			local O = Vector3.new(f.MoveDirection.X, 0, f.MoveDirection.Z)
+			if O.Magnitude <= 0 then
+				break
+			end
+			local s = O.Unit * ((walkspeedType.Value == "CFrame" and (walkSpeedValue.Value / 75) or walkSpeedValue.Value))
+			if f:GetState() == Enum.HumanoidStateType.Running then
+				local D = walkSpeedValue.Value / math.max(f.WalkSpeed, 1)
+				local F = f:FindFirstChildOfClass("Animator")
+				if F then
+					for f, F in next, F:GetPlayingAnimationTracks() do
+						F:AdjustSpeed(D)
+					end
+				end
+			end
+			if walkspeedType.Value ~= "CFrame" then
+				F.AssemblyLinearVelocity = Vector3.new(s.X, F.AssemblyLinearVelocity.Y, s.Z)
+			else
+				F.CFrame = F.CFrame + s
+			end
+		until true
+	end
+end)
+tO:CreateDivider()
+customJumpPower = tO:CreateToggle({
+	Name = "Custom JumpPower",
+	Default = false;
+	Tip = "Overrides your character jump power."
+})
+jumpPowerValue = tO:CreateSlider({
+	Name = "JumpPower Value";
+	Min = 50;
+	Max = 70;
+	Default = 50,
+	Increment = .1;
+	Suffix = "",
+	Tip = "Sets the custom jump power."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not customJumpPower.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			if not f then
+				break
+			end
+			local F = D:FindFirstChild("HumanoidRootPart")
+			if not F then
+				break
+			end
+			if f:GetState() ~= Enum.HumanoidStateType.Jumping then
+				break
+			end
+			task.wait()
+			F.AssemblyLinearVelocity = Vector3.new(F.AssemblyLinearVelocity.X, jumpPowerValue.Value, F.AssemblyLinearVelocity.Z)
+		until true
+	end
+end)
+tO:CreateDivider()
+angleEnhancer = tO:CreateToggle({
+	Name = "Angle Enhancer",
+	Default = false,
+	Tip = "Boosts jump height when directional look changes while jumping."
+})
+angleEnhancerIndicator = tO:CreateToggle({
+	Name = "Angle Enhancer Indicator",
+	Default = false;
+	Tip = "Showsa notification when an angle boost is triggered."
+})
+autoFlip = tO:CreateToggle({
+	Name = "Auto Flip Before Landing";
+	Default = false,
+	Tip = "Automatically adjusts player orientation before landing."
+})
+angleEnhanceBoost = tO:CreateSlider({
+	Name = "Angle Boost Value",
+	Min = 50;
+	Max = 70,
+	Default = 50,
+	Increment = .1,
+	Suffix = "";
+	Tip = "Sets the vertical velocity applied during angle boost."
+})
+local VO = 0
+local iO = nil
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not angleEnhancer.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				iO = nil
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			local F = D:FindFirstChild("HumanoidRootPart")
+			if not f or not F then
+				iO = nil
+				break
+			end
+			if f:GetState() ~= Enum.HumanoidStateType.Jumping then
+				break
+			end
+			local O = tick()
+			local s = F.CFrame.LookVector
+			if not iO then
+				iO = s
+				VO = O
+				break
+			end
+			local r = math.acos(math.clamp(iO:Dot(s), - 1, 1))
+			local e = u.MouseBehavior == Enum.MouseBehavior.LockCenter
+			if O - VO >= .2 and r > math.rad(5) then
+				VO = O
+				iO = s
+			end
+			if r > math.rad(25) and O - VO <= 2.5 then
+				VO = O
+				iO = s
+				task.wait()
+				local D = F.AssemblyLinearVelocity
+				F.AssemblyLinearVelocity = Vector3.new(D.X, angleEnhanceBoost.Value, D.Z)
+				if angleEnhancerIndicator.Value and ((e or true)) then
+					local D = Instance.new("Hint")
+					D.Text = "Angled!"
+					D.Parent = workspace.Terrain
+					task.delay(2.5, function()
+						if D then
+							D:Destroy()
+						end
+					end)
+				end
+			end
+		until true
+	end
+end)
+local dO, WO, hO = 0, 0, 0
+local XO, jO, NO, pO = false, nil, false, false
+local LO = 0
+local qO = nil
+local yO = function(D)
+	local f = Vector3.new(D.X, 0, D.Z)
+	return f.Magnitude > .001 and f.Unit or nil
+end
+local JO = function()
+	if not qO then
+		return
+	end
+	for D, f in next, {
+		qO.spin;
+		qO.ra,
+		qO.pivot,
+		qO.ha
+	} do
+		if f then
+			f:Destroy()
+		end
+	end
+	qO = nil
+end
+local xO = function(D, f)
+	JO()
+	local F = math.max(D.AssemblyMass, 1)
+	local O = Instance.new("Attachment")
+	O.Parent = f
+	local s = Instance.new("AlignPosition")
+	s.Mode = Enum.PositionAlignmentMode.OneAttachment
+	s.Attachment0 = O
+	s.Position = f.Position + Vector3.new(0, .15, 0)
+	s.MaxForce = 180000
+	s.Responsiveness = 120
+	s.RigidityEnabled = false
+	s.ApplyAtCenterOfMass = false
+	s.Parent = f
+	local r = Instance.new("Attachment")
+	r.Parent = D
+	local e = Instance.new("AngularVelocity")
+	e.Attachment0 = r
+	e.RelativeTo = Enum.ActuatorRelativeTo.Attachment0
+	e.AngularVelocity = Vector3.new(- 9, 0, 0)
+	e.MaxTorque = 50000
+	e.Parent = D
+	D:ApplyAngularImpulse(D.CFrame.RightVector * ((- 16 * F)))
+	qO = {
+		ha = O,
+		pivot = s,
+		ra = r;
+		spin = e
+	}
+end
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not autoFlip.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				JO()
+				XO, jO, NO, pO = false, nil, false, false
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			local F = D:FindFirstChild("HumanoidRootPart")
+			local O = D:FindFirstChild("Head")
+			if not f or not F or not O then
+				break
+			end
+			local s = tick()
+			if f:GetState() == Enum.HumanoidStateType.Running then
+				dO = s
+			end
+			if f:GetState() == Enum.HumanoidStateType.Jumping then
+				WO = s
+			end
+			local r = f.PlatformStand
+			if r ~= pO then
+				if r then
+					XO = (s - dO <= .5) and (s - WO <= .7)
+					jO = yO(F.AssemblyLinearVelocity) or yO(F.CFrame.LookVector)
+					NO = false
+				else
+					XO, jO, NO = false, nil, false
+					LO = LO + 1
+					JO()
+				end
+				pO = r
+			end
+			if not r or not XO or qO then
+				break
+			end
+			local e = RaycastParams.new()
+			e.FilterType = Enum.RaycastFilterType.Exclude
+			e.FilterDescendantsInstances = {
+				D
+			}
+			local v = workspace:Raycast(O.Position, Vector3.new(0, - 3, 0), e)
+			local a = v and v.Instance ~= nil
+			if NO or not a or s - hO < .12 then
+				break
+			end
+			local H = v and ((O.Position - v.Position)).Magnitude or math.huge
+			if H > 1.6 then
+				break
+			end
+			local b = yO(F.AssemblyLinearVelocity) or jO
+			local t = yO(F.CFrame.LookVector)
+			if not b or not t or t:Dot(b) < .78 then
+				break
+			end
+			hO = s
+			NO = true
+			LO = LO + (1)
+			local V = LO
+			xO(F, O)
+			task.delay(.24, function()
+				if V == LO then
+					JO()
+				end
+			end)
+		until true
+	end
+end)
+tO:CreateDivider()
+tO:CreateButton({
+	Name = "Unlock All Gamepass";
+	Tip = "Enables all gamepass-related checks locally.",
+	Callback = function()
+		local D = game:GetService("ReplicatedFirst")
+		local f
+		local F = pcall(function()
+			f = require(D:FindFirstChild("LocalSave"))
+		end)
+		if not F or not f then
+			return
+		end
+		f.PlayerOwnsPass = function(D, f)
+			return true
+		end
+	end
+})
+local KO = k:CreateTab({
+	Name = "Physics";
+	Icon = "rbxassetid://11537490966"
+})
+local SO = {}
+if not l then
+	for D, f in next, workspace.Models.Boundaries:GetChildren() do
+		SO[# SO + 1] = f
+	end
+end
+antiBoundaries = KO:CreateToggle({
+	Name = "Anti OOB",
+	Default = false,
+	Tip = "Prevents players from triggering out-of-bounds zones.";
+	Callback = function(D)
+		for f, F in next, SO do
+			if F then
+				F.Parent = not D and workspace.Models.Boundaries or nil
+			end
+		end
+	end
+})
+antiBench = KO:CreateToggle({
+	Name = "Anti Bench";
+	Default = false;
+	Tip = "Prevents automatic benching."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not antiBench.Value then
+				break
+			end
+			local D = vO:FindFirstChild("PlayerGui")
+			if not D then
+				break
+			end
+			local f = D:FindFirstChild("Benched", true)
+			if not f then
+				break
+			end
+			if f.BackgroundColor3 == Color3.fromRGB(120, 120, 120) then
+				Z.Remotes.CharacterSoundEvent:FireServer("Game", "ToggleBench")
+			end
+		until true
+	end
+end)
+KO:CreateDivider()
+antiJam = KO:CreateToggle({
+	Name = "Anti Jam",
+	Default = false;
+	Tip = "Reduces player collision while moving."
+})
+antiJumpCooldown = KO:CreateToggle({
+	Name = "Anti Jump Cooldown",
+	Default = false,
+	Tip = "Removes the delay between jumps."
+})
+antiFreeze = KO:CreateToggle({
+	Name = "Anti Freeze",
+	Default = false;
+	Tip = "Prevents movement speed from being reduced."
+})
+task.spawn(function()
+	while true do
+		task.wait()
+		if antiJumpCooldown.Value then
+			vO.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+		end
+		if antiFreeze.Value then
+			if vO.Character.Humanoid.WalkSpeed ~= 20 then
+				vO.Character.Humanoid.WalkSpeed = 20
+			end
+		end
+		for D, f in next, I:GetPlayers() do
+			repeat
+				if f == vO then
+					break
+				end
+				local D = f.Character
+				if not D then
+					break
+				end
+				local F = D:FindFirstChildOfClass("Humanoid")
+				if not F then
+					break
+				end
+				for D, f in next, D:GetChildren() do
+					repeat
+						if not f:IsA("BasePart") then
+							break
+						end
+						if f.Name == "Head" or f.Name == "Torso" then
+							if F:GetState() == Enum.HumanoidStateType.Running then
+								f.CanCollide = not antiJam.Value
+							else
+								f.CanCollide = true
+							end
+						end
+					until true
+				end
+			until true
+		end
+	end
+end)
+antiBlock = KO:CreateToggle({
+	Name = "Anti Block",
+	Default = false;
+	Tip = "Reduces player collision while moving."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not antiBlock.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			if not f then
+				break
+			end
+			for D, F in next, D:GetDescendants() do
+				repeat
+					if not F:IsA("BodyVelocity") then
+						break
+					end
+					F.Velocity = Vector3.zero
+					F.MaxForce = Vector3.zero
+					f.WalkSpeed = 20
+					pcall(function()
+						F:Destroy()
+					end)
+				until true
+			end
+		until true
+	end
+end)
+KO:CreateDivider()
+quickTP = KO:CreateToggle({
+	Name = "Quick TP";
+	Default = false,
+	Tip = "Teleports forward in the direction you are facing."
+})
+quickTPPower = KO:CreateSlider({
+	Name = "Quick TP Power",
+	Min = 0,
+	Max = 5;
+	Default = 0,
+	Increment = .1,
+	Suffix = "",
+	Tip = "Sets the teleport distance."
+})
+HideKeybind = KO:CreateKeybind({
+	Name = "Quick TP Keybind";
+	Default = Enum.KeyCode.Q;
+	Tip = "Key used to activate Quick TP."
+})
+u.InputBegan:Connect(function(D, f)
+	if f then
+		return
+	end
+	if not quickTP.Value then
+		return
+	end
+	if D.KeyCode ~= HideKeybind.Value and D.UserInputType ~= Enum.UserInputType.Touch then
+		return
+	end
+	local F = vO.Character
+	if not F then
+		return
+	end
+	local O = F:FindFirstChild("HumanoidRootPart")
+	if not O then
+		return
+	end
+	O.CFrame = O.CFrame + (O.CFrame.LookVector * quickTPPower.Value)
+end)
+KO:CreateDivider()
+bigHead = KO:CreateToggle({
+	Name = "Big Head Players";
+	Default = false,
+	Tip = "Increases the size of other players heads."
+})
+bigHeadSize = KO:CreateSlider({
+	Name = "Big Head Size",
+	Min = 1,
+	Max = 6,
+	Default = 1;
+	Increment = .1,
+	Suffix = "",
+	Tip = "Sets the size applied to player heads."
+})
+task.spawn(function()
+	while true do
+		task.wait()
+		for D, f in next, I:GetPlayers() do
+			repeat
+				if f == vO then
+					break
+				end
+				local D = f.Character
+				if not D then
+					break
+				end
+				local F = D:FindFirstChild("Head")
+				if not F then
+					break
+				end
+				F.Size = Vector3.new(bigHead.Value and bigHeadSize.Value or 1, bigHead.Value and bigHeadSize.Value or 1, bigHead.Value and bigHeadSize.Value or 1)
+			until true
+		end
+	end
+end)
+local nO = k:CreateTab({
+	Name = "Visual";
+	Icon = "rbxassetid://88610077537468"
+})
+jumpSpot = nO:CreateToggle({
+	Name = "Visualise Football Jump Spot";
+	Default = false;
+	Tip = "Displays the predicted jump location of incoming footballs."
+})
+workspace.ChildAdded:Connect(function(D)
+	if not jumpSpot.Value then
+		return
+	end
+	if not D:IsA("BasePart") or D.Name ~= "Football" then
+		return
+	end
+	task.wait()
+	local f = D.Position
+	local F = D.AssemblyLinearVelocity
+	local O = Vector3.new(0, - 28, 0)
+	local s = .033333333333333333
+	local r = {
+		f
+	}
+	local e = RaycastParams.new()
+	e.FilterType = Enum.RaycastFilterType.Exclude
+	e.FilterDescendantsInstances = {
+		D
+	}
+	e.IgnoreWater = true
+	for D = 1, 300, 1 do
+		local v = (f + F * s) + (.5 * O) * s ^ 2
+		F = F + (O * s)
+		if F.Y < 0 then
+			local D = v - f
+			local F = workspace:Raycast(f, D + Vector3.new(0, - 14.4, 0), e)
+			if F then
+				v = F.Position
+				table.insert(r, v)
+				break
+			end
+		end
+		table.insert(r, v)
+		f = v
+	end
+	local v = r[# r]
+	local a = Instance.new("Model")
+	a.Parent = workspace
+	local H = v.Y - 1.5
+	local b = H - 6
+	local t = Instance.new("MeshPart")
+	t.MeshId = "rbxassetid://8091779363"
+	t.Material = Enum.Material.Plastic
+	t.Size = Vector3.new(2, 4, 2)
+	t.Rotation = Vector3.new(180, 0, 180)
+	t.Transparency = 1
+	t.Anchored = true
+	t.CanCollide = false
+	t.Position = Vector3.new(v.X, b, v.Z)
+	t.Parent = a
+	local V = {
+		Enum.NormalId.Front;
+		Enum.NormalId.Back,
+		Enum.NormalId.Left;
+		Enum.NormalId.Right
+	}
+	for D, f in next, V do
+		local F = Instance.new("Decal")
+		F.Face = f
+		F.Texture = "rbxassetid://8097185954"
+		F.Transparency = 0
+		F.Color3 = Color3.fromRGB(255, 255, 255)
+		F.Parent = t
+	end
+	local i = Instance.new("MeshPart")
+	i.MeshId = "rbxassetid://8091848285"
+	i.Material = Enum.Material.Neon
+	i.Color = Color3.fromRGB(255, 255, 255)
+	i.Size = Vector3.new(3.731, .031, 3.731)
+	i.Rotation = Vector3.new(180, 0, 180)
+	i.Transparency = 1
+	i.Anchored = true
+	i.CanCollide = false
+	i.Position = Vector3.new(v.X, b, v.Z)
+	i.Parent = a
+	local d = Instance.new("ParticleEmitter")
+	d.Texture = "rbxasset://textures/particles/sparkles_main.dds"
+	d.Rate = 5
+	d.Speed = NumberRange.new(5, 5)
+	d.Lifetime = NumberRange.new(.5, .5)
+	d.EmissionDirection = Enum.NormalId.Top
+	d.TimeScale = .3
+	d.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
+	d.Parent = t
+	local W = Instance.new("Part")
+	W.Size = Vector3.new(.311, .311, .311)
+	W.Transparency = 1
+	W.Material = Enum.Material.Plastic
+	W.Anchored = true
+	W.CanCollide = false
+	W.Position = Vector3.new(v.X, b, v.Z)
+	W.Parent = a
+	local h = Instance.new("PointLight")
+	h.Color = Color3.fromRGB(255, 255, 255)
+	h.Range = 12
+	h.Brightness = 2
+	h.Parent = W
+	local X = TweenInfo.new(.55, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	local j = {
+		Position = Vector3.new(v.X, H, v.Z)
+	}
+	local N = {
+		Position = Vector3.new(v.X, b, v.Z)
+	}
+	local p = {
+		P:Create(t, X, j);
+		P:Create(i, X, j);
+		P:Create(W, X, j)
+	}
+	for D, f in next, p do
+		f:Play()
+	end
+	task.spawn(function()
+		while D and (D.Parent and D.AssemblyLinearVelocity.Magnitude > 1) do
+			task.wait()
+		end
+		local f = {
+			P:Create(t, X, N);
+			P:Create(i, X, N),
+			P:Create(W, X, N)
+		}
+		for D, f in next, f do
+			f:Play()
+		end
+		task.wait(.4)
+		if a.Parent then
+			a:Destroy()
+		end
+	end)
+end)
+throwSpot = nO:CreateToggle({
+	Name = "Visualise Football Throw Spot",
+	Default = false,
+	Tip = "Shows the predicted landing point of thrown footballs."
+})
+workspace.ChildAdded:Connect(function(D)
+	if not throwSpot.Value then
+		return
+	end
+	if not D:IsA("BasePart") or D.Name ~= "Football" then
+		return
+	end
+	task.wait()
+	local f = D.Position
+	local F = D.AssemblyLinearVelocity
+	local O = Vector3.new(0, - 28, 0)
+	local s = {}
+	local r = {}
+	local e = .05
+	local v = 8
+	local a = f
+	local H = f.Y
+	for D = 0, v, e do
+		local r = (f + (F * D)) + (((.5 * O) * D) * D)
+		table.insert(s, r)
+		if r.Y < H then
+			break
+		end
+		local e = workspace:Raycast(a, r - a)
+		if e then
+			s[# s] = e.Position
+			break
+		end
+		a = r
+	end
+	local b = s[# s]
+	if not b then
+		return
+	end
+	local t = Instance.new("Part", workspace.Terrain)
+	t.Anchored = true
+	t.CanCollide = false
+	t.CastShadow = false
+	t.Size = Vector3.new(3, 3, 3)
+	t.Shape = Enum.PartType.Ball
+	t.Color = Color3.fromRGB(0, 0, 0)
+	t.Position = b
+	for D = 1, # s - 1, 1 do
+		local f = s[D]
+		local F = s[D + 1]
+		local O = Instance.new("Part", workspace.Terrain)
+		O.Anchored = true
+		O.CanCollide = false
+		O.CastShadow = false
+		O.Material = Enum.Material.Neon
+		O.Color = Color3.fromRGB(255, 255, 255)
+		local e = ((F - f)).Magnitude
+		O.Size = Vector3.new(.4, .4, e)
+		O.CFrame = CFrame.lookAt(((f + F)) / 2, F)
+		table.insert(r, O)
+	end
+	task.spawn(function()
+		local D = math.max(F.Magnitude, 1)
+		local f = math.clamp(300 / D, .01, .04)
+		for D, F in next, r do
+			task.wait(f)
+			if F.Parent then
+				F:Destroy()
+			end
+		end
+		if t.Parent then
+			t:Destroy()
+		end
+	end)
+end)
+nO:CreateDivider()
+enableGloves = nO:CreateToggle({
+	Name = "Enable Uniform Gloves";
+	Default = true,
+	Tip = "Toggles visibility of uniform gloves."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChild("Uniform")
+			if not f then
+				break
+			end
+			local F
+			for D, f in next, f:GetDescendants() do
+				repeat
+					if not f:IsA("BasePart") then
+						break
+					end
+					if not (f.Name:lower()):find("glove") then
+						break
+					end
+					F = f.Transparency == 0
+					break
+				until true
+			end
+			if F == nil then
+				break
+			end
+			if enableGloves.Value and not F then
+				Z.Remotes.CharacterSoundEvent:FireServer("Game", "Customization", "Toggle", "LeftGlove")
+				Z.Remotes.CharacterSoundEvent:FireServer("Game", "Customization", "Toggle", "RightGlove")
+			elseif not enableGloves.Value and F then
+				Z.Remotes.CharacterSoundEvent:FireServer("Game", "Customization", "Toggle", "LeftGlove")
+				Z.Remotes.CharacterSoundEvent:FireServer("Game", "Customization", "Toggle", "RightGlove")
+			end
+		until true
+	end
+end)
+nO:CreateDivider()
+noBallTrail = nO:CreateToggle({
+	Name = "No Ball Trail",
+	Default = false,
+	Tip = "Removes football trail effects."
+})
+workspace.ChildAdded:Connect(function(D)
+	if not noBallTrail.Value then
+		return
+	end
+	if D:IsA("BasePart") and D.Name == "Football" then
+		local f = D:FindFirstChildOfClass("Trail")
+		if f then
+			f:Destroy()
+		end
+	end
+end)
+local CO = {}
+for D, f in next, workspace.Models.Stadium:GetDescendants() do
+	repeat
+		if not f:IsA("BasePart") then
+			break
+		end
+		CO[# CO + 1] = {
+			Part = f;
+			Transparency = f.Transparency;
+			CanCollide = f.CanCollide
+		}
+	until true
+end
+hideStadium = nO:CreateToggle({
+	Name = "Hide Stadium";
+	Default = false;
+	Tip = "Hides visible stadium structures.";
+	Callback = function(D)
+		for f, F in next, CO do
+			F.Part.Transparency = D and 1 or F.Transparency
+			F.Part.CanCollide = D and false or F.CanCollide
+		end
+	end
+})
+nO:CreateDivider()
+local cO = game:GetService("Lighting")
+local function TO(D)
+	for D, f in next, cO:GetChildren() do
+		if f:IsA("Sky") or f:IsA("PostEffect") or f:IsA("Atmosphere") then
+			f:Destroy()
+		end
+	end
+	if D == "Golden Twilight" then
+		local f = Instance.new("Sky")
+		f.Name = D
+		f.Parent = cO
+		f.SkyboxBk = "rbxassetid://541743453"
+		f.SkyboxDn = "rbxassetid://541743443"
+		f.SkyboxFt = "rbxassetid://541743446"
+		f.SkyboxLf = "rbxassetid://541743436"
+		f.SkyboxRt = "rbxassetid://541743435"
+		f.SkyboxUp = "rbxassetid://541743441"
+	elseif D == "Infernal Horizon" then
+		local f = Instance.new("Sky")
+		f.Name = D
+		f.Parent = cO
+		f.SkyboxBk = "http://www.roblox.com/asset/?id=169210090"
+		f.SkyboxDn = "http://www.roblox.com/asset/?id=169210108"
+		f.SkyboxFt = "http://www.roblox.com/asset/?id=169210121"
+		f.SkyboxLf = "http://www.roblox.com/asset/?id=169210133"
+		f.SkyboxRt = "http://www.roblox.com/asset/?id=169210143"
+		f.SkyboxUp = "http://www.roblox.com/asset/?id=169210149"
+		f.StarCount = 100
+		f.SunTextureId = " "
+		local F = Instance.new("BlurEffect")
+		F.Parent = cO
+		F.Size = 6
+		local O = Instance.new("ColorCorrectionEffect")
+		O.Parent = cO
+		O.Brightness = .01
+		O.Contrast = .15
+		O.Saturation = .4
+		O.TintColor = Color3.new(.815686, .776471, .690196)
+	elseif D == "Nebula Peaks" then
+		local f = Instance.new("Sky")
+		f.Name = D
+		f.Parent = cO
+		f.CelestialBodiesShown = false
+		f.SkyboxBk = "http://www.roblox.com/asset/?id=17124357467"
+		f.SkyboxDn = "http://www.roblox.com/asset/?id=17124359797"
+		f.SkyboxFt = "http://www.roblox.com/asset/?id=17124362093"
+		f.SkyboxLf = "http://www.roblox.com/asset/?id=17124365127"
+		f.SkyboxRt = "http://www.roblox.com/asset/?id=17124367200"
+		f.SkyboxUp = "http://www.roblox.com/asset/?id=17124369657"
+		local F = Instance.new("ColorCorrectionEffect")
+		F.Parent = cO
+		F.Brightness = .1
+		F.Contrast = .3
+		F.Saturation = .2
+		F.TintColor = Color3.fromRGB(140, 190, 255)
+		local O = Instance.new("BloomEffect")
+		O.Parent = cO
+		O.Intensity = 1.2
+		O.Threshold = .8
+		O.Size = 56
+		local s = Instance.new("Atmosphere")
+		s.Parent = cO
+		s.Density = .25
+		s.Offset = .2
+		s.Glare = .3
+		s.Haze = 1
+		s.Color = Color3.fromRGB(80, 110, 150)
+		s.Decay = Color3.fromRGB(25, 30, 35)
+	elseif D == "Rose Glow" then
+		local f = Instance.new("Sky")
+		f.Name = D
+		f.Parent = cO
+		f.CelestialBodiesShown = false
+		f.SkyboxBk = "http://www.roblox.com/asset/?id=109305193"
+		f.SkyboxDn = "http://www.roblox.com/asset?id=58372722"
+		f.SkyboxFt = "http://www.roblox.com/asset/?id=109305200"
+		f.SkyboxLf = "http://www.roblox.com/asset/?id=109305185"
+		f.SkyboxRt = "http://www.roblox.com/asset/?id=109305189"
+		f.SkyboxUp = "http://www.roblox.com/asset/?id=109305207"
+	elseif D == "Night Sky" then
+		local f = Instance.new("Sky")
+		f.Name = D
+		f.Parent = cO
+		f.CelestialBodiesShown = false
+		f.SkyboxBk = "http://www.roblox.com/Asset/?ID=12064107"
+		f.SkyboxDn = "http://www.roblox.com/Asset/?ID=12064152"
+		f.SkyboxFt = "http://www.roblox.com/Asset/?ID=12064121"
+		f.SkyboxLf = "http://www.roblox.com/Asset/?ID=12063984"
+		f.SkyboxRt = "http://www.roblox.com/Asset/?ID=12064115"
+		f.SkyboxUp = "http://www.roblox.com/Asset/?ID=12064131"
+		f.StarCount = 0
+	elseif D == "Northern Lights" then
+		local f = Instance.new("Sky")
+		f.Name = D
+		f.Parent = cO
+		f.CelestialBodiesShown = false
+		f.SkyboxBk = "http://www.roblox.com/asset/?id=16563478983"
+		f.SkyboxDn = "http://www.roblox.com/asset/?id=16563481302"
+		f.SkyboxFt = "http://www.roblox.com/asset/?id=16563484084"
+		f.SkyboxLf = "http://www.roblox.com/asset/?id=16563485362"
+		f.SkyboxRt = "http://www.roblox.com/asset/?id=16563487078"
+		f.SkyboxUp = "http://www.roblox.com/asset/?id=16563489821"
+	end
+end
+local gO = {
+	"Golden Twilight",
+	"Infernal Horizon",
+	"Nebula Peaks",
+	"Rose Glow",
+	"Night Sky";
+	"Northern Lights"
+}
+for D, f in next, gO do
+	nO:CreateButton({
+		Name = f,
+		Tip = "Applies the " .. (f .. " skybox."),
+		Callback = function()
+			TO(f)
+		end
+	})
+end
+local wO = k:CreateTab({
+	Name = "Defense";
+	Icon = "rbxassetid://14939023862"
+})
+swatReach = wO:CreateToggle({
+	Name = "Swat Reach",
+	Default = false,
+	Tip = "Extends swat range on nearby footballs."
+})
+swatReachDistance = wO:CreateSlider({
+	Name = "Swat Reach Radius",
+	Min = 0;
+	Max = 25,
+	Default = 0,
+	Increment = .1,
+	Suffix = "";
+	Tip = "Sets the maximum swat distance."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not swatReach.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = HO()
+			if not f then
+				break
+			end
+			for D, F in next, D:GetChildren() do
+				if F:IsA("BasePart") and (F.Name:lower()):find("catch") then
+					local D = ((f.Position - F.Position)).Magnitude
+					if D < swatReachDistance.Value then
+						if F.Size.X > 2 then
+							firetouchinterest(F, f, 0)
+							firetouchinterest(F, f, 1)
+						end
+					end
+				end
+			end
+		until true
+	end
+end)
+wO:CreateDivider()
+tackleReach = wO:CreateToggle({
+	Name = "Extend Tackle Reach",
+	Default = false;
+	Tip = "Extends tackle range against ball carriers."
+})
+tackleAimbot = wO:CreateToggle({
+	Name = "Tackle Aimbot";
+	Default = false;
+	Tip = "Automatically targets nearby ball carriers."
+})
+tackleAimbotRange = wO:CreateSlider({
+	Name = "Tackle Aimbot Distance",
+	Min = 0;
+	Max = 25,
+	Default = 0,
+	Increment = .1;
+	Suffix = "",
+	Tip = "Sets the maximum targeting distance."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			local D = vO.Character
+			if not D then
+				break
+			end
+			if tackleReach.Value then
+				for D, f in next, I:GetPlayers() do
+					if f ~= vO and (f.Team ~= vO.Team and (f.Character and f.Character:FindFirstChild("Football"))) then
+						local D = {
+							"Torso",
+							"Head",
+							"HumanoidRootPart";
+							"Left Arm",
+							"Left Leg";
+							"Right Arm";
+							"Right Leg"
+						}
+						local f = D[math.random(1, # D)]
+						Z.Remotes.CharacterSoundEvent:FireServer("Game", "TackleTouch", f, f)
+					end
+				end
+			end
+			if tackleAimbot.Value then
+				for f, F in next, I:GetPlayers() do
+					if F ~= vO and (F.Team ~= vO.Team and (F.Character and (F.Character.Humanoid.WalkSpeed > 0 and F.Character:FindFirstChild("Football")))) then
+						local f = ((F.Character.HumanoidRootPart.Position - D.HumanoidRootPart.Position)).Magnitude
+						if f < tackleAimbotRange.Value then
+							D.HumanoidRootPart.CFrame = F.Character.HumanoidRootPart.CFrame
+							D.HumanoidRootPart.CFrame = F.Character.HumanoidRootPart.CFrame
+						end
+					end
+				end
+			end
+		until true
+	end
+end)
+local kO = k:CreateTab({
+	Name = "Automatics",
+	Icon = "rbxassetid://86084882582277"
+})
+autoRush = kO:CreateToggle({
+	Name = "Auto Rush",
+	Default = false;
+	Tip = "Automatically moves toward the opposing ball carrier in range."
+})
+walkToLine = kO:CreateToggle({
+	Name = "Walk To Line";
+	Default = false,
+	Tip = "Moves the player to the line before play starts."
+})
+autoRushReactionTime = kO:CreateSlider({
+	Name = "Reaction Time",
+	Min = 0;
+	Max = 1;
+	Default = .15;
+	Increment = .01;
+	Suffix = "",
+	Tip = "Adjusts how quickly the feature responds."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not autoRush.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			if not f then
+				break
+			end
+			local F = D:FindFirstChild("HumanoidRootPart")
+			if not F then
+				break
+			end
+			if walkToLine.Value then
+				if Z:FindFirstChild("Flags") and (Z.Flags:FindFirstChild("PossessionTag") and (Z.Flags:FindFirstChild("Status") and (Z.Flags.PossessionTag.Value ~= vO.Team.Name and Z.Flags.Status.Value == "PrePlay"))) then
+					local D = workspace:FindFirstChild("LineDown")
+					if D then
+						f:MoveTo(D.Position)
+					end
+				end
+			end
+			for D, O in next, I:GetPlayers() do
+				repeat
+					if O == vO then
+						break
+					end
+					if O.Team == vO.Team then
+						break
+					end
+					if not O.Character then
+						break
+					end
+					local D = O.Character
+					local s = D:FindFirstChildOfClass("Humanoid")
+					local r = D:FindFirstChild("HumanoidRootPart")
+					if not s or not r then
+						break
+					end
+					local e = D:FindFirstChild("Football")
+					if not e then
+						break
+					end
+					local v = e:FindFirstChildWhichIsA("BasePart")
+					if not v then
+						break
+					end
+					if s.WalkSpeed <= 0 then
+						break
+					end
+					if s.PlatformStand then
+						break
+					end
+					local a = 0
+					if z and (z:FindFirstChild("Network") and (z.Network:FindFirstChild("ServerStatsItem") and z.Network.ServerStatsItem:FindFirstChild("Data Ping"))) then
+						a = z.Network.ServerStatsItem["Data Ping"]:GetValue() / 1000
+					end
+					local H = s.MoveDirection.Magnitude > 0 and s.WalkSpeed or 0
+					local b = a + autoRushReactionTime.Value
+					local t = v.Position + (((s.MoveDirection * H) * b) * 20)
+					local V = t - r.Position
+					if V.Magnitude > 0 then
+						t = t + (V.Unit * ((((F.Position - t)).Magnitude / 20)))
+					end
+					f:MoveTo(t)
+				until true
+			end
+		until true
+	end
+end)
+kO:CreateDivider()
+autoCatch = kO:CreateToggle({
+	Name = "Auto Catch",
+	Default = false;
+	Tip = "Automatically moves toward nearby catch opportunities."
+})
+autoCatchRadius = kO:CreateSlider({
+	Name = "Auto Catch Distance",
+	Min = 0,
+	Max = 25,
+	Default = 0;
+	Increment = .1;
+	Suffix = "",
+	Tip = "Sets how far the auto catch detection can reach."
+})
+kO:CreateDivider()
+autoSwat = kO:CreateToggle({
+	Name = "Auto Swat",
+	Default = false;
+	Tip = "Automatically reacts to nearby incoming balls."
+})
+autoSwatRadius = kO:CreateSlider({
+	Name = "Auto Swat Distance",
+	Min = 0;
+	Max = 25,
+	Default = 0;
+	Increment = .1,
+	Suffix = "";
+	Tip = "Sets how far the auto swat detection can reach."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not autoCatch.Value and not autoSwat.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChild("HumanoidRootPart")
+			if not f then
+				break
+			end
+			local F = HO()
+			if not F then
+				break
+			end
+			local O = ((F.Position - f.Position)).Magnitude
+			if autoCatch.Value and O <= autoCatchRadius.Value then
+				Z.Remotes.CharacterSoundEvent:FireServer("PlayerActions", l and "catch " or "catch")
+			end
+			if autoSwat.Value and O <= autoSwatRadius.Value then
+				Z.Remotes.CharacterSoundEvent:FireServer("PlayerActions", "swat")
+			end
+		until true
+	end
+end)
+kO:CreateDivider()
+autoCaptain = kO:CreateToggle({
+	Name = "Auto Win Captain",
+	Default = false;
+	Tip = "Automatically moves toward the finish line during captain selection."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not autoCaptain.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChild("HumanoidRootPart")
+			if not f then
+				break
+			end
+			for D, F in next, workspace.Models.LockerRoomA:GetChildren() do
+				if (F.Name:lower()):find("finishline") and not vO.Team then
+					(F:GetPropertyChangedSignal("CFrame")):Connect(function()
+						for D = 1, 4, 1 do
+							task.wait()
+							f.CFrame = F.CFrame
+						end
+					end)
+				end
+			end
+		until true
+	end
+end)
+kO:CreateDivider()
+autoFreeze = kO:CreateToggle({
+	Name = "Auto Freeze",
+	Default = false,
+	Tip = "Temporarily anchors your character on input."
+})
+freezeDuration = kO:CreateSlider({
+	Name = "Freeze Duration";
+	Min = 0;
+	Max = 3,
+	Default = 0;
+	Increment = .1;
+	Suffix = "";
+	Tip = "Duration the freeze state lasts."
+})
+freezeKeybind = kO:CreateKeybind({
+	Name = "Freeze Keybind",
+	Default = nil,
+	Tip = "Key used to trigger freeze."
+})
+u.InputBegan:Connect(function(D)
+	if not autoFreeze.Value then
+		return
+	end
+	if freezeKeybind.Value and D.KeyCode ~= freezeKeybind.Value then
+		return
+	end
+	local f = vO.Character
+	if not f then
+		return
+	end
+	local F = f:FindFirstChild("HumanoidRootPart")
+	if not F then
+		return
+	end
+	F.Anchored = true
+	task.delay(freezeDuration.Value, function()
+		if F then
+			F.Anchored = false
+		end
+	end)
+end)
+kO:CreateDivider()
+autoQb = kO:CreateToggle({
+	Name = "Auto QB";
+	Default = false,
+	Tip = "Automatically positions your character for quarterback play."
+})
+autoQbMethod = kO:CreateDropdown({
+	Name = "Auto QB Method",
+	Options = {
+		"Walk",
+		"Teleport"
+	};
+	Default = "Walk",
+	Tip = "Selects how automatic positioning is performed."
+})
+task.spawn(function()
+	while true do
+		repeat
+			task.wait()
+			if not autoQb.Value then
+				break
+			end
+			local D = vO.Character
+			if not D then
+				break
+			end
+			local f = D:FindFirstChildOfClass("Humanoid")
+			local F = D:FindFirstChild("HumanoidRootPart")
+			if not f or not F then
+				break
+			end
+			local O = HO()
+			if not O then
+				break
+			end
+			if Z:FindFirstChild("Flags") and (Z.Flags:FindFirstChild("PossessionTag") and (Z.Flags:FindFirstChild("Status") and (Z.Flags.PossessionTag.Value == vO.Team.Name and Z.Flags.Status.Value == "PrePlay"))) then
+				if autoQbMethod.Value == "Walk" then
+					f:MoveTo(O.Position)
+				elseif autoQbMethod.Value == "Teleport" then
+					F.CFrame = O.CFrame
+				end
+			else
+				pcall(function()
+					O.CFrame = F.CFrame
+				end)
+			end
+		until true
+	end
+end)
+kO:CreateDivider()
+autoBoost = kO:CreateToggle({
+	Name = "Auto Boost";
+	Default = false,
+	Tip = "Automatically assists aerial movement near incoming footballs."
+})
+targetClosestPlayer = kO:CreateToggle({
+	Name = "Target Player Closer To The Ball",
+	Default = false;
+	Tip = "Prioritizes players closest to the football."
+})
+boostStrength = kO:CreateSlider({
+	Name = "Boost Strength",
+	Min = 0,
+	Max = 3;
+	Default = 1.5;
+	Increment = .1;
+	Suffix = "";
+	Tip = "Adjusts the strength of the boost effect."
+})
+boostRadius = kO:CreateSlider({
+	Name = "Boost Radius";
+	Min = 0;
+	Max = 15;
+	Default = 0,
+	Increment = .1,
+	Suffix = "",
+	Tip = "Sets the activation distance for boosting."
+})
+boostPower = kO:CreateSlider({
+	Name = "Boost Power";
+	Min = 50;
+	Max = 70,
+	Default = 50;
+	Increment = .1,
+	Suffix = "",
+	Tip = "Controls the upward force applied during a boost."
+})
+task.spawn(function()
+	local D
+	while true do
+		repeat
+			task.wait()
+			if not autoBoost.Value then
+				if D then
+					D:Cancel()
+					D = nil
+				end
+				break
+			end
+			local f = vO.Character
+			if not f then
+				break
+			end
+			local F = f:FindFirstChildOfClass("Humanoid")
+			if not F then
+				break
+			end
+			local O = f:FindFirstChild("HumanoidRootPart")
+			if not O then
+				break
+			end
+			if F:GetState() == Enum.HumanoidStateType.Landed then
+				if D then
+					D:Cancel()
+					D = nil
+				end
+				break
+			end
+			local s = f:FindFirstChild("Head")
+			if not s then
+				break
+			end
+			local r
+			if targetClosestPlayer.Value then
+				local D
+				local f = math.huge
+				for F, O in next, workspace:GetChildren() do
+					repeat
+						if not O:IsA("BasePart") then
+							break
+						end
+						if not (O.Name:lower()):find("ball") then
+							break
+						end
+						local F = ((O.Position - s.Position)).Magnitude
+						if F < f then
+							f = F
+							D = O
+						end
+					until true
+				end
+				if not D then
+					break
+				end
+				local F = math.huge
+				for f, O in next, I:GetPlayers() do
+					repeat
+						if O == vO then
+							break
+						end
+						local f = O.Character
+						if not f then
+							break
+						end
+						local s = f:FindFirstChild("Head")
+						if not s then
+							break
+						end
+						local e = ((s.Position - D.Position)).Magnitude
+						if e < F then
+							F = e
+							r = O
+						end
+					until true
+				end
+			else
+				local D = math.huge
+				for f, F in next, I:GetPlayers() do
+					repeat
+						if F == vO then
+							break
+						end
+						local f = F.Character
+						if not f then
+							break
+						end
+						local O = f:FindFirstChild("Head")
+						if not O then
+							break
+						end
+						local e = ((O.Position - s.Position)).Magnitude
+						if e < D then
+							D = e
+							r = F
+						end
+					until true
+				end
+			end
+			if not r then
+				break
+			end
+			local e = r.Character
+			if not e then
+				break
+			end
+			local v = e:FindFirstChild("Head")
+			if not v then
+				break
+			end
+			local a = e:FindFirstChildOfClass("Humanoid")
+			if not a then
+				break
+			end
+			local H = F:GetState()
+			local b = a:GetState()
+			local t = ((v.Position - s.Position)).Magnitude
+			if t > boostRadius.Value then
+				break
+			end
+			if H ~= Enum.HumanoidStateType.Jumping and H ~= Enum.HumanoidStateType.Freefall then
+				break
+			end
+			if b ~= Enum.HumanoidStateType.Jumping and b ~= Enum.HumanoidStateType.Freefall then
+				break
+			end
+			local V = math.max(F.WalkSpeed * boostStrength.Value, 1)
+			local i = v.Position
+			local d = math.max(((O.Position - i)).Magnitude / V, .01)
+			if D then
+				D:Cancel()
+			end
+			D = P:Create(O, TweenInfo.new(d, Enum.EasingStyle.Linear), {
+				CFrame = CFrame.new(i)
+			})
+			D:Play()
+			D.Completed:Once(function(D)
+				if D ~= Enum.PlaybackState.Completed then
+					return
+				end
+				O.AssemblyLinearVelocity = Vector3.new(O.AssemblyLinearVelocity.X, boostPower.Value, O.AssemblyLinearVelocity.Z)
+			end)
+		until true
+	end
+end)
+local MO = k:CreateTab({
+	Name = "Misc";
+	Icon = "rbxassetid://129082556946713"
+})
+fpsCap = MO:CreateSlider({
+	Name = "Uncap FPS Amount",
+	Min = 30,
+	Max = 240,
+	Default = 240;
+	Increment = 1;
+	Suffix = "",
+	Tip = "Sets the maximum FPS limit."
+})
+task.spawn(function()
+	while true do
+		task.wait()
+		setfpscap(fpsCap.Value)
+	end
+end)
+antiAdmin = MO:CreateToggle({
+	Name = "Anti Admin",
+	Default = false,
+	Tip = "Automatically reacts when administrators are detected.",
+	Keybind = nil
+})
+task.spawn(function()
+	while task.wait() do
+		repeat
+			local D = vO:FindFirstChild("PlayerGui")
+			if not D then
+				break
+			end
+			local f = D:FindFirstChild("MiscText")
+			if not f then
+				break
+			end
+			local F = f:FindFirstChild("IsVIP")
+			if not F then
+				break
+			end
+			if F.Visible == true then
+				break
+			end
+			for D, f in next, I:GetPlayers() do
+				repeat
+					if f == vO then
+						break
+					end
+					local D = f:FindFirstChild("SwagData")
+					if not D then
+						break
+					end
+					local F = D:FindFirstChild("Admin")
+					if not F then
+						break
+					end
+					if F.Value ~= "" and antiAdmin.Value then
+						vO:Kick("[Cheeto Hub] Detected Admin\nName: " .. (f.Name .. ("\nID: " .. f.UserId)))
+					end
+				until true
+			end
+		until true
+	end
+end)
+smoothReplay = MO:CreateToggle({
+	Name = "Smooth Replay";
+	Default = false;
+	Tip = "Smooths replay playback for improved visual quality.",
+	Keybind = nil
+})
+replayFPS = MO:CreateSlider({
+	Name = "Replay Frame Per Second";
+	Min = 9;
+	Max = 120,
+	Default = 9;
+	Increment = 1;
+	Tip = "Sets the replay playback frame rate."
+})
+if not l then
+	local D = (game:GetService("Players")).LocalPlayer
+	local f = game:GetService("ReplicatedStorage")
+	local F = game:GetService("RunService")
+	local O = (f:WaitForChild("Remotes")):WaitForChild("CharacterSoundEvent")
+	local s = F.Heartbeat
+	local r = ((D:WaitForChild("PlayerGui")):WaitForChild("MainGui")):WaitForChild("Transition")
+	local e = CFrame.Angles(- 0.26179938779914941, 0, 0)
+	local v = CFrame.Angles(.26179938779914941, math.pi, 0)
+	local a = CFrame.new(0, 0, 19)
+	local H = {
+		"Torso",
+		"Left Arm",
+		"Right Arm";
+		"Left Leg";
+		"Right Leg",
+		"Head"
+	}
+	task.spawn(function()
+		while true do
+			task.wait()
+			local f = D.PlayerScripts:FindFirstChild("ClientReplay")
+			if f then
+				f.Enabled = not smoothReplay.Value
+			end
+		end
+	end)
+	local b = function(F, r)
+		local b = workspace:WaitForChild("ReplayBall")
+		local t = workspace.CurrentCamera
+		t.CameraType = Enum.CameraType.Scriptable
+		t.CameraSubject = b
+		local V = F.changes[1].poss == "h" and e or v
+		local i = 1
+		local d = 18
+		local W = true
+		local h = 1
+		local X = F.fps
+		local j = 0
+		local N = tick()
+		local p = function(D)
+			local f = # F.ball
+			if D < 1 then
+				return 1
+			end
+			if D > f then
+				return f
+			end
+			return D
+		end
+		local L = function(D, f, F)
+			return D:Lerp(f, F)
+		end
+		while h < # F.ball do
+			if f.Flags.StatusTag.Value ~= "REPLAY" then
+				break
+			end
+			if t.CameraType ~= Enum.CameraType.Scriptable then
+				break
+			end
+			local D = replayFPS.Value
+			local O = 1 / D
+			local q = tick()
+			j = j + ((q - N))
+			N = q
+			while j >= O do
+				h = h + (X / D)
+				j = j - (O)
+			end
+			local y = p(math.floor(h))
+			local J = p(math.ceil(h))
+			local x = h - y
+			for D, f in next, r do
+				repeat
+					local D = F.limbs[f.Name]
+					if not D then
+						f.Parent = nil
+						break
+					end
+					local O = D[1]
+					local s = D[2]
+					if not O[1] then
+						f.Parent = nil
+						break
+					end
+					local r = O[1][2][y]
+					local e = O[1][2][J]
+					if not r or not e then
+						f.Parent = nil
+						break
+					end
+					local v = L(r, e, x)
+					for D = 1, # H, 1 do
+						repeat
+							local F = H[D]
+							local s = f:FindFirstChild(F)
+							if not s then
+								break
+							end
+							local r = O[D]
+							if not r then
+								break
+							end
+							local e = r[2][y]
+							local a = r[2][J]
+							if D == 4 then
+								if e and a then
+									local D = e + (((a - e)) * x)
+									s.CFrame = ((v * CFrame.new(- 0.5, - 1, 0)) * CFrame.fromOrientation(D, 0, 0)) * CFrame.new(0, - 1, 0)
+								end
+							elseif D == 5 then
+								if e and a then
+									local D = e + (((a - e)) * x)
+									s.CFrame = ((v * CFrame.new(.5, - 1, 0)) * CFrame.fromOrientation(D, 0, 0)) * CFrame.new(0, - 1, 0)
+								end
+							else
+								if e and a then
+									s.CFrame = L(e, a, x)
+								elseif D == 6 then
+									s.CFrame = v * CFrame.new(0, 1.5, 0)
+								end
+							end
+						until true
+					end
+					local a = f:FindFirstChild("Uniform")
+					if s and a then
+						for D, F in next, s do
+							if a:FindFirstChild(D) and f:FindFirstChild(F[1]) then
+								a[D].CFrame = f[F[1]].CFrame * F[2]
+							end
+						end
+					end
+				until true
+			end
+			local K = F.ball[y]
+			local S = F.ball[J]
+			if K and S then
+				b.CFrame = L(K, S, x)
+			end
+			if d < b.Position.Y then
+				d = b.Position.Y
+			elseif d > 49 and W then
+				local D = select(1, V:ToOrientation())
+				V = V * CFrame.Angles((D * 3) * math.clamp(((d - 50)) / 99, 0, 1), 0, 0)
+				W = false
+			end
+			local n
+			if d > 49 and W then
+				local D = select(1, V:ToOrientation())
+				n = ((CFrame.new(b.Position) * V) * CFrame.Angles((D * 3) * math.clamp(((d - 50)) / 99, 0, 1), 0, 0)) * a
+			else
+				n = (CFrame.new(b.Position) * V) * a
+			end
+			t.CFrame = n
+			local C = F.changes[i]
+			if C and C.frame <= y then
+				i = i + (1)
+				if C.frame == y then
+					if C.poss and ((y > 9 and ((C.turnover or d > 49)))) then
+						local D = C.poss == "h" and e or v
+						local f = ((C.turnover == true or b.Position.Y >= 13)) and .5 or (d / 500)
+						local F = 0
+						local O = V
+						while F < f do
+							F = F + s:Wait()
+							V = O:Lerp(D, math.clamp(F / f, 0, 1))
+							t.CFrame = (CFrame.new(b.Position) * V) * a
+						end
+						V = D
+					elseif C.freeze then
+						task.wait(C.freeze)
+					end
+				end
+			end
+			s:Wait()
+		end
+		O:FireServer("ReplayFinished")
+		if f.Flags.StatusTag.Value == "REPLAY" then
+			f.Flags.StatusTag.Value = ""
+		end
+		task.wait(.2)
+		b:Destroy()
+		for D, f in next, r do
+			f:Destroy()
+		end
+		F.t = nil
+		F.limbs = nil
+		F.ball = nil
+		t.CameraType = Enum.CameraType.Custom
+		t.CameraSubject = D.Character.Humanoid
+	end
+	O.OnClientEvent:Connect(function(D, ...)
+		if D == "ClientReplay" then
+			while r.Position.X.Scale > - 2 and r.Position.X.Scale < - 0.5 do
+				task.wait()
+			end
+			b(...)
+		end
+	end)
+end
